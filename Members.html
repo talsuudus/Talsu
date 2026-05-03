@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>SultanAuwal — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Design tokens (from members page, blended with menu navy) ── */
+  :root {
+    --carton-cream: #FCF7F0;
+    --carton-almond: #E8D5BC;
+    --premium-gold: #CBA258;
+    --premium-slate: #1E1E2A;
+    --premium-charcoal: #06111f;
+    --glass-core: rgba(252, 247, 240, 0.07);
+    --glass-border-light: rgba(252, 247, 240, 0.13);
+    --shadow-premium: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(203, 162, 88, 0.15);
+    --transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body {
+    background: #06111f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  /* ── App shell ── */
+  .app {
+    width: 100%;
+    max-width: 420px;
+    height: 100dvh;
+    max-height: 860px;
+    background: #0b1a35;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 14px;
+    background: #0b1a35;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.13);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    /* ── Put your logo image here ── */
+  }
+  .logo-text { color: #fff; font-weight: 700; font-size: 17px; letter-spacing: 0.3px; }
+  .logo-text span { color: #4e9eff; }
+
+  /* Hamburger */
+  .menu-btn {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.13);
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; transition: background 0.2s;
+  }
+  .menu-btn:hover { background: rgba(255,255,255,0.13); }
+  .menu-btn span { display: block; height: 2px; background: #fff; border-radius: 2px; transition: width 0.2s; }
+  .menu-btn span:nth-child(1) { width: 18px; }
+  .menu-btn span:nth-child(2) { width: 18px; }
+  .menu-btn span:nth-child(3) { width: 12px; align-self: flex-end; }
+
+  /* ── Main content (scrollable) ── */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .content::-webkit-scrollbar { display: none; }
+
+  /* ── Bottom nav ── */
+  .bottom-nav {
+    display: flex;
+    background: #0d1f3c;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 10px 0 14px;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  .nav-item {
+    flex: 1; background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0;
+  }
+  .nav-icon {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+    /* ── Put your nav icon image here ── */
+  }
+  .nav-label { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.2px; transition: color 0.2s; }
+  .nav-item.active .nav-icon { background: rgba(99,160,255,0.22); border-color: rgba(99,160,255,0.5); }
+  .nav-item.active .nav-label { color: #6aa0ff; font-weight: 700; }
+
+  /* ── Overlay ── */
+  .overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 20; opacity: 0; pointer-events: none;
+    transition: opacity 0.28s ease;
+  }
+  .overlay.show { opacity: 1; pointer-events: all; }
+
+  /* ── Slide panel ── */
+  .panel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 78%; background: #0f2142;
+    z-index: 30; display: flex; flex-direction: column;
+    transform: translateX(105%);
+    transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
+    box-shadow: -12px 0 40px rgba(0,0,0,0.5);
+  }
+  .panel.open { transform: translateX(0); }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
+  }
+  .panel-title { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+  .close-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(255,255,255,0.09); border: 1.5px solid rgba(255,255,255,0.14);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 17px; line-height: 1; transition: background 0.2s;
+  }
+  .close-btn:hover { background: rgba(255,255,255,0.16); }
+  .menu-list {
+    flex: 1; overflow-y: auto; padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 8px; scrollbar-width: none;
+  }
+  .menu-list::-webkit-scrollbar { display: none; }
+  .menu-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 14px; border-radius: 14px;
+    background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.07);
+    cursor: pointer; width: 100%; text-align: left;
+    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .menu-item:hover { background: rgba(255,255,255,0.07); }
+  .menu-item.active {
+    background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%);
+    border-color: rgba(99,160,255,0.35);
+    box-shadow: 0 4px 20px rgba(20,80,180,0.3);
+  }
+  .item-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.1);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; transition: background 0.18s, border-color 0.18s;
+    /* ── Put your icon image/svg inside this div via JS or HTML ── */
+  }
+  .menu-item.active .item-icon { background: rgba(99,160,255,0.16); border-color: rgba(99,160,255,0.4); }
+  .item-label {
+    flex: 1; color: rgba(255,255,255,0.75); font-weight: 500;
+    font-size: 15px; letter-spacing: 0.2px;
+    transition: color 0.18s, font-weight 0.18s;
+  }
+  .menu-item.active .item-label { color: #fff; font-weight: 700; }
+  .chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; transition: opacity 0.18s; }
+  .menu-item.active .chevron { opacity: 1; }
+  .chevron path { stroke: #6aa0ff; }
+
+  /* ════════════════════════════════════════════
+     HOMEPAGE CONTENT STYLES (from members page)
+     ════════════════════════════════════════════ */
+
+  /* Ambient orbs inside the content area */
+  .orb-bg {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatPremium 18s infinite alternate;
+  }
+  .orb-1 { width: 280px; height: 280px; top: -80px; left: -80px; background: radial-gradient(circle, rgba(217,108,108,0.15), transparent 70%); }
+  .orb-2 { width: 300px; height: 300px; bottom: -60px; right: -60px; background: radial-gradient(circle, rgba(203,162,88,0.18), transparent 70%); animation-duration: 24s; }
+  @keyframes floatPremium {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(20px,20px) scale(1.15); }
+  }
+
+  /* Hero */
+  .hero-section {
+    padding: 36px 20px 24px;
+    text-align: center;
+    position: relative; z-index: 2;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.7s 0.3s var(--ease-out) forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .carton-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(252,247,240,0.07);
+    backdrop-filter: blur(8px);
+    padding: 5px 16px; border-radius: 100px;
+    border: 1px solid rgba(203,162,88,0.35);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--carton-cream);
+    margin-bottom: 16px;
+  }
+  .home-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(28px, 8vw, 38px);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+    background: linear-gradient(135deg, #FFFFFF 30%, var(--carton-cream) 60%, var(--premium-gold) 95%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-desc {
+    max-width: 340px; margin: 12px auto 0;
+    color: rgba(255,255,240,0.6); font-size: 13px; font-weight: 400; line-height: 1.6;
+  }
+
+  /* Search */
+  .search-section {
+    display: flex; justify-content: center;
+    padding: 0 16px; margin: 20px 0 0;
+    position: relative; z-index: 2;
+    opacity: 0; transform: translateY(14px);
+    animation: fadeUp 0.6s 0.45s var(--ease-out) forwards;
+  }
+  .search-wrap { position: relative; width: 100%; }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%); opacity: 0.5;
+    pointer-events: none; display: flex; align-items: center;
+  }
+  .search-input {
+    width: 100%; padding: 11px 16px 11px 42px;
+    background: rgba(252,247,240,0.06);
+    border: 1px solid rgba(252,247,240,0.13);
+    backdrop-filter: blur(10px);
+    border-radius: 50px; color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 13px; outline: none;
+    transition: all 0.3s ease;
+  }
+  .search-input::placeholder { color: rgba(255,245,235,0.35); }
+  .search-input:focus {
+    border-color: rgba(203,162,88,0.55);
+    background: rgba(203,162,88,0.09);
+    box-shadow: 0 0 0 3px rgba(203,162,88,0.1);
+  }
+
+  /* Filter row */
+  .filter-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 0 16px; margin: 16px 0;
+    position: relative; z-index: 2;
+    opacity: 0; transform: translateY(12px);
+    animation: fadeUp 0.6s 0.55s var(--ease-out) forwards;
+  }
+  .pill-filter {
+    background: rgba(232,213,188,0.07);
+    border: 1px solid rgba(232,213,188,0.22);
+    backdrop-filter: blur(4px);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 11px; font-weight: 600; color: #E8D5BC;
+    transition: all 0.22s ease; letter-spacing: 0.2px;
+    cursor: pointer;
+  }
+  .pill-filter.active, .pill-filter:hover {
+    background: var(--premium-gold);
+    border-color: var(--premium-gold);
+    color: #12121A;
+    box-shadow: 0 6px 14px rgba(203,162,88,0.28);
+  }
+
+  /* Results count */
+  .results-bar {
+    padding: 0 16px 8px;
+    font-size: 11px; color: rgba(255,245,235,0.35);
+    letter-spacing: 0.04em; position: relative; z-index: 2;
+    opacity: 0; transform: translateY(8px);
+    animation: fadeUp 0.5s 0.65s var(--ease-out) forwards;
+  }
+  .results-bar span { color: var(--premium-gold); font-weight: 600; }
+
+  /* Members grid */
+  .members-grid {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 0 16px 24px;
+    position: relative; z-index: 2;
+  }
+
+  /* No results */
+  .no-results { text-align: center; padding: 48px 20px; color: rgba(255,245,235,0.35); }
+  .no-results h3 { font-family: 'Manrope', sans-serif; font-size: 1.1rem; margin-bottom: 6px; color: rgba(255,245,235,0.5); }
+
+  /* Member card */
+  .member-card {
+    background: rgba(252,247,240,0.05);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(252,247,240,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    transition: all 0.35s var(--transition-smooth);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    animation: fadeInUp 0.5s ease backwards;
+  }
+  .member-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-premium);
+    border-color: rgba(203,162,88,0.4);
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Gold accent line on top of card */
+  .card-accent {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--premium-gold) 50%, transparent 100%);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .member-card:hover .card-accent { transform: scaleX(1); }
+
+  .card-inner-row {
+    display: flex; gap: 14px;
+    padding: 16px 16px 12px;
+  }
+  .card-img-area {
+    flex-shrink: 0; width: 62px; height: 62px;
+    border-radius: 16px; overflow: hidden;
+    background: #1e2d4a;
+    border: 1px solid rgba(203,162,88,0.3);
+    position: relative;
+  }
+  .skeleton-shimmer {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, #1e2d4a 0%, #2a3d5c 50%, #1e2d4a 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .member-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.3s ease, opacity 0.4s ease;
+    opacity: 0; position: relative; z-index: 1;
+  }
+  .member-img.loaded { opacity: 1; }
+  .member-card:hover .member-img { transform: scale(1.05); }
+
+  .card-text-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .member-name {
+    font-family: 'Manrope', sans-serif; font-size: 15px;
+    font-weight: 700; letter-spacing: -0.2px; color: #FFFBF5; line-height: 1.2;
+  }
+  .member-role {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--premium-gold);
+    background: rgba(203,162,88,0.15);
+    display: inline-block; padding: 2px 8px;
+    border-radius: 30px; width: fit-content; margin-top: 5px;
+  }
+  .preview-bio {
+    font-size: 11px; color: rgba(255,245,235,0.55);
+    margin-top: 8px; line-height: 1.45;
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  .expand-trigger {
+    font-size: 10px; font-weight: 500; color: var(--premium-gold);
+    padding: 8px 16px 10px;
+    border-top: 1px solid rgba(255,255,240,0.07);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .expand-trigger span { letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ── MODAL (fullscreen inside .app) ── */
+  .modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(6,17,31,0.94);
+    backdrop-filter: blur(20px);
+    z-index: 40;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+
+  .modal-container {
+    width: 100%; max-height: 88%;
+    background: rgba(11,26,53,0.92);
+    border: 1px solid rgba(203,162,88,0.35);
+    border-radius: 28px 28px 0 0;
+    overflow-y: auto; overflow-x: hidden;
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
+    scrollbar-width: none;
+  }
+  .modal-container::-webkit-scrollbar { display: none; }
+  .modal-overlay.active .modal-container { transform: translateY(0); }
+
+  .modal-drag-handle {
+    width: 40px; height: 4px; border-radius: 4px;
+    background: rgba(255,255,255,0.2);
+    margin: 12px auto 0;
+  }
+
+  .modal-img-full { width: 100%; height: 200px; object-fit: cover; display: block; }
+  .modal-body { padding: 20px 20px 30px; }
+  .modal-role-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+    color: var(--premium-gold); background: rgba(203,162,88,0.18);
+    display: inline-block; padding: 3px 12px; border-radius: 30px; margin-bottom: 12px;
+  }
+  .modal-name {
+    font-family: 'Manrope', sans-serif; font-size: 1.6rem;
+    font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; color: #fff;
+  }
+  .modal-bio { color: rgba(255,247,235,0.8); line-height: 1.65; font-size: 13px; margin: 12px 0; }
+  .contact-panel {
+    background: rgba(203,162,88,0.07); border-radius: 16px;
+    padding: 14px 16px; margin-top: 16px;
+    border: 1px solid rgba(203,162,88,0.2);
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; margin-bottom: 12px; color: #F0E4D0;
+    border-left: 2px solid var(--premium-gold); padding-left: 10px;
+  }
+  .contact-item:last-child { margin-bottom: 0; }
+  .modal-close-row {
+    display: flex; justify-content: center; padding: 16px 0 0;
+  }
+  .close-modal-btn {
+    background: rgba(203,162,88,0.15);
+    border: 1px solid rgba(203,162,88,0.4);
+    border-radius: 50px; width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; cursor: pointer; transition: all 0.2s; color: white;
+  }
+  .close-modal-btn:hover { background: var(--premium-gold); color: #12121A; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Top bar ── -->
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <!--
+        ══════════════════════════════════════
+        📌 LOGO IMAGE — paste your image here:
+        <img src="your-logo.png" alt="Logo"
+             style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+        ══════════════════════════════════════
+        -->
+      </div>
+      <span class="logo-text">Sultan<span>Auwal</span></span>
+    </div>
+    <button class="menu-btn" id="openBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT — Homepage (members roster)
+       ══════════════════════════════════════════ -->
+  <div class="content" id="mainContent">
+
+    <!-- Ambient orbs -->
+    <div class="orb-bg orb-1"></div>
+    <div class="orb-bg orb-2"></div>
+
+    <!-- Hero -->
+    <div class="hero-section">
+      <div class="carton-chip">✦ EST. 2022 ✦</div>
+      <h1 class="home-title">The Alliance<br>Chamber</h1>
+      <p class="hero-desc">Visionaries & architects — meet the inner circle that defines modern excellence.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-section">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(203,162,88,0.8)" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input class="search-input" id="searchInput" type="text"
+          placeholder="Search by name, role…" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Filter pills -->
+    <div class="filter-row" id="filterBar">
+      <button class="pill-filter active" data-filter="all">All</button>
+      <button class="pill-filter" data-filter="executive">Executive</button>
+      <button class="pill-filter" data-filter="creative">Creative</button>
+      <button class="pill-filter" data-filter="operations">Operations</button>
+    </div>
+
+    <!-- Results count -->
+    <div class="results-bar" id="resultsBar">
+      Showing <span id="resultsCount">0</span> members
+    </div>
+
+    <!-- Members grid -->
+    <div class="members-grid" id="membersGrid"></div>
+
+  </div><!-- end .content -->
+
+  <!-- ── Bottom nav ── -->
+  <nav class="bottom-nav" id="bottomNav">
+
+    <!-- HOME -->
+    <button class="nav-item active" data-nav="home" data-href="index.html">
+      <div class="nav-icon">
+        <!--
+        📌 HOME ICON:
+        <img src="icons/home.png" style="width:16px;height:16px;">
+        -->
+      </div>
+      <span class="nav-label">Home</span>
+    </button>
+
+    <!-- MEMBERS -->
+    <button class="nav-item" data-nav="share" data-href="members.html">
+      <div class="nav-icon">
+        <!--
+        📌 MEMBERS ICON:
+        <img src="icons/members.png" style="width:16px;height:16px;">
+        -->
+      </div>
+      <span class="nav-label">Members</span>
+    </button>
+
+    <!-- ANNOUNCEMENT -->
+    <button class="nav-item" data-nav="task" data-href="announcement.html">
+      <div class="nav-icon">
+        <!--
+        📌 ANNOUNCEMENT ICON:
+        <img src="icons/announcement.png" style="width:16px;height:16px;">
+        -->
+      </div>
+      <span class="nav-label">Announcement</span>
+    </button>
+
+    <!-- STUDY TIPS -->
+    <button class="nav-item" data-nav="withdraw" data-href="study-tips.html">
+      <div class="nav-icon">
+        <!--
+        📌 STUDY TIPS ICON:
+        <img src="icons/study.png" style="width:16px;height:16px;">
+        -->
+      </div>
+      <span class="nav-label">Study Tips</span>
+    </button>
+
+  </nav>
+
+  <!-- ── Overlay (for slide menu) ── -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ── Slide panel ── -->
+  <div class="panel" id="panel">
+    <div class="panel-header">
+      <span class="panel-title">Menu</span>
+      <button class="close-btn" id="closeBtn">✕</button>
+    </div>
+
+    <div class="menu-list" id="menuList">
+
+      <!-- HOMEPAGE -->
+      <button class="menu-item active" data-id="homepage" data-href="index.html">
+        <div class="item-icon">
+          <!--
+          📌 HOMEPAGE ICON:
+          <img src="icons/home.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Homepage</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- DASHBOARD -->
+      <button class="menu-item" data-id="dashboard" data-href="dashboard.html">
+        <div class="item-icon">
+          <!--
+          📌 DASHBOARD ICON:
+          <img src="icons/dashboard.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Dashboard</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- MY PDFs -->
+      <button class="menu-item" data-id="my-referrals" data-href="pdfs.html">
+        <div class="item-icon">
+          <!--
+          📌 MY PDFs ICON:
+          <img src="icons/pdf.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">My PDFs</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- TASKS -->
+      <button class="menu-item" data-id="tasks" data-href="tasks.html">
+        <div class="item-icon">
+          <!--
+          📌 TASKS ICON:
+          <img src="icons/tasks.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Tasks</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- ANNOUNCEMENT -->
+      <button class="menu-item" data-id="withdraw" data-href="announcement.html">
+        <div class="item-icon">
+          <!--
+          📌 ANNOUNCEMENT ICON:
+          <img src="icons/announcement.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Announcement</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- WEEKLY LEADERBOARD -->
+      <button class="menu-item" data-id="weekly-leaderboard" data-href="leaderboard.html">
+        <div class="item-icon">
+          <!--
+          📌 LEADERBOARD ICON:
+          <img src="icons/leaderboard.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Weekly Leaderboard</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- MEMBERS -->
+      <button class="menu-item" data-id="all-time-leaderboard" data-href="members.html">
+        <div class="item-icon">
+          <!--
+          📌 MEMBERS ICON:
+          <img src="icons/members.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Members</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+      <!-- MESSAGES -->
+      <button class="menu-item" data-id="referrals" data-href="messages.html">
+        <div class="item-icon">
+          <!--
+          📌 MESSAGES ICON:
+          <img src="icons/messages.png" style="width:20px;height:20px;">
+          -->
+        </div>
+        <span class="item-label">Messages</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ── Member detail modal ── -->
+  <div id="detailModal" class="modal-overlay">
+    <div class="modal-container" id="modalContainer">
+      <div class="modal-drag-handle"></div>
+      <div id="modalDynamicContent"></div>
+    </div>
+  </div>
+
+</div><!-- end .app -->
+
+<script>
+  /* ════════════════════════════════════════
+     MEMBERS DATA — replace with your own!
+     ════════════════════════════════════════ */
+  const membersData = [
+    { id: 1, name: "Isabella V. Croft", role: "President & Chair", roleCategory: "executive",
+      bio: "Visionary strategist with 14+ years in global alliances. Drives innovation and cultural synergy.",
+      fullBio: "Isabella is the cornerstone of our association, leading with empathetic tenacity. She established partnerships in 20+ countries and advocates for ethical leadership. Awarded 'Global Influencer 2024'.",
+      contact: "i.croft@alliance.com | +1 (415) 832-9901", social: "@isabellacroft",
+      img: "https://placehold.co/400x280/E8D5BC/1E1E2A?text=Isabella&font=montserrat" },
+
+    { id: 2, name: "Marcus D. Aldridge", role: "VP of Operations", roleCategory: "operations",
+      bio: "Logistics excellence and operational frameworks that scale impact across verticals.",
+      fullBio: "Marcus redefined the internal workflows, reducing latency by 42%. He holds an MBA from LBS and leads the efficiency task force.",
+      contact: "marcus@association.org | +44 20 7946 0238", social: "@marcus_aldridge",
+      img: "https://placehold.co/400x280/CBA258/12121A?text=Marcus&font=montserrat" },
+
+    { id: 3, name: "Elena K. Zhao", role: "Creative Director", roleCategory: "creative",
+      bio: "Award-winning designer crafting digital identity & immersive narratives for global summits.",
+      fullBio: "Elena's work has been featured in Design Annuals. She merges art with data storytelling, directing visual campaigns for global summits.",
+      contact: "elena.z@creativehub.com | +1 (212) 555 7890", social: "@elenakz",
+      img: "https://placehold.co/400x280/F9E9D9/1E1E2A?text=Elena&font=montserrat" },
+
+    { id: 4, name: "James Whitaker", role: "Head of Strategy", roleCategory: "executive",
+      bio: "Futurist and market forecaster leading long-term growth initiatives.",
+      fullBio: "James previously directed M&A for fortune 500 firms. He is the author of 'Adaptive Edge' and guest lecturer at Harvard.",
+      contact: "j.whitaker@strategy.assoc | +1 (617) 321-8876", social: "@jamesw",
+      img: "https://placehold.co/400x280/E8D5BC/2C2C3A?text=James&font=montserrat" },
+
+    { id: 5, name: "Nia A. Okonkwo", role: "Community Lead", roleCategory: "operations",
+      bio: "Building bridges between membership and grassroots innovation across regions.",
+      fullBio: "Nia expanded the ambassador program by 300%, focusing on inclusion and mentorship. She also leads the annual summit committee.",
+      contact: "nia.community@alliance.com | +234 812 345 6789", social: "@nia_okonkwo",
+      img: "https://placehold.co/400x280/CBA258/1A1A28?text=Nia&font=montserrat" },
+
+    { id: 6, name: "Oliver Pham", role: "Creative Technologist", roleCategory: "creative",
+      bio: "Pushing boundaries with AR/VR experiences and interactive installations at SXSW.",
+      fullBio: "Oliver's installations have been showcased at SXSW. He leads the digital innovation lab and prototypes immersive experiences.",
+      contact: "o.pham@creativelab.net | +1 (512) 883 4421", social: "@oliverpham",
+      img: "https://placehold.co/400x280/F9E9D9/12121A?text=Oliver&font=montserrat" },
+
+    { id: 7, name: "Dr. Sophia Rivera", role: "Research Fellow", roleCategory: "executive",
+      bio: "Data-driven insights & policy advisory for sustainable ecosystems worldwide.",
+      fullBio: "PhD in Economics, Sophia has authored 30+ papers and advises global think-tanks. She spearheads the annual trend report.",
+      contact: "s.rivera@research.org | +49 30 12345678", social: "@sophiarivera",
+      img: "https://placehold.co/400x280/E8D5BC/1E1E2A?text=Sophia&font=montserrat" }
+  ];
+
+  /* ════════════════════════════════════
+     RENDER CARDS
+     ════════════════════════════════════ */
+  const membersGrid  = document.getElementById('membersGrid');
+  const filterBtns   = document.querySelectorAll('.pill-filter');
+  const searchInput  = document.getElementById('searchInput');
+  const resultsCount = document.getElementById('resultsCount');
+
+  let activeFilter = 'all';
+  let searchQuery  = '';
+
+  function renderCards() {
+    const filtered = membersData.filter(m => {
+      const matchFilter = activeFilter === 'all' || m.roleCategory === activeFilter;
+      const matchSearch = !searchQuery ||
+        m.name.toLowerCase().includes(searchQuery) ||
+        m.role.toLowerCase().includes(searchQuery);
+      return matchFilter && matchSearch;
+    });
+
+    resultsCount.textContent = filtered.length;
+    membersGrid.innerHTML = '';
+
+    if (!filtered.length) {
+      membersGrid.innerHTML = `
+        <div class="no-results">
+          <h3>No results found</h3>
+          <p>Try adjusting your search or filter.</p>
+        </div>`;
+      return;
+    }
+
+    filtered.forEach((m, i) => {
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      card.style.animationDelay = `${i * 0.07}s`;
+      card.innerHTML = `
+        <div class="card-accent"></div>
+        <div class="card-inner-row">
+          <div class="card-img-area">
+            <div class="skeleton-shimmer"></div>
+            <img class="member-img" src="${m.img}" alt="${m.name}" loading="lazy">
+          </div>
+          <div class="card-text-area">
+            <div class="member-name">${m.name}</div>
+            <div class="member-role">${m.role}</div>
+            <div class="preview-bio">${m.bio}</div>
+          </div>
+        </div>
+        <div class="expand-trigger">
+          <span>View Profile</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CBA258" stroke-width="2.5">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>`;
+
+      // lazy-load image fade-in
+      const img = card.querySelector('.member-img');
+      img.addEventListener('load', () => img.classList.add('loaded'));
+      if (img.complete) img.classList.add('loaded');
+
+      // open modal on click
+      card.addEventListener('click', () => openModal(m));
+
+      membersGrid.appendChild(card);
+    });
+  }
+
+  /* ════════════════════════════════════
+     MODAL
+     ════════════════════════════════════ */
+  const detailModal   = document.getElementById('detailModal');
+  const modalContent  = document.getElementById('modalDynamicContent');
+  const modalContainer = document.getElementById('modalContainer');
+
+  function openModal(m) {
+    modalContent.innerHTML = `
+      <img class="modal-img-full" src="${m.img}" alt="${m.name}">
+      <div class="modal-body">
+        <div class="modal-role-badge">${m.role}</div>
+        <div class="modal-name">${m.name}</div>
+        <p class="modal-bio">${m.fullBio}</p>
+        <div class="contact-panel">
+          <div class="contact-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CBA258" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+            ${m.contact}
+          </div>
+          <div class="contact-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#CBA258" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0016.5 3a4.5 4.5 0 00-4.5 4.5v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            ${m.social}
+          </div>
+        </div>
+        <div class="modal-close-row">
+          <button class="close-modal-btn" id="closeModalBtn">✕</button>
+        </div>
+      </div>`;
+
+    detailModal.classList.add('active');
+
+    // close button inside modal
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  }
+
+  function closeModal() {
+    detailModal.classList.remove('active');
+  }
+
+  // close on backdrop click
+  detailModal.addEventListener('click', e => {
+    if (e.target === detailModal) closeModal();
+  });
+
+  /* ════════════════════════════════════
+     FILTERS & SEARCH
+     ════════════════════════════════════ */
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderCards();
+    });
+  });
+
+  searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value.toLowerCase().trim();
+    renderCards();
+  });
+
+  // Initial render
+  renderCards();
+
+  /* ════════════════════════════════════
+     SLIDE MENU (unchanged)
+     ════════════════════════════════════ */
+  const panel   = document.getElementById('panel');
+  const overlay = document.getElementById('overlay');
+  const openBtn = document.getElementById('openBtn');
+  const closeBtn = document.getElementById('closeBtn');
+
+  function openMenu() {
+    panel.classList.add('open');
+    overlay.classList.add('show');
+  }
+  function closeMenu() {
+    panel.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Slide panel items: highlight + navigate
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      const href = item.getAttribute('data-href');
+      if (href) setTimeout(() => { window.location.href = href; }, 200);
+      else setTimeout(closeMenu, 180);
+    });
+  });
+
+  // Bottom nav: highlight + navigate
+  document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      btn.classList.add('active');
+      const href = btn.getAttribute('data-href');
+      if (href) setTimeout(() => { window.location.href = href; }, 150);
+    });
+  });
+</script>
+</body>
+</html>

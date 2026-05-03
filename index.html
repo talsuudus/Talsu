@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TALSUUDUS CHAPTER — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --deep:      #080B14;
+  --navy:      #0D1526;
+  --royal:     #0F2044;
+  --mid-blue:  #1A3A6B;
+  --gold:      #C9953A;
+  --gold-lt:   #E4B96A;
+  --gold-pale: #F5DFA8;
+  --cream:     #FAF6EE;
+  --white:     #FFFFFF;
+  --muted:     rgba(250,246,238,0.55);
+  --line:      rgba(201,149,58,0.25);
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --display:'DM Serif Display', serif;
+  --sans:   'Outfit', sans-serif;
+
+  --ease:   cubic-bezier(0.16,1,0.3,1);
+  --spring: cubic-bezier(0.2,0.9,0.4,1.1);
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE CURTAIN REVEAL
+═══════════════════════════════════════════════ */
+#curtain {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--deep);
+  flex-direction: column; gap: 18px;
+}
+#curtain .c-logo {
+  font-family: var(--serif); font-size: 32px; font-weight: 900;
+  letter-spacing: 0.12em; color: var(--gold);
+  opacity: 0; animation: cFadeIn 0.6s 0.2s var(--ease) forwards;
+}
+#curtain .c-line {
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: cLine 0.8s 0.5s var(--ease) forwards;
+}
+#curtain .c-sub {
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--muted); opacity: 0;
+  animation: cFadeIn 0.5s 0.7s var(--ease) forwards;
+}
+@keyframes cFadeIn { to { opacity: 1; } }
+@keyframes cLine   { to { width: 180px; } }
+
+/* ═══════════════════════════════════════════════
+   GLOBAL AMBIENT
+═══════════════════════════════════════════════ */
+.ambient {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.amb-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(100px); opacity: 0.18;
+  animation: orbDrift 25s infinite alternate;
+}
+.amb-orb-1 { width: 700px; height: 700px; top: -200px; left: -200px; background: var(--mid-blue); animation-duration: 22s; }
+.amb-orb-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: var(--gold); opacity: 0.10; animation-duration: 30s; animation-direction: alternate-reverse; }
+.amb-orb-3 { width: 350px; height: 350px; top: 45%; left: 40%; background: var(--royal); animation-duration: 18s; }
+@keyframes orbDrift {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(50px,40px) scale(1.25); }
+}
+
+/* grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════
+   NAVBAR  (desktop — hidden on mobile, replaced
+   by the menu bar below)
+═══════════════════════════════════════════════ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  background: linear-gradient(to bottom, rgba(8,11,20,0.95), rgba(8,11,20,0));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,149,58,0.12);
+  transform: translateY(-100%);
+  transition: transform 0.6s var(--ease), background 0.4s ease;
+}
+.navbar.show { transform: translateY(0); }
+.navbar.scrolled { background: rgba(8,11,20,0.97); }
+
+.nav-brand {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+}
+.nav-emblem {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 14px; font-weight: 900;
+  color: var(--gold); letter-spacing: 0.05em;
+  box-shadow: 0 0 16px rgba(201,149,58,0.25), inset 0 0 16px rgba(201,149,58,0.05);
+  position: relative; overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.nav-emblem::before {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, rgba(201,149,58,0.15), transparent 70%);
+}
+.nav-emblem:hover { box-shadow: 0 0 28px rgba(201,149,58,0.45); }
+.nav-name {
+  font-family: var(--serif); font-size: 16px; font-weight: 700;
+  letter-spacing: 0.08em; color: var(--cream);
+  text-transform: uppercase;
+}
+.nav-name span { color: var(--gold); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted); text-decoration: none;
+  position: relative; transition: color 0.25s ease;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover { color: var(--gold-lt); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--gold); }
+.nav-links a.active::after { width: 100%; }
+
+.nav-cta {
+  background: transparent;
+  border: 1px solid rgba(201,149,58,0.5);
+  padding: 8px 22px; border-radius: 40px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); cursor: pointer;
+  transition: all 0.25s ease;
+}
+.nav-cta:hover { background: var(--gold); color: var(--deep); }
+
+/* hamburger on desktop navbar — hidden; the bottom menu-btn handles mobile */
+.nav-ham { display: none; }
+
+/* ═══════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative; z-index: 2;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 120px 32px 80px;
+  overflow: hidden;
+}
+
+.hero-rings {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(201,149,58,0.12);
+  transform: translate(-50%, -50%);
+  animation: ringPulse 6s infinite ease-in-out;
+}
+.ring-1 { width: 380px; height: 380px; animation-delay: 0s; }
+.ring-2 { width: 580px; height: 580px; animation-delay: 1.2s; border-color: rgba(201,149,58,0.07); }
+.ring-3 { width: 800px; height: 800px; animation-delay: 2.4s; border-color: rgba(201,149,58,0.04); }
+.ring-4 { width: 1050px; height: 1050px; animation-delay: 3.6s; border-color: rgba(201,149,58,0.025); }
+@keyframes ringPulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1);   opacity: 1; }
+  50%      { transform: translate(-50%,-50%) scale(1.04); opacity: 0.6; }
+}
+
+.hero-line-l, .hero-line-r {
+  position: absolute; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(201,149,58,0.35) 30%, rgba(201,149,58,0.35) 70%, transparent);
+  pointer-events: none;
+}
+.hero-line-l { left: 15%; }
+.hero-line-r { right: 15%; }
+
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0; transform: translateY(20px);
+  animation: heroUp 0.7s 1.5s var(--ease) forwards;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 36px; height: 1px; background: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 10vw, 116px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin-bottom: 10px;
+  opacity: 0; transform: translateY(30px);
+  animation: heroUp 0.8s 1.65s var(--ease) forwards;
+}
+.hero-title .accent { color: var(--gold); font-style: italic; }
+.hero-title .outline {
+  -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+  color: transparent;
+}
+
+.hero-chapter {
+  font-family: var(--display);
+  font-size: clamp(18px, 3.5vw, 38px);
+  font-style: italic; color: var(--gold-lt);
+  letter-spacing: 0.06em; margin-bottom: 28px;
+  opacity: 0; transform: translateY(24px);
+  animation: heroUp 0.7s 1.8s var(--ease) forwards;
+}
+
+.hero-divider {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  margin-bottom: 28px;
+  opacity: 0; animation: heroUp 0.6s 1.9s var(--ease) forwards;
+}
+.hero-divider::before, .hero-divider::after {
+  content: ''; display: block;
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.hero-divider::after { background: linear-gradient(270deg, transparent, var(--gold)); }
+.hero-divider-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); box-shadow: 0 0 12px var(--gold);
+}
+
+.hero-desc {
+  font-size: clamp(15px, 2vw, 18px); font-weight: 300; line-height: 1.8;
+  color: var(--muted); max-width: 640px; margin: 0 auto 44px;
+  opacity: 0; transform: translateY(20px);
+  animation: heroUp 0.7s 2s var(--ease) forwards;
+}
+.hero-desc strong { color: var(--gold-lt); font-weight: 500; }
+
+.hero-ctas {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: heroUp 0.7s 2.15s var(--ease) forwards;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+  color: var(--deep); border: none;
+  padding: 16px 38px; border-radius: 60px;
+  font-family: var(--sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  box-shadow: 0 8px 32px rgba(201,149,58,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0); transition: background 0.3s ease;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(201,149,58,0.55); }
+.btn-primary:hover::before { background: rgba(255,255,255,0.12); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(201,149,58,0.4);
+  color: var(--gold-lt); padding: 16px 38px; border-radius: 60px;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: all 0.3s ease; backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(201,149,58,0.1); transform: translateY(-3px); }
+
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: heroUp 0.6s 2.4s var(--ease) forwards; cursor: pointer;
+}
+.scroll-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.scroll-track {
+  width: 1px; height: 52px;
+  background: linear-gradient(to bottom, rgba(201,149,58,0.6), transparent);
+  position: relative;
+}
+.scroll-dot {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); margin-left: -2px;
+  animation: scrollBob 2s infinite var(--ease);
+}
+@keyframes scrollBob {
+  0%,100% { top: 0; opacity: 1; }
+  100%     { top: 42px; opacity: 0; }
+}
+@keyframes heroUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ═══════════════════════════════════════════════
+   WELCOME SECTION
+═══════════════════════════════════════════════ */
+.welcome {
+  position: relative; z-index: 2;
+  padding: 120px 48px;
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px;
+  align-items: center;
+}
+.welcome-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s var(--ease); }
+.welcome-left.vis { opacity: 1; transform: translateX(0); }
+.welcome-right { opacity: 0; transform: translateX(40px); transition: all 0.8s 0.2s var(--ease); }
+.welcome-right.vis { opacity: 1; transform: translateX(0); }
+
+.section-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+}
+.section-tag::before {
+  content: ''; display: block; width: 24px; height: 1.5px; background: var(--gold);
+}
+
+.welcome-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700; line-height: 1.1;
+  color: var(--cream); margin-bottom: 24px;
+}
+.welcome-heading em { color: var(--gold); font-style: italic; }
+
+.welcome-body {
+  font-size: 16px; font-weight: 300; line-height: 1.9;
+  color: var(--muted); margin-bottom: 16px;
+}
+.welcome-body strong { color: var(--gold-lt); font-weight: 500; }
+
+.welcome-sig {
+  margin-top: 32px; display: flex; align-items: center; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--line);
+}
+.sig-avatar {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--royal), var(--mid-blue));
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 18px; font-weight: 900; color: var(--gold);
+}
+.sig-info { display: flex; flex-direction: column; gap: 2px; }
+.sig-name { font-size: 14px; font-weight: 600; color: var(--cream); }
+.sig-role { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; color: var(--muted); }
+
+.welcome-card {
+  background: linear-gradient(145deg, rgba(15,32,68,0.7), rgba(26,58,107,0.4));
+  border: 1px solid var(--line);
+  border-radius: 28px; padding: 40px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,149,58,0.15);
+  position: relative; overflow: hidden;
+}
+.welcome-card::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,149,58,0.18), transparent 70%);
+  pointer-events: none;
+}
+.wc-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); background: rgba(201,149,58,0.12);
+  border: 1px solid rgba(201,149,58,0.3);
+  display: inline-block; padding: 5px 14px; border-radius: 40px; margin-bottom: 24px;
+}
+.wc-title {
+  font-family: var(--serif); font-size: 26px; font-weight: 700;
+  color: var(--cream); line-height: 1.2; margin-bottom: 20px;
+}
+.wc-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.wc-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.5;
+}
+.wc-icon {
+  width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px;
+  background: rgba(201,149,58,0.15); border: 1px solid rgba(201,149,58,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION CARDS
+═══════════════════════════════════════════════ */
+.nav-cards-section {
+  position: relative; z-index: 2;
+  padding: 80px 48px 120px;
+  max-width: 1400px; margin: 0 auto;
+}
+.nav-cards-header {
+  text-align: center; margin-bottom: 60px;
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.7s var(--ease);
+}
+.nav-cards-header.vis { opacity: 1; transform: translateY(0); }
+.nav-cards-title {
+  font-family: var(--serif); font-size: clamp(34px,4.5vw,54px);
+  font-weight: 700; color: var(--cream); margin-bottom: 12px;
+}
+.nav-cards-title em { color: var(--gold); font-style: italic; }
+.nav-cards-sub { font-size: 15px; font-weight: 300; color: var(--muted); }
+
+.cards-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+}
+.page-card {
+  background: linear-gradient(145deg, rgba(13,21,38,0.9), rgba(15,32,68,0.7));
+  border: 1px solid rgba(201,149,58,0.18); border-radius: 24px; padding: 36px 28px;
+  cursor: pointer; text-decoration: none;
+  display: flex; flex-direction: column; gap: 20px;
+  transition: all 0.4s var(--ease); backdrop-filter: blur(12px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(28px); position: relative; overflow: hidden;
+}
+.page-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform 0.4s var(--ease);
+}
+.page-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(201,149,58,0.06), transparent 60%);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.page-card:hover { transform: translateY(-8px); border-color: rgba(201,149,58,0.45); box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,149,58,0.2); }
+.page-card:hover::before { transform: scaleX(1); }
+.page-card:hover::after  { opacity: 1; }
+.page-card.vis { opacity: 1; transform: translateY(0); }
+
+.card-icon-wrap {
+  width: 54px; height: 54px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 24px;
+  border: 1px solid rgba(201,149,58,0.3); transition: all 0.3s ease; position: relative; z-index: 1;
+}
+.page-card:hover .card-icon-wrap { border-color: var(--gold); box-shadow: 0 0 20px rgba(201,149,58,0.25); }
+
+.card-body-text { position: relative; z-index: 1; }
+.card-title {
+  font-family: var(--serif); font-size: 22px; font-weight: 700;
+  color: var(--cream); margin-bottom: 8px; line-height: 1.2;
+}
+.card-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--muted); }
+
+.card-footer-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: auto; padding-top: 20px;
+  border-top: 1px solid rgba(201,149,58,0.12); position: relative; z-index: 1;
+}
+.card-link-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.card-arrow {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(201,149,58,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--gold); transition: all 0.25s ease;
+}
+.page-card:hover .card-arrow { background: var(--gold); color: var(--deep); transform: translate(2px,-2px); }
+
+.ic-blue { background: rgba(26,58,107,0.5); }
+.ic-gold { background: rgba(201,149,58,0.15); }
+.ic-teal { background: rgba(15,130,110,0.2); }
+.ic-rose { background: rgba(160,80,80,0.2); }
+
+/* ═══════════════════════════════════════════════
+   ANNOUNCEMENT PREVIEW
+═══════════════════════════════════════════════ */
+.announcements {
+  position: relative; z-index: 2;
+  padding: 80px 48px;
+  max-width: 1400px; margin: 0 auto;
+}
+.ann-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 48px; opacity: 0; transform: translateY(24px);
+  transition: all 0.7s var(--ease);
+}
+.ann-header.vis { opacity: 1; transform: translateY(0); }
+.ann-title {
+  font-family: var(--serif); font-size: clamp(28px,3.5vw,42px);
+  font-weight: 700; color: var(--cream);
+}
+.ann-title em { color: var(--gold); font-style: italic; }
+.ann-see-all {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  display: flex; align-items: center; gap: 8px; transition: gap 0.2s ease;
+}
+.ann-see-all:hover { gap: 14px; }
+
+.ann-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
+}
+.ann-card {
+  background: linear-gradient(160deg, rgba(13,21,38,0.95), rgba(15,32,68,0.7));
+  border: 1px solid rgba(201,149,58,0.15); border-radius: 20px; padding: 28px;
+  transition: all 0.35s var(--ease); backdrop-filter: blur(10px);
+  opacity: 0; transform: translateY(24px);
+  cursor: pointer; text-decoration: none; display: block;
+}
+.ann-card:hover { transform: translateY(-5px); border-color: rgba(201,149,58,0.4); box-shadow: 0 20px 44px rgba(0,0,0,0.4); }
+.ann-card.vis { opacity: 1; transform: translateY(0); }
+.ann-meta {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+}
+.ann-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.tag-urgent { background: rgba(217,108,108,0.2); color: #E08080; border: 1px solid rgba(217,108,108,0.3); }
+.tag-info   { background: rgba(201,149,58,0.15); color: var(--gold); border: 1px solid var(--line); }
+.tag-event  { background: rgba(26,58,107,0.5); color: #8AACDE; border: 1px solid rgba(26,58,107,0.6); }
+.ann-date { font-size: 10px; color: var(--muted); font-weight: 300; letter-spacing: 0.08em; }
+.ann-card-title {
+  font-family: var(--serif); font-size: 18px; font-weight: 700;
+  color: var(--cream); margin-bottom: 10px; line-height: 1.3;
+}
+.ann-excerpt {
+  font-size: 13px; font-weight: 300; line-height: 1.6; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   PILLARS STRIP
+═══════════════════════════════════════════════ */
+.pillars {
+  position: relative; z-index: 2;
+  padding: 100px 48px;
+  background: linear-gradient(180deg, transparent, rgba(15,32,68,0.25), transparent);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.pillars-inner { max-width: 1400px; margin: 0 auto; }
+.pillars-header {
+  text-align: center; margin-bottom: 64px;
+  opacity: 0; transform: translateY(24px); transition: all 0.7s var(--ease);
+}
+.pillars-header.vis { opacity: 1; transform: translateY(0); }
+.pillars-title { font-family: var(--serif); font-size: clamp(30px,4vw,48px); font-weight: 700; color: var(--cream); }
+.pillars-title em { color: var(--gold); font-style: italic; }
+
+.pillars-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+.pillar {
+  padding: 40px 28px; text-align: center;
+  border-right: 1px solid var(--line);
+  opacity: 0; transform: translateY(20px); transition: all 0.6s var(--ease);
+}
+.pillar:last-child { border-right: none; }
+.pillar.vis { opacity: 1; transform: translateY(0); }
+.pillar-num {
+  font-family: var(--serif); font-size: 52px; font-weight: 900;
+  color: rgba(201,149,58,0.18); line-height: 1; margin-bottom: 12px; letter-spacing: -0.02em;
+}
+.pillar-icon { font-size: 30px; margin-bottom: 16px; }
+.pillar-title { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 10px; }
+.pillar-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--muted); }
+
+/* ═══════════════════════════════════════════════
+   CTA BAND
+═══════════════════════════════════════════════ */
+.cta-band {
+  position: relative; z-index: 2;
+  padding: 100px 48px; text-align: center;
+  max-width: 900px; margin: 0 auto;
+  opacity: 0; transform: translateY(32px); transition: all 0.8s var(--ease);
+}
+.cta-band.vis { opacity: 1; transform: translateY(0); }
+.cta-pre { font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.cta-heading { font-family: var(--serif); font-size: clamp(34px,5vw,62px); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 20px; }
+.cta-heading em { color: var(--gold); font-style: italic; }
+.cta-sub { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--muted); margin-bottom: 40px; }
+.cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer {
+  position: relative; z-index: 2;
+  background: rgba(8,11,20,0.97);
+  border-top: 1px solid var(--line);
+  padding: 60px 48px 120px; /* extra bottom padding for mobile bottom nav */
+}
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--line);
+}
+.footer-brand-col .f-logo {
+  font-family: var(--serif); font-size: 28px; font-weight: 900;
+  color: var(--gold); letter-spacing: 0.06em; margin-bottom: 14px;
+}
+.footer-brand-col p { font-size: 13px; font-weight: 300; line-height: 1.75; color: var(--muted); max-width: 280px; }
+.f-col-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+}
+.f-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.f-links a { font-size: 13px; font-weight: 300; color: var(--muted); text-decoration: none; transition: color 0.2s ease; }
+.f-links a:hover { color: var(--gold-lt); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: rgba(250,246,238,0.3);
+}
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+
+/* ═══════════════════════════════════════════════
+   PARTICLE CANVAS
+═══════════════════════════════════════════════ */
+#particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ═══════════════════════════════════════════════
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MENU BAR  (exact code from your menu file —
+   colours adapted to match the page palette)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+═══════════════════════════════════════════════ */
+
+/* Top bar */
+.topbar {
+  display: none; /* hidden — desktop navbar handles top; shown only via media query on mobile */
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  background: #0b1a35;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.logo-text {
+  color: #fff; font-weight: 700; font-size: 17px; letter-spacing: 0.3px;
+}
+.logo-text span { color: #4e9eff; }
+
+/* Hamburger button */
+.menu-btn {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; transition: background 0.2s;
+}
+.menu-btn:hover { background: rgba(255,255,255,0.13); }
+.menu-btn span {
+  display: block; height: 2px; background: #fff;
+  border-radius: 2px; transition: width 0.2s;
+}
+.menu-btn span:nth-child(1) { width: 18px; }
+.menu-btn span:nth-child(2) { width: 18px; }
+.menu-btn span:nth-child(3) { width: 12px; align-self: flex-end; }
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  background: #0d1f3c;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 10px 0 14px;
+  flex-shrink: 0;
+  z-index: 200;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+}
+.nav-item {
+  flex: 1; background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0;
+}
+.nav-icon {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  transition: all 0.2s;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-label {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.2px; transition: color 0.2s;
+}
+.nav-item.active .nav-icon {
+  background: rgba(99,160,255,0.22);
+  border-color: rgba(99,160,255,0.5);
+}
+.nav-item.active .nav-label { color: #6aa0ff; font-weight: 700; }
+
+/* Overlay */
+.slide-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 300;
+  opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+}
+.slide-overlay.show { opacity: 1; pointer-events: all; }
+
+/* Slide panel */
+.panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 78%; max-width: 320px;
+  background: #0f2142;
+  z-index: 400;
+  display: flex; flex-direction: column;
+  transform: translateX(105%);
+  transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
+  box-shadow: -12px 0 40px rgba(0,0,0,0.5);
+}
+.panel.open { transform: translateX(0); }
+
+/* Panel header */
+.panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
+}
+.panel-title { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+.close-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 17px; line-height: 1; transition: background 0.2s;
+}
+.close-btn:hover { background: rgba(255,255,255,0.16); }
+
+/* Menu list */
+.menu-list {
+  flex: 1; overflow-y: auto;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 8px;
+  scrollbar-width: none;
+}
+.menu-list::-webkit-scrollbar { display: none; }
+
+/* Menu item */
+.menu-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 14px; border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.07);
+  cursor: pointer; width: 100%; text-align: left;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+}
+.menu-item:hover { background: rgba(255,255,255,0.07); }
+.menu-item.active {
+  background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%);
+  border-color: rgba(99,160,255,0.35);
+  box-shadow: 0 4px 20px rgba(20,80,180,0.3);
+}
+
+/* Item icon slot */
+.item-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: background 0.18s, border-color 0.18s;
+}
+.menu-item.active .item-icon {
+  background: rgba(99,160,255,0.16);
+  border-color: rgba(99,160,255,0.4);
+}
+
+/* Item label */
+.item-label {
+  flex: 1; color: rgba(255,255,255,0.75);
+  font-weight: 500; font-size: 15px; letter-spacing: 0.2px;
+  transition: color 0.18s, font-weight 0.18s;
+}
+.menu-item.active .item-label { color: #fff; font-weight: 700; }
+
+/* Chevron */
+.chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; transition: opacity 0.18s; }
+.menu-item.active .chevron { opacity: 1; }
+.chevron path { stroke: #6aa0ff; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .welcome { grid-template-columns: 1fr; gap: 52px; padding: 80px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pillars-row { grid-template-columns: repeat(2,1fr); }
+  .pillar:nth-child(2) { border-right: none; }
+  .pillar:nth-child(3) { border-right: 1px solid var(--line); }
+}
+@media (max-width: 768px) {
+  /* show the topbar on mobile, hide desktop navbar */
+  .navbar { display: none !important; }
+  .topbar { display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 150; }
+  .hero { padding: 110px 24px 90px; }
+  .hero-line-l, .hero-line-r { display: none; }
+  .nav-cards-section, .announcements, .pillars { padding: 60px 24px; }
+  .pillars-row { grid-template-columns: 1fr 1fr; }
+  .pillar { padding: 28px 16px; }
+  .pillar:nth-child(3) { border-right: none; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .cta-band { padding: 70px 24px; }
+  footer { padding-bottom: 100px; }
+  .welcome { padding: 80px 20px; }
+}
+@media (max-width: 520px) {
+  .pillars-row { grid-template-columns: 1fr; }
+  .pillar { border-right: none; border-bottom: 1px solid var(--line); }
+  .pillar:last-child { border-bottom: none; }
+  .ann-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+<div class="ambient">
+  <div class="amb-orb amb-orb-1"></div>
+  <div class="amb-orb amb-orb-2"></div>
+  <div class="amb-orb amb-orb-3"></div>
+</div>
+
+<!-- CURTAIN -->
+<div id="curtain">
+  <div class="c-logo">TALSU UDUS</div>
+  <div class="c-line"></div>
+  <div class="c-sub">Chapter · Association</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     DESKTOP NAVBAR
+══════════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <a class="nav-brand" href="index.html">
+    <div class="nav-emblem">TC</div>
+    <span class="nav-name">TAL<span>SUUDUS</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="members.html">Members</a></li>
+    <li><a href="announcements.html">Announcements</a></li>
+    <li><a href="pdfs.html">Past Questions</a></li>
+    <li><a href="constitution.html">Constitution</a></li>
+  </ul>
+  <button class="nav-cta" onclick="location.href='members.html'">Join Us</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     MOBILE TOP BAR  (your menu bar — exact structure)
+══════════════════════════════════════════════════ -->
+<div class="topbar" id="topbar">
+  <div class="logo">
+    <div class="logo-icon">
+      <!--
+        ═══════════════════════════════════════════
+        LOGO ICON — INSERT YOUR IMAGE HERE
+        Replace the <img> tag src with your logo file.
+        Example:  <img src="logo.png" width="38" height="38" style="border-radius:10px;object-fit:cover;">
+        ═══════════════════════════════════════════
+      -->
+    </div>
+    <span class="logo-text">TAL<span>SUUDUS</span></span>
+  </div>
+  <button class="menu-btn" id="openBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-rings">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="ring ring-4"></div>
+  </div>
+  <div class="hero-line-l"></div>
+  <div class="hero-line-r"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. UDUS · United Chapter</div>
+    <h1 class="hero-title">
+      TAL<span class="accent">SU-UDUS</span><br>
+      <span class="outline">CHAPTER</span>
+    </h1>
+    <div class="hero-chapter">Where Every Son &amp; Daughter Belongs</div>
+
+    <div class="hero-divider"><div class="hero-divider-dot"></div></div>
+
+    <p class="hero-desc">
+      A <strong>student-led association</strong> uniting all scholars from the same local government,
+      supporting one another through academic excellence, mentorship, and a bond that
+      goes beyond the classroom. <strong>You are never alone here.</strong>
+    </p>
+
+    <div class="hero-ctas">
+      <a href="members.html" class="btn-primary">Explore the Chapter</a>
+      <a href="members.html" class="btn-ghost">Meet Our Members</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" onclick="document.querySelector('.welcome').scrollIntoView({behavior:'smooth'})">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-track"><div class="scroll-dot"></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     WELCOME
+══════════════════════════════════════════════════ -->
+<section class="welcome">
+  <div class="welcome-left scroll-reveal">
+    <div class="section-tag">Welcome Message</div>
+    <h2 class="welcome-heading">
+      You've Found <em>Your People.</em><br>Welcome Home.
+    </h2>
+    <p class="welcome-body">
+      Whether you just arrived on campus or have been here for years, the <strong>TALSUUDUS CHAPTER</strong>
+      exists to make sure no student from our local government ever feels lost or alone in their academic journey.
+    </p>
+    <p class="welcome-body">
+      Here you will find <strong>seniors who have walked the same path</strong>, access to the best past
+      questions, handouts, and PDFs curated and watermarked by our faculty presidents — resources built
+      to ensure you <strong>excel in every examination</strong>.
+    </p>
+    <p class="welcome-body">
+      Our <strong>constitution, announcements, and member directory</strong> are all at your fingertips.
+      Come in, look around, ask questions, and let this chapter be the support system you deserve.
+    </p>
+    <div class="welcome-sig">
+      <div class="sig-avatar">P</div>
+      <div class="sig-info">
+        <span class="sig-name">The President, TALSUUDUS</span>
+        <span class="sig-role">Chapter · Academic Session 2024/2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-right scroll-reveal">
+    <div class="welcome-card">
+      <div class="wc-badge">What You Get Here</div>
+      <div class="wc-title">Everything a Student<br>From Home Needs</div>
+      <ul class="wc-list">
+        <li><div class="wc-icon">📚</div><span>Authentic past questions &amp; PDF handouts for every faculty, curated with our official watermark.</span></li>
+        <li><div class="wc-icon">🤝</div><span>A searchable member directory — find your senior, discuss academics, and get guidance instantly.</span></li>
+        <li><div class="wc-icon">📢</div><span>Live announcements and updates so you're always informed about what matters to your progress.</span></li>
+        <li><div class="wc-icon">📜</div><span>Our official constitution — transparent governance you can read, trust, and hold us to.</span></li>
+        <li><div class="wc-icon">🏛️</div><span>A proud identity rooted in our local government — strong, united, and built to last.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     NAVIGATION CARDS
+══════════════════════════════════════════════════ -->
+<section class="nav-cards-section">
+  <div class="nav-cards-header scroll-reveal">
+    <div class="section-tag" style="justify-content:center">Explore the Chapter</div>
+    <h2 class="nav-cards-title">Everything You <em>Need,</em> In One Place</h2>
+    <p class="nav-cards-sub">Navigate the association — built to make your academic life easier.</p>
+  </div>
+
+  <div class="cards-grid">
+    <a href="members.html" class="page-card scroll-card" style="transition-delay:0s">
+      <div class="card-icon-wrap ic-blue">👥</div>
+      <div class="card-body-text">
+        <div class="card-title">Members Directory</div>
+        <div class="card-desc">Search and contact any association member. Find a senior in your department, reach out, and get the academic clarity you need.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Browse Members</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <a href="announcements.html" class="page-card scroll-card" style="transition-delay:0.1s">
+      <div class="card-icon-wrap ic-gold">📢</div>
+      <div class="card-body-text">
+        <div class="card-title">Announcements</div>
+        <div class="card-desc">Stay up to date with all chapter news, urgent notices, events, and academic updates posted by the executive team.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Read Updates</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <a href="pdfs.html" class="page-card scroll-card" style="transition-delay:0.2s">
+      <div class="card-icon-wrap ic-teal">📄</div>
+      <div class="card-body-text">
+        <div class="card-title">Past Questions &amp; PDFs</div>
+        <div class="card-desc">Faculty-specific past exam questions, handouts, and study materials — authenticated with the TALSUUDUS watermark.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Access Materials</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+
+    <a href="constitution.html" class="page-card scroll-card" style="transition-delay:0.3s">
+      <div class="card-icon-wrap ic-rose">📜</div>
+      <div class="card-body-text">
+        <div class="card-title">Constitution</div>
+        <div class="card-desc">Our founding document. Read the rules, values, and structure that govern the TALSUUDUS CHAPTER — transparent and available always.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Read Constitution</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     ANNOUNCEMENTS PREVIEW
+══════════════════════════════════════════════════ -->
+<section class="announcements">
+  <div class="ann-header scroll-reveal">
+    <h2 class="ann-title">Latest <em>Announcements</em></h2>
+    <a href="announcements.html" class="ann-see-all">View All &nbsp;→</a>
+  </div>
+  <div class="ann-grid">
+    <a href="announcements.html" class="ann-card scroll-card" style="transition-delay:0s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-urgent">Urgent</span>
+        <span class="ann-date">May 2025</span>
+      </div>
+      <div class="ann-card-title">Examination Timetable Released — All Faculties</div>
+      <p class="ann-excerpt">The university examination timetable for the 2024/2025 session has been released. All members are advised to check their faculty schedule and begin preparation immediately.</p>
+    </a>
+    <a href="announcements.html" class="ann-card scroll-card" style="transition-delay:0.1s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-event">Event</span>
+        <span class="ann-date">Apr 2025</span>
+      </div>
+      <div class="ann-card-title">Chapter General Meeting — Attendance Mandatory</div>
+      <p class="ann-excerpt">The TALSUUDUS CHAPTER will be holding its quarterly general meeting. Every registered member is expected to attend. Venue and time details posted on the announcements page.</p>
+    </a>
+    <a href="announcements.html" class="ann-card scroll-card" style="transition-delay:0.2s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-info">Resources</span>
+        <span class="ann-date">Apr 2025</span>
+      </div>
+      <div class="ann-card-title">New Past Questions Uploaded — Engineering &amp; Sciences</div>
+      <p class="ann-excerpt">The Faculty Presidents of Engineering and Sciences have uploaded new sets of past questions and handouts. All materials carry the official TALSUUDUS watermark.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     PILLARS
+══════════════════════════════════════════════════ -->
+<section class="pillars">
+  <div class="pillars-inner">
+    <div class="pillars-header scroll-reveal">
+      <div class="section-tag" style="justify-content:center">Our Foundation</div>
+      <h2 class="pillars-title">Built on <em>Four Pillars</em></h2>
+    </div>
+    <div class="pillars-row">
+      <div class="pillar scroll-pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">🎓</div>
+        <div class="pillar-title">Academic Excellence</div>
+        <p class="pillar-desc">Providing the resources, mentorship, and support every student needs to perform at the highest level.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.1s">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-title">Brotherhood &amp; Unity</div>
+        <p class="pillar-desc">No one from our soil walks this campus alone. We look out for each other — from admission to graduation.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.2s">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">⚖️</div>
+        <div class="pillar-title">Transparency</div>
+        <p class="pillar-desc">Our constitution is public, our decisions are collective, and our leadership is accountable to every member.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.3s">
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon">🌟</div>
+        <div class="pillar-title">Representation</div>
+        <p class="pillar-desc">We proudly represent our local government — its identity, its people, and its future leaders on this campus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     CTA BAND
+══════════════════════════════════════════════════ -->
+<div class="cta-band scroll-reveal">
+  <div class="cta-pre">Join the Movement</div>
+  <h2 class="cta-heading">From the Same Soil.<br><em>One Chapter.</em></h2>
+  <p class="cta-sub">If you are from our local government and you are studying at this institution — you already belong here. Come find your people.</p>
+  <div class="cta-buttons">
+    <a href="members.html"     class="btn-primary">Meet the Members</a>
+    <a href="constitution.html" class="btn-ghost">Read the Constitution</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="f-logo">TALSUUDUS</div>
+        <p>The official student chapter for all scholars from our local government. United in academics, culture, and identity — on and off campus.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigate</div>
+        <ul class="f-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="members.html">Members Directory</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="pdfs.html">Past Questions</a></li>
+          <li><a href="constitution.html">Constitution</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Chapter</div>
+        <ul class="f-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Executive Council</a></li>
+          <li><a href="#">Faculty Presidents</a></li>
+          <li><a href="#">Membership</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Contact</div>
+        <ul class="f-links">
+          <li><a href="#">General Inquiry</a></li>
+          <li><a href="#">Report an Issue</a></li>
+          <li><a href="#">Suggest Resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TALSUUDUS CHAPTER. All Rights Reserved.</span>
+      <span>Built with pride &nbsp;·&nbsp; <a href="#">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════
+     MOBILE BOTTOM NAV  (your menu bar — exact structure)
+══════════════════════════════════════════════════ -->
+<nav class="bottom-nav" id="bottomNav">
+
+  <button class="nav-item active" data-nav="home" onclick="location.href='index.html'">
+    <div class="nav-icon">
+      <!--
+        ═══════════════════════════════════════════
+        BOTTOM NAV ICON — HOME
+        Insert your Home icon image here.
+        Example: <img src="icons/home.png" width="20" height="20">
+        ═══════════════════════════════════════════
+      -->
+    </div>
+    <span class="nav-label">Home</span>
+  </button>
+
+  <button class="nav-item" data-nav="members" onclick="location.href='members.html'">
+    <div class="nav-icon">
+      <!--
+        ═══════════════════════════════════════════
+        BOTTOM NAV ICON — MEMBERS
+        Insert your Members icon image here.
+        Example: <img src="icons/members.png" width="20" height="20">
+        ═══════════════════════════════════════════
+      -->
+    </div>
+    <span class="nav-label">Members</span>
+  </button>
+
+  <button class="nav-item" data-nav="announcement" onclick="location.href='announcements.html'">
+    <div class="nav-icon">
+      <!--
+        ═══════════════════════════════════════════
+        BOTTOM NAV ICON — ANNOUNCEMENT
+        Insert your Announcement icon image here.
+        Example: <img src="icons/announcement.png" width="20" height="20">
+        ═══════════════════════════════════════════
+      -->
+    </div>
+    <span class="nav-label">Announcement</span>
+  </button>
+
+  <button class="nav-item" data-nav="pdfs" onclick="location.href='pdfs.html'">
+    <div class="nav-icon">
+      <!--
+        ═══════════════════════════════════════════
+        BOTTOM NAV ICON — STUDY TIPS / PDFs
+        Insert your PDFs / Study icon image here.
+        Example: <img src="icons/pdf.png" width="20" height="20">
+        ═══════════════════════════════════════════
+      -->
+    </div>
+    <span class="nav-label">Study Tips</span>
+  </button>
+
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     SLIDE PANEL OVERLAY
+══════════════════════════════════════════════════ -->
+<div class="slide-overlay" id="overlay"></div>
+
+<!-- ══════════════════════════════════════════════════
+     SLIDE PANEL  (your menu bar — exact structure)
+══════════════════════════════════════════════════ -->
+<div class="panel" id="panel">
+  <div class="panel-header">
+    <span class="panel-title">Menu</span>
+    <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+
+  <div class="menu-list" id="menuList">
+
+    <!-- ── HOMEPAGE ── -->
+    <a href="index.html" class="menu-item active" data-id="homepage">
+      <div class="item-icon">
+        <!--
+          ═══════════════════════════════════════════
+          SLIDE MENU ICON — HOMEPAGE
+          Insert your Homepage icon image here.
+          Example: <img src="icons/home.png" width="28" height="28">
+          ═══════════════════════════════════════════
+        -->
+      </div>
+      <span class="item-label">Homepage</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+      </svg>
+    </a>
+
+    <!-- ── MEMBERS ── -->
+    <a href="members.html" class="menu-item" data-id="members">
+      <div class="item-icon">
+        <!--
+          ═══════════════════════════════════════════
+          SLIDE MENU ICON — MEMBERS
+          Insert your Members icon image here.
+          Example: <img src="icons/members.png" width="28" height="28">
+          ═══════════════════════════════════════════
+        -->
+      </div>
+      <span class="item-label">Members</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+      </svg>
+    </a>
+
+    <!-- ── ANNOUNCEMENTS ── -->
+    <a href="announcements.html" class="menu-item" data-id="announcements">
+      <div class="item-icon">
+        <!--
+          ═══════════════════════════════════════════
+          SLIDE MENU ICON — ANNOUNCEMENTS
+          Insert your Announcements icon image here.
+          Example: <img src="icons/bell.png" width="28" height="28">
+          ═══════════════════════════════════════════
+        -->
+      </div>
+      <span class="item-label">Announcement</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+      </svg>
+    </a>
+
+    <!-- ── PAST QUESTIONS / PDFs ── -->
+    <a href="pdfs.html" class="menu-item" data-id="pdfs">
+      <div class="item-icon">
+        <!--
+          ═══════════════════════════════════════════
+          SLIDE MENU ICON — MY PDFs / PAST QUESTIONS
+          Insert your PDF icon image here.
+          Example: <img src="icons/pdf.png" width="28" height="28">
+          ═══════════════════════════════════════════
+        -->
+      </div>
+      <span class="item-label">My PDFs</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+      </svg>
+    </a>
+
+    <!-- ── CONSTITUTION ── -->
+    <a href="constitution.html" class="menu-item" data-id="constitution">
+      <div class="item-icon">
+        <!--
+          ═══════════════════════════════════════════
+          SLIDE MENU ICON — CONSTITUTION
+          Insert your Constitution / Document icon here.
+          Example: <img src="icons/constitution.png" width="28" height="28">
+          ═══════════════════════════════════════════
+        -->
+      </div>
+      <span class="item-label">Constitution</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+      </svg>
+    </a>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+/* ── CURTAIN ──────────────────────────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const curtain = document.getElementById('curtain');
+    curtain.style.transition = 'opacity 0.6s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+    curtain.style.opacity    = '0';
+    curtain.style.transform  = 'scaleY(0)';
+    curtain.style.transformOrigin = 'top';
+    setTimeout(() => curtain.remove(), 700);
+    setTimeout(() => document.getElementById('navbar').classList.add('show'), 300);
+  }, 1600);
+});
+
+/* ── NAVBAR SCROLL ─────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── SLIDE PANEL ──────────────────────────────────── */
+const panel   = document.getElementById('panel');
+const overlay = document.getElementById('overlay');
+const openBtn = document.getElementById('openBtn');
+const closeBtn = document.getElementById('closeBtn');
+
+function openMenu() {
+  panel.classList.add('open');
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu() {
+  panel.classList.remove('open');
+  overlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+openBtn.addEventListener('click', openMenu);
+closeBtn.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+/* Menu items — active highlight then navigate */
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    /* navigation handled by the <a href="..."> on each item */
+    setTimeout(closeMenu, 160);
+  });
+});
+
+/* ── BOTTOM NAV — active state ────────────────────── */
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+/* ── SCROLL REVEAL ─────────────────────────────────── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('vis'); revealObserver.unobserve(en.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+const wObs = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('vis'); wObs.unobserve(en.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.welcome-left, .welcome-right').forEach(el => wObs.observe(el));
+
+const cardObs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { setTimeout(() => en.target.classList.add('vis'), 0); cardObs.unobserve(en.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.scroll-card').forEach(el => cardObs.observe(el));
+
+const pillarObs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('vis'); pillarObs.unobserve(en.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.scroll-pillar').forEach(el => pillarObs.observe(el));
+
+/* ── PARTICLE CANVAS ───────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H : H + 10;
+      this.r = Math.random() * 1.2 + 0.3;
+      this.speed   = Math.random() * 0.4 + 0.1;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.drift   = (Math.random() - 0.5) * 0.3;
+    }
+    update() { this.y -= this.speed; this.x += this.drift; if (this.y < -10) this.reset(false); }
+    draw()   { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fillStyle = `rgba(201,149,58,${this.opacity})`; ctx.fill(); }
+  }
+
+  for (let i = 0; i < 70; i++) particles.push(new Particle());
+  function loop() { ctx.clearRect(0,0,W,H); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(loop); }
+  loop();
+})();
+
+/* ── HERO PARALLAX ─────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const hero = document.querySelector('.hero-content');
+  if (hero && scrolled < window.innerHeight) {
+    hero.style.transform = `translateY(${scrolled * 0.22}px)`;
+    hero.style.opacity   = 1 - scrolled / (window.innerHeight * 0.75);
+  }
+});
+</script>
+</body>
+</html>
