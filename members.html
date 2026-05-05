@@ -23,27 +23,18 @@
   }
 
   body {
-    background: #06111f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #0b1a35;
     min-height: 100vh;
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    padding-top: 70px;
+    padding-bottom: 80px;
   }
 
   /* ── App shell ── */
   .app {
     width: 100%;
-    max-width: 420px;
-    height: 100dvh;
-    max-height: 860px;
     background: #0b1a35;
     position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   }
 
   /* ── Top bar ── */
@@ -53,8 +44,10 @@
     justify-content: space-between;
     padding: 18px 20px 14px;
     background: #0b1a35;
-    z-index: 10;
-    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
   }
   .logo { display: flex; align-items: center; gap: 10px; }
   .logo-icon {
@@ -85,14 +78,10 @@
   .menu-btn span:nth-child(2) { width: 18px; }
   .menu-btn span:nth-child(3) { width: 12px; align-self: flex-end; }
 
-  /* ── Main content (scrollable) ── */
+  /* ── Main content ── */
   .content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
+    width: 100%;
   }
-  .content::-webkit-scrollbar { display: none; }
 
   /* ── Bottom nav ── */
   .bottom-nav {
@@ -100,8 +89,9 @@
     background: #0d1f3c;
     border-top: 1px solid rgba(255,255,255,0.07);
     padding: 10px 0 14px;
-    flex-shrink: 0;
-    z-index: 10;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
   }
   .nav-item {
     flex: 1; background: none; border: none; cursor: pointer;
@@ -122,18 +112,18 @@
 
   /* ── Overlay ── */
   .overlay {
-    position: absolute; inset: 0;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,0.5);
-    z-index: 20; opacity: 0; pointer-events: none;
+    z-index: 200; opacity: 0; pointer-events: none;
     transition: opacity 0.28s ease;
   }
   .overlay.show { opacity: 1; pointer-events: all; }
 
   /* ── Slide panel ── */
   .panel {
-    position: absolute; top: 0; right: 0; bottom: 0;
-    width: 78%; background: #0f2142;
-    z-index: 30; display: flex; flex-direction: column;
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 300px; max-width: 80vw; background: #0f2142;
+    z-index: 300; display: flex; flex-direction: column;
     transform: translateX(105%);
     transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
     box-shadow: -12px 0 40px rgba(0,0,0,0.5);
@@ -194,7 +184,7 @@
 
   /* Ambient orbs inside the content area */
   .orb-bg {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
     filter: blur(60px);
     pointer-events: none;
@@ -403,12 +393,12 @@
   }
   .expand-trigger span { letter-spacing: 0.5px; text-transform: uppercase; }
 
-  /* ── MODAL (fullscreen inside .app) ── */
+  /* ── MODAL (fullscreen) ── */
   .modal-overlay {
-    position: absolute; inset: 0;
+    position: fixed; inset: 0;
     background: rgba(6,17,31,0.94);
     backdrop-filter: blur(20px);
-    z-index: 40;
+    z-index: 400;
     display: flex; align-items: flex-end; justify-content: center;
     opacity: 0; visibility: hidden;
     transition: all 0.3s ease;
@@ -474,10 +464,6 @@
 
 <div class="app">
 
-  <!-- Ambient orbs (fixed behind everything, outside scroll area) -->
-  <div class="orb-bg orb-1"></div>
-  <div class="orb-bg orb-2"></div>
-
   <!-- ── Top bar ── -->
   <div class="topbar">
     <div class="logo">
@@ -501,6 +487,10 @@
        MAIN CONTENT — Homepage (members roster)
        ══════════════════════════════════════════ -->
   <div class="content" id="mainContent">
+
+    <!-- Ambient orbs -->
+    <div class="orb-bg orb-1"></div>
+    <div class="orb-bg orb-2"></div>
 
     <!-- Hero -->
     <div class="hero-section">
