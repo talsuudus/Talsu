@@ -728,10 +728,10 @@ footer {
   color: rgba(255,255,255,0.4); letter-spacing: 0.2px; transition: color 0.2s;
 }
 .nav-item.active .nav-icon {
-  background: rgba(99,160,255,0.22);
-  border-color: rgba(99,160,255,0.5);
+  background: rgba(201,149,58,0.22);
+  border-color: rgba(201,149,58,0.5);
 }
-.nav-item.active .nav-label { color: #6aa0ff; font-weight: 700; }
+.nav-item.active .nav-label { color: #c9953a; font-weight: 700; }
 
 /* Overlay */
 .slide-overlay {
@@ -762,7 +762,7 @@ footer {
   padding: 22px 20px 16px;
   border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
 }
-.panel-title { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+.panel-title { color: rgba(201,149,58,0.9);; font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
 .close-btn {
   width: 36px; height: 36px; border-radius: 10px;
   background: rgba(255,255,255,0.09);
@@ -795,7 +795,7 @@ footer {
 .menu-item:hover { background: rgba(255,255,255,0.07); }
 .menu-item.active {
   background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%);
-  border-color: rgba(99,160,255,0.35);
+  border-color: rgba(201,149,58,0.9);
   box-shadow: 0 4px 20px rgba(20,80,180,0.3);
 }
 
@@ -811,7 +811,7 @@ footer {
 }
 .menu-item.active .item-icon {
   background: rgba(99,160,255,0.16);
-  border-color: rgba(99,160,255,0.4);
+  border-color: rgba(201,149,58,0.9);
 }
 
 /* Item label */
@@ -820,12 +820,12 @@ footer {
   font-weight: 500; font-size: 15px; letter-spacing: 0.2px;
   transition: color 0.18s, font-weight 0.18s;
 }
-.menu-item.active .item-label { color: #fff; font-weight: 700; }
+.menu-item.active .item-label { color: rgba(201,149,58,0.9); font-weight: 700; }
 
 /* Chevron */
 .chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; transition: opacity 0.18s; }
 .menu-item.active .chevron { opacity: 1; }
-.chevron path { stroke: #6aa0ff; }
+.chevron path { stroke: rgba(201,149,58,0.9); }
 
 /* ═══════════════════════════════════════════════
    RESPONSIVE
@@ -1203,45 +1203,57 @@ footer {
 
   <button class="nav-item active" data-nav="home" onclick="location.href='index.html'">
     <div class="nav-icon">
-      <!--
-        ═══════════════════════════════════════════
-        BOTTOM NAV ICON — HOME
-        Insert your Home icon image here.
-        Example: <img src="icons/home.png" width="20" height="20">
-        ═══════════════════════════════════════════
-      -->
+      
+<!-- ─── BOTTOM NAV (paste inside .talsu-nav-icon) ─── -->
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+  <polyline points="9,22 9,12 15,12 15,22"/>
+</svg>
     </div>
     <span class="nav-label">Home</span>
   </button>
 
   <button class="nav-item" data-nav="members" onclick="location.href='members.html'">
     <div class="nav-icon">
-      <!--
-        ═══════════════════════════════════════════
-        BOTTOM NAV ICON — MEMBERS
-        Insert your Members icon image here.
-        Example: <img src="icons/members.png" width="20" height="20">
-        ═══════════════════════════════════════════
-      -->
+        
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+  <circle cx="9" cy="7" r="4"/>
+  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+  <path d="M16 3.13a4 4 0 010 7.75"/>
+</svg>
     </div>
     <span class="nav-label">Members</span>
   </button>
 
   <button class="nav-item" data-nav="constitution" onclick="location.href='constitution.html'">
     <div class="nav-icon">
-      <!--
-        ═══════════════════════════════════════════
-        BOTTOM NAV ICON - CONSTITUTION 
-        Insert your Constitution  icon image here.
-        Example: <img src="icons/constitution.png" width="20" height="20">
-        ═══════════════════════════════════════════
-      -->
+      
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+</svg>
     </div>
     <span class="nav-label">Constitution</span>
   </button>
 
   <button class="nav-item" data-nav="studyvault" onclick="location.href='studyvault.html'">
     <div class="nav-icon">
+      
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+  <polyline points="14,2 14,8 20,8"/>
+  <line x1="16" y1="13" x2="8" y2="13"/>
+  <line x1="16" y1="17" x2="8" y2="17"/>
+</svg>
       <!--
         ═══════════════════════════════════════════
         BOTTOM NAV ICON — STUDY VAULT / PDFs
@@ -1274,6 +1286,12 @@ footer {
     <!-- ── HOMEPAGE ── -->
     <a href="index.html" class="menu-item active" data-id="homepage">
       <div class="item-icon">
+                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+  <polyline points="9,22 9,12 15,12 15,22"/>
+</svg>   
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — HOMEPAGE
@@ -1283,14 +1301,30 @@ footer {
         -->
       </div>
       <span class="item-label">Homepage</span>
+      
+      
+
+
+      
+      
+      
+      
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
+        <path d="M9 18l6-6-6-6" stroke="#c9953a"/>
       </svg>
     </a>
 
     <!-- ── MEMBERS ── -->
     <a href="members.html" class="menu-item" data-id="members">
       <div class="item-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+  <circle cx="9" cy="7" r="4"/>
+  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+  <path d="M16 3.13a4 4 0 010 7.75"/>
+</svg>
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — MEMBERS
@@ -1308,6 +1342,12 @@ footer {
 <!-- ── CONSTITUTION ── -->
     <a href="constitution.html" class="menu-item" data-id="constitution">
       <div class="item-icon">
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+</svg>
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — CONSTITUTION
@@ -1324,6 +1364,14 @@ footer {
     <!-- ── PAST QUESTIONS / PDFs ── -->
     <a href="studyvault.html" class="menu-item" data-id="studyvault">
       <div class="item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+  <polyline points="14,2 14,8 20,8"/>
+  <line x1="16" y1="13" x2="8" y2="13"/>
+  <line x1="16" y1="17" x2="8" y2="17"/>
+</svg>
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — MY PDFs / PAST QUESTIONS
@@ -1341,6 +1389,12 @@ footer {
 <!-- ── ANNOUNCEMENTS ── -->
     <a href="announcements.html" class="menu-item" data-id="announcements">
       <div class="item-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+  <path d="M13.73 21a2 2 0 01-3.46 0"/>
+</svg>
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — ANNOUNCEMENTS
@@ -1358,6 +1412,12 @@ footer {
 <!-- ── NOMINATION ── -->
     <a href="nomination.html" class="menu-item" data-id="nomination">
       <div class="item-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 11l3 3L22 4"/>
+  <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+</svg>
         <!--
           ═══════════════════════════════════════════
           SLIDE MENU ICON — ANNOUNCEMENTS
