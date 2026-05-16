@@ -1,0 +1,35 @@
+/* Page-specific styles for studyvault.html
+   File: css/studyvault.css
+   Extracted from inline styles in studyvault.html
+*/
+:root {
+  --bg:          #080b10;
+  --bg-2:        #0e1218;
+  --surface:     #12171f;
+  --surface-2:   #1a2030;
+  --surface-3:   #212840;
+  --border:      #1e2535;
+  --border-2:    #2a3348;
+  --gold:        #c9a84c;
+  --gold-light:  #e4c06a;
+  --gold-dim:    rgba(201,168,76,.12);
+  --gold-glow:   rgba(201,168,76,.22);
+  --text:        #dce6f5;
+  --text-2:      #7a8ba8;
+  --text-3:      #3d4f6a;
+  --danger:      #e05c5c;
+  --success:     #4caf7d;
+  --font-display:'Playfair Display', Georgia, serif;
+  --font-body:   'Outfit', system-ui, sans-serif;
+  --r-sm:  6px;  --r-md: 12px; --r-lg: 18px;
+  --r-xl:  26px; --r-pill:999px;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --dur:  200ms;
+}
+
+/* Base resets */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); padding-top: 60px; padding-bottom: 80px; }
+
+/* The rest of the Study Vault inline CSS was moved into this file */

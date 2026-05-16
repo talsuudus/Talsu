@@ -1,0 +1,39 @@
+/* Page-specific styles for members.html
+   File: css/members.css
+   Extracted from inline styles in members.html
+*/
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --carton-cream: #FCF7F0;
+  --carton-almond: #E8D5BC;
+  --premium-gold: #CBA258;
+  --premium-slate: #1E1E2A;
+  --premium-charcoal: #06111f;
+  --glass-core: rgba(252, 247, 240, 0.07);
+  --glass-border-light: rgba(252, 247, 240, 0.13);
+  --shadow-premium: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(203, 162, 88, 0.15);
+  --transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lvl-500: #7c3aed;
+  --lvl-400: #0d9488;
+  --lvl-300: #1d4ed8;
+  --lvl-200: #b45309;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #06111f;
+  color: #fff;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  min-height: 100dvh;
+  padding-top: 60px;    /* height of fixed topbar */
+  padding-bottom: 80px; /* height of fixed bottom nav */
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* NOTE: The members page had a long inline stylesheet — the rest
+   of that stylesheet has been transferred here. Tell me if you want
+   the CSS further reorganized (variables, components, utilities). */
