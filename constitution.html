@@ -359,6 +359,32 @@
   ::-webkit-scrollbar-track { background: var(--deep); }
   ::-webkit-scrollbar-thumb { background: rgba(201,149,58,0.2); border-radius: 99px; }
   ::-webkit-scrollbar-thumb:hover { background: rgba(201,149,58,0.4); }
+
+  /* ── PAGE ENTRY ANIMATIONS (same pattern as members.html) ── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page-heading {
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.65s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .motto-badge {
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.6s 0.22s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .preamble {
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.6s 0.32s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .toc-header, .toc-grid {
+    opacity: 0; transform: translateY(14px);
+    animation: fadeUp 0.6s 0.42s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  #accordionContainer {
+    opacity: 0; transform: translateY(14px);
+    animation: fadeUp 0.6s 0.52s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
 </style>
 </head>
 <body>
