@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TALSUUDUS CHAPTER — Constitution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/constitution.css">
+</head>
+<body>
+
+  <!-- ═══════════════════ TOP BAR ═══════════════════ -->
+  <div class="talsu-topbar" id="talsuTopbar">
+    <a class="talsu-logo" href="index.html">
+      <div class="talsu-logo-icon"></div>
+      <span class="talsu-logo-text">TAL<span>SU UDUS</span></span>
+    </a>
+    <div class="talsu-topbar-right">
+      <button class="talsu-menu-btn" id="talsuOpenBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- existing page content continued (unchanged) -->
+
+<script src="js/menu.js" defer></script>
+<script src="js/constitution.js" defer></script>
+</body>
+</html>

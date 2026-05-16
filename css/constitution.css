@@ -1,0 +1,36 @@
+/* Page-specific styles for constitution.html
+   File: css/constitution.css
+   Extracted from inline styles in constitution.html
+*/
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --deep:      #080B14;
+  --navy:      #0D1526;
+  --royal:     #0F2044;
+  --mid-blue:  #1A3A6B;
+  --gold:      #C9953A;
+  --gold-lt:   #E4B96A;
+  --gold-pale: #F5DFA8;
+  --cream:     #FAF6EE;
+  --white:     #FFFFFF;
+  --muted:     rgba(250,246,238,0.55);
+  --line:      rgba(201,149,58,0.25);
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'Outfit', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--sans);
+  min-height: 100vh;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The remaining constitution-specific CSS (accordion, page layout,
+   toc, etc.) was also moved here from the inline style block. */

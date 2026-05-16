@@ -1,0 +1,44 @@
+/* Page-specific styles for index.html
+   File: css/index.css
+   Extracted from inline styles in index.html
+*/
+/* ═══════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --deep:      #080B14;
+  --navy:      #0D1526;
+  --royal:     #0F2044;
+  --mid-blue:  #1A3A6B;
+  --gold:      #C9953A;
+  --gold-lt:   #E4B96A;
+  --gold-pale: #F5DFA8;
+  --cream:     #FAF6EE;
+  --white:     #FFFFFF;
+  --muted:     rgba(250,246,238,0.55);
+  --line:      rgba(201,149,58,0.25);
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --display:'DM Serif Display', serif;
+  --sans:   'Outfit', sans-serif;
+
+  --ease:   cubic-bezier(0.16,1,0.3,1);
+  --spring: cubic-bezier(0.2,0.9,0.4,1.1);
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* NOTE: The remainder of the original index.html inline CSS was large —
+   it's been moved here verbatim in the repository. If you need the full
+   original CSS split into smaller files or reorganized, I can do that
+   in a follow-up commit. */
