@@ -1,322 +1,120 @@
-/* ═══════════════════════════════════════════════════════════════
-   TALSUUDUS SHARED MENU SYSTEM
-   ═══════════════════════════════════════════════════════════════ */
+/* Shared Talsuudus menu styles
+   File: css/menu.css
+   Shared across all pages
+*/
 
-/* ── FIXED TOP BAR ── */
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 150;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  height: 60px;
+/* Top bar (talsu namespace) */
+.talsu-topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; height: 60px;
   background: #0b1a35;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
+.talsu-logo {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
 }
-
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.13);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
+.talsu-logo-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
 }
-
-.logo-text {
-  color: #fff;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.3px;
+.talsu-logo-text { color: #fff; font-weight: 700; font-size: 16px; letter-spacing: 0.3px; }
+.talsu-logo-text span { color: #c9953a; }
+.talsu-topbar-right { display: flex; align-items: center; gap: 8px; }
+.talsu-menu-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px; transition: background 0.2s; flex-shrink: 0;
 }
+.talsu-menu-btn:hover { background: rgba(255,255,255,0.13); }
+.talsu-menu-btn span { display: block; height: 2px; background: #fff; border-radius: 2px; }
+.talsu-menu-btn span:nth-child(1) { width: 18px; }
+.talsu-menu-btn span:nth-child(2) { width: 18px; }
+.talsu-menu-btn span:nth-child(3) { width: 12px; align-self: flex-end; }
 
-.logo-text span {
-  color: #c9953a;
-}
-
-/* ── HAMBURGER MENU BUTTON ── */
-.menu-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.13);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  transition: background 0.2s;
-  flex-shrink: 0;
-  padding: 0;
-}
-
-.menu-btn:hover {
-  background: rgba(255, 255, 255, 0.13);
-}
-
-.menu-btn span {
-  display: block;
-  height: 2px;
-  background: #fff;
-  border-radius: 2px;
-}
-
-.menu-btn span:nth-child(1) {
-  width: 18px;
-}
-
-.menu-btn span:nth-child(2) {
-  width: 18px;
-}
-
-.menu-btn span:nth-child(3) {
-  width: 12px;
-  align-self: flex-end;
-}
-
-/* ── FIXED BOTTOM NAVIGATION ── */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 200;
-  display: flex;
-  background: #0d1f3c;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+/* Bottom nav */
+.talsu-bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  display: flex; background: #0d1f3c;
+  border-top: 1px solid rgba(255,255,255,0.07);
   padding: 10px 0 14px;
 }
-
-.nav-item {
-  flex: 1;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  transition: all 0.2s;
-  text-decoration: none;
-  color: inherit;
+.talsu-nav-item {
+  flex: 1; background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0;
 }
-
-.nav-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.talsu-nav-icon {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center;
   overflow: hidden;
-  font-size: 14px;
 }
-
-.nav-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.2px;
-  transition: color 0.2s;
+.talsu-nav-label {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.2px; transition: color 0.2s;
 }
-
-.nav-item.active .nav-icon {
-  background: rgba(201, 149, 58, 0.22);
-  border-color: rgba(201, 149, 58, 0.5);
-  box-shadow: 0 0 10px rgba(201, 149, 58, 0.25);
+.talsu-nav-item.active .talsu-nav-icon {
+  background: rgba(201,149,58,0.22); border-color: rgba(201,149,58,0.5);
 }
+.talsu-nav-item.active .talsu-nav-label { color: #c9953a; font-weight: 700; }
 
-.nav-item.active .nav-label {
-  color: #c9953a;
-  font-weight: 700;
+/* Overlay */
+.talsu-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.5);
+  opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
 }
+.talsu-overlay.show { opacity: 1; pointer-events: all; }
 
-/* ── FIXED OVERLAY ── */
-.slide-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.28s ease;
-}
-
-.slide-overlay.show {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* ── FIXED SLIDE PANEL ── */
-.panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 78%;
-  max-width: 320px;
-  background: #0f2142;
-  z-index: 400;
-  display: flex;
-  flex-direction: column;
+/* Panel */
+.talsu-panel {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 78%; max-width: 320px;
+  background: #0f2142; z-index: 400;
+  display: flex; flex-direction: column;
   transform: translateX(105%);
-  transition: transform 0.32s cubic-bezier(0.32, 0, 0.15, 1);
-  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
+  box-shadow: -12px 0 40px rgba(0,0,0,0.5);
 }
-
-.panel.open {
-  transform: translateX(0);
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.talsu-panel.open { transform: translateX(0); }
+.talsu-panel-header {
+  display: flex; align-items: center; justify-content: space-between;
   padding: 22px 20px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
 }
-
-.panel-title {
-  color: rgba(201, 149, 58, 0.9);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
+.talsu-panel-title { color: rgba(201,149,58,0.9); font-size: 22px; font-weight: 700; }
+.talsu-close-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.09);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 17px; transition: background 0.2s;
 }
+.talsu-close-btn:hover { background: rgba(255,255,255,0.16); }
+.talsu-menu-list { flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.talsu-menu-list::-webkit-scrollbar { display: none; }
+.talsu-menu-item { display: flex; align-items: center; gap: 14px; padding: 13px 14px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.07); cursor: pointer; width: 100%; text-align: left; transition: background 0.18s, border-color 0.18s, box-shadow 0.18s; text-decoration: none; color: inherit; }
+.talsu-menu-item:hover { background: rgba(255,255,255,0.07); }
+.talsu-menu-item.active { background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%); border-color: rgba(201,149,58,0.9); box-shadow: 0 4px 20px rgba(20,80,180,0.3); }
+.talsu-item-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.1); flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.talsu-menu-item.active .talsu-item-icon { background: rgba(201,149,58,0.16); border-color: rgba(201,149,58,0.4); }
+.talsu-item-label { flex: 1; color: rgba(255,255,255,0.4); font-weight: 500; font-size: 15px; letter-spacing: 0.2px; }
+.talsu-menu-item.active .talsu-item-label { color: rgba(201,149,58,0.9); font-weight: 700; }
+.talsu-chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; }
+.talsu-menu-item.active .talsu-chevron { opacity: 1; }
 
-.close-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.09);
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 17px;
-  line-height: 1;
-  transition: background 0.2s;
-  padding: 0;
-}
+/* small helper to avoid content jump */
+html.menu-open { overflow: hidden; }
 
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-}
-
-/* ── MENU LIST ── */
-.menu-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  scrollbar-width: none;
-}
-
-.menu-list::-webkit-scrollbar {
-  display: none;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px 14px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1.5px solid rgba(255, 255, 255, 0.07);
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.menu-item:hover {
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.menu-item.active {
-  background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%);
-  border-color: rgba(201, 149, 58, 0.9);
-  box-shadow: 0 4px 20px rgba(20, 80, 180, 0.3);
-}
-
-.item-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: background 0.18s, border-color 0.18s;
-  font-size: 18px;
-}
-
-.menu-item.active .item-icon {
-  background: rgba(201, 149, 58, 0.16);
-  border-color: rgba(201, 149, 58, 0.4);
-}
-
-.item-label {
-  flex: 1;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 0.2px;
-  transition: color 0.18s, font-weight 0.18s;
-}
-
-.menu-item.active .item-label {
-  color: rgba(201, 149, 58, 0.9);
-  font-weight: 700;
-}
-
-.chevron {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  opacity: 0.35;
-  transition: opacity 0.18s;
-}
-
-.menu-item.active .chevron {
-  opacity: 1;
-}
-
-/* ──────────────────────────────────────────
-   PAGE PADDING ADJUSTMENTS
-   ──────────────────────────────────────────── */
-body {
-  padding-top: 60px; /* topbar height */
-  padding-bottom: 80px; /* bottom nav height */
+@media (max-width: 768px) {
+  /* ensure mobile view shows talsu topbar */
+  .navbar { display: none !important; }
+  .talsu-topbar { display: flex; }
 }
