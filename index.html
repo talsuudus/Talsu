@@ -3,22 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TALSU UDUS HOME</title>
+  <title>TALSUUDUS CHAPTER — Home</title>
+  
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/style.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+
 <canvas id="particles"></canvas>
 <div class="ambient">
   <div class="amb-orb amb-orb-1"></div>
   <div class="amb-orb amb-orb-2"></div>
   <div class="amb-orb amb-orb-3"></div>
 </div>
+
+<!-- CURTAIN -->
 <div id="curtain">
   <div class="c-logo">TALSU UDUS</div>
   <div class="c-line"></div>
   <div class="c-sub">Chapter · Association</div>
 </div>
+
+<!-- DESKTOP NAVBAR -->
 <nav class="navbar" id="navbar">
   <a class="nav-brand" href="index.html">
     <div class="nav-emblem">TC</div>
@@ -33,16 +42,19 @@
   </ul>
   <button class="nav-cta" onclick="location.href='members.html'">Join Us</button>
 </nav>
+
+<!-- MOBILE TOP BAR -->
 <div class="topbar" id="topbar">
   <div class="logo">
-    <div class="logo-icon">
-    </div>
+    <div class="logo-icon"></div>
     <span class="logo-text">TAL<span>SUUDUS</span></span>
   </div>
   <button class="menu-btn" id="openBtn" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 </div>
+
+<!-- HERO SECTION -->
 <section class="hero">
   <div class="hero-rings">
     <div class="ring ring-1"></div>
@@ -52,6 +64,7 @@
   </div>
   <div class="hero-line-l"></div>
   <div class="hero-line-r"></div>
+
   <div class="hero-content">
     <div class="hero-eyebrow">Est. UDUS · United Chapter</div>
     <h1 class="hero-title">
@@ -70,11 +83,14 @@
       <a href="members.html" class="btn-ghost">Meet Our Members</a>
     </div>
   </div>
+
   <div class="hero-scroll" onclick="document.querySelector('.welcome').scrollIntoView({behavior:'smooth'})">
     <span class="scroll-label">Scroll</span>
     <div class="scroll-track"><div class="scroll-dot"></div></div>
   </div>
 </section>
+
+<!-- WELCOME SECTION -->
 <section class="welcome">
   <div class="welcome-left scroll-reveal">
     <div class="section-tag">Welcome Message</div>
@@ -102,6 +118,7 @@
       </div>
     </div>
   </div>
+
   <div class="welcome-right scroll-reveal">
     <div class="welcome-card">
       <div class="wc-badge">What You Get Here</div>
@@ -116,12 +133,15 @@
     </div>
   </div>
 </section>
+
+<!-- NAVIGATION CARDS -->
 <section class="nav-cards-section">
   <div class="nav-cards-header scroll-reveal">
     <div class="section-tag" style="justify-content:center">Explore the Chapter</div>
     <h2 class="nav-cards-title">Everything You <em>Need,</em> In One Place</h2>
     <p class="nav-cards-sub">Navigate the association — built to make your academic life easier.</p>
   </div>
+
   <div class="cards-grid">
     <a href="members.html" class="page-card scroll-card" style="transition-delay:0s">
       <div class="card-icon-wrap ic-blue">👥</div>
@@ -169,6 +189,8 @@
     </a>
   </div>
 </section>
+
+<!-- ANNOUNCEMENTS PREVIEW -->
 <section class="announcements">
   <div class="ann-header scroll-reveal">
     <h2 class="ann-title">Latest <em>Announcements</em></h2>
@@ -201,6 +223,8 @@
     </a>
   </div>
 </section>
+
+<!-- PILLARS SECTION -->
 <section class="pillars">
   <div class="pillars-inner">
     <div class="pillars-header scroll-reveal">
@@ -235,15 +259,19 @@
     </div>
   </div>
 </section>
+
+<!-- CTA BAND -->
 <div class="cta-band scroll-reveal">
   <div class="cta-pre">Join the Movement</div>
   <h2 class="cta-heading">From the Same Soil.<br><em>One Chapter.</em></h2>
   <p class="cta-sub">If you are from our local government and you are studying at this institution — you already belong here. Come find your people.</p>
   <div class="cta-buttons">
-    <a href="members.html"     class="btn-primary">Meet the Members</a>
+    <a href="members.html" class="btn-primary">Meet the Members</a>
     <a href="constitution.html" class="btn-ghost">Read the Constitution</a>
   </div>
 </div>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -285,72 +313,67 @@
     </div>
   </div>
 </footer>
+
+<!-- MOBILE BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav">
   <button class="nav-item active" data-nav="home" onclick="location.href='index.html'">
     <div class="nav-icon">
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-  <polyline points="9,22 9,12 15,12 15,22"/>
-</svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
     </div>
     <span class="nav-label">Home</span>
   </button>
   <button class="nav-item" data-nav="members" onclick="location.href='members.html'">
-    <div class="nav-icon">        
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-  <circle cx="9" cy="7" r="4"/>
-  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-  <path d="M16 3.13a4 4 0 010 7.75"/>
-</svg>
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
     </div>
     <span class="nav-label">Members</span>
   </button>
   <button class="nav-item" data-nav="constitution" onclick="location.href='constitution.html'">
-    <div class="nav-icon">      
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-</svg>
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
     </div>
     <span class="nav-label">Constitution</span>
   </button>
   <button class="nav-item" data-nav="studyvault" onclick="location.href='studyvault.html'">
-    <div class="nav-icon">      
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-  <polyline points="14,2 14,8 20,8"/>
-  <line x1="16" y1="13" x2="8" y2="13"/>
-  <line x1="16" y1="17" x2="8" y2="17"/>
-</svg>
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14,2 14,8 20,8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
     </div>
     <span class="nav-label">Study Vault</span>
   </button>
 </nav>
+
+<!-- SLIDE PANEL OVERLAY -->
 <div class="slide-overlay" id="overlay"></div>
+
+<!-- SLIDE PANEL (MOBILE MENU) -->
 <div class="panel" id="panel">
   <div class="panel-header">
     <span class="panel-title">Menu</span>
     <button class="close-btn" id="closeBtn">✕</button>
   </div>
-
   <div class="menu-list" id="menuList">
     <a href="index.html" class="menu-item active" data-id="homepage">
       <div class="item-icon">
-                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-  <polyline points="9,22 9,12 15,12 15,22"/>
-</svg> 
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
       </div>
       <span class="item-label">Homepage</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -359,14 +382,12 @@
     </a>
     <a href="members.html" class="menu-item" data-id="members">
       <div class="item-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-  <circle cx="9" cy="7" r="4"/>
-  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-  <path d="M16 3.13a4 4 0 010 7.75"/>
-</svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
       </div>
       <span class="item-label">Members</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -375,12 +396,10 @@
     </a>
     <a href="constitution.html" class="menu-item" data-id="constitution">
       <div class="item-icon">
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-</svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
       </div>
       <span class="item-label">Constitution</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -389,14 +408,12 @@
     </a>
     <a href="studyvault.html" class="menu-item" data-id="studyvault">
       <div class="item-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-  <polyline points="14,2 14,8 20,8"/>
-  <line x1="16" y1="13" x2="8" y2="13"/>
-  <line x1="16" y1="17" x2="8" y2="17"/>
-</svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
       </div>
       <span class="item-label">Study Vault</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -405,12 +422,10 @@
     </a>
     <a href="announcements.html" class="menu-item" data-id="announcements">
       <div class="item-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-  <path d="M13.73 21a2 2 0 01-3.46 0"/>
-</svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
       </div>
       <span class="item-label">Announcement</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -419,21 +434,20 @@
     </a>
     <a href="nomination.html" class="menu-item" data-id="nomination">
       <div class="item-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-  stroke="rgba(201,149,58,0.9)" stroke-width="2"
-  stroke-linecap="round" stroke-linejoin="round">
-  <path d="M9 11l3 3L22 4"/>
-  <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
-</svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(201,149,58,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
       </div>
       <span class="item-label">Online Nomination Portal</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 18l6-6-6-6" stroke="#6aa0ff"/>
       </svg>
     </a>
-
   </div>
 </div>
-  <script src="./js/script.js"></script>
+
+<!-- External JavaScript -->
+<script src="js/script.js"></script>
 </body>
 </html>
