@@ -9,8 +9,1265 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-  <link rel="stylesheet" href="styles/studyvault.css">
- </head>
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg:          #080b10;
+      --bg-2:        #0e1218;
+      --surface:     #12171f;
+      --surface-2:   #1a2030;
+      --surface-3:   #212840;
+      --border:      #1e2535;
+      --border-2:    #2a3348;
+      --gold:        #c9a84c;
+      --gold-light:  #e4c06a;
+      --gold-dim:    rgba(201,168,76,.12);
+      --gold-glow:   rgba(201,168,76,.22);
+      --text:        #dce6f5;
+      --text-2:      #7a8ba8;
+      --text-3:      #3d4f6a;
+      --danger:      #e05c5c;
+      --success:     #4caf7d;
+      --font-display:'Playfair Display', Georgia, serif;
+      --font-body:   'Outfit', system-ui, sans-serif;
+      --r-sm:  6px;  --r-md: 12px; --r-lg: 18px;
+      --r-xl:  26px; --r-pill:999px;
+      --ease: cubic-bezier(.4,0,.2,1);
+      --dur:  200ms;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-top: 60px;   /* TALSUUDUS fixed topbar */
+      padding-bottom: 80px; /* TALSUUDUS fixed bottom nav */
+    }
+
+    /* Ambient background texture */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 0%,  rgba(201,168,76,.06) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 85% 100%, rgba(78,120,200,.05) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    .container { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 2rem; }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,11,16,.88);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem;
+      height: 68px;
+    }
+
+    /* Brand */
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
+    .brand-mark {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+      border-radius: var(--r-md); display: grid; place-items: center;
+      font-size: 1.15rem; color: #000;
+      box-shadow: 0 2px 16px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,.2);
+      transition: transform var(--dur) var(--ease); flex-shrink: 0;
+    }
+    .brand:hover .brand-mark { transform: rotate(-6deg) scale(1.06); }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; color: var(--text); letter-spacing: -0.01em; display: block; }
+    .brand-sub  { font-size: 0.65rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 1px; }
+
+    /* Header right zone */
+    .header-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      border: none; border-radius: var(--r-md); cursor: pointer;
+      padding: 0.5rem 1.1rem;
+      transition: all var(--dur) var(--ease);
+      text-decoration: none; white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+      color: #000; font-weight: 700;
+      box-shadow: 0 2px 12px var(--gold-glow);
+    }
+    .btn-gold:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 4px 20px var(--gold-glow); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-2); }
+    .btn-ghost:hover { background: var(--surface-2); color: var(--text); border-color: var(--text-3); }
+    .btn-icon { padding: 0.5rem; border-radius: var(--r-md); font-size: 1rem; }
+
+    /* ── User pill + logout dropdown (FIXED) ── */
+    .user-zone { position: relative; display: flex; align-items: center; gap: 0.5rem; }
+
+    .user-pill {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--r-pill); padding: 3px 0.75rem 3px 3px;
+      cursor: pointer;
+      transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .user-pill:hover { border-color: rgba(201,168,76,.4); box-shadow: 0 0 0 3px var(--gold-dim); }
+    .user-avatar {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--gold), #a07830);
+      border-radius: 50%; display: grid; place-items: center;
+      font-size: 0.72rem; font-weight: 700; color: #000; flex-shrink: 0;
+    }
+    .user-name {
+      font-size: 0.78rem; font-weight: 500; color: var(--text-2);
+      max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .user-chevron {
+      font-size: 0.75rem; color: var(--text-3); margin-left: 2px;
+      transition: transform var(--dur) var(--ease); flex-shrink: 0;
+    }
+    .user-zone.open .user-chevron { transform: rotate(180deg); }
+
+    /* Dropdown */
+    .user-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      background: var(--surface); border: 1px solid var(--border-2);
+      border-radius: var(--r-lg); min-width: 200px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(201,168,76,.08);
+      overflow: hidden;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease), transform var(--dur) var(--ease);
+      z-index: 200;
+    }
+    .user-zone.open .user-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    .user-dropdown-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(201,168,76,.06) 0%, transparent 100%);
+    }
+    .user-dropdown-email { font-size: 0.75rem; color: var(--text-3); margin-top: 2px; }
+
+    .dropdown-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1rem; font-size: 0.85rem; color: var(--text-2);
+      cursor: pointer; transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+    }
+    .dropdown-item:hover { background: var(--surface-2); color: var(--text); }
+    .dropdown-item i { font-size: 1rem; flex-shrink: 0; }
+    .dropdown-item.danger { color: #e07070; }
+    .dropdown-item.danger:hover { background: rgba(224,92,92,.08); color: var(--danger); }
+    .dropdown-divider { height: 1px; background: var(--border); margin: 2px 0; }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero { padding: 5rem 2rem 3.5rem; text-align: center; position: relative; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,.25);
+      border-radius: var(--r-pill); padding: 0.25rem 1rem;
+      font-size: 0.72rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--text); max-width: 720px;
+      margin-inline: auto; margin-bottom: 1.1rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-2); max-width: 480px;
+      margin-inline: auto; margin-bottom: 2.5rem; font-weight: 300;
+    }
+
+    .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .stat-number { font-family: var(--font-display); font-size: 2rem; color: var(--gold); line-height: 1; }
+    .stat-label  { font-size: 0.7rem; color: var(--text-2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ─── PREMIUM SEARCH BAR ─────────────────────────────────── */
+    .search-hero { max-width: 660px; margin-inline: auto; position: relative; }
+    .search-hero-wrap {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1.5px solid var(--border-2);
+      border-radius: var(--r-xl); padding: 5px 5px 5px 1.2rem; gap: 0.6rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.03) inset;
+      transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .search-hero-wrap:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 4px var(--gold-dim);
+    }
+    .search-hero-icon { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; pointer-events: none; opacity: .7; }
+    .search-hero-input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
+      min-width: 0;
+    }
+    .search-hero-input::placeholder { color: var(--text-3); }
+
+    /* Keyboard shortcut hint */
+    .search-kbd-hint { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+    .kbd {
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: 5px; padding: 2px 6px;
+      font-size: 0.68rem; color: var(--text-3);
+      font-family: var(--font-body); font-weight: 600;
+    }
+
+    /* Vertical divider */
+    .search-divider {
+      width: 1px; height: 22px;
+      background: var(--border-2); flex-shrink: 0;
+    }
+
+    /* Course quick-filter chips inside search bar */
+    .search-course-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,.25);
+      border-radius: var(--r-pill); padding: 2px 8px;
+      font-size: 0.72rem; color: var(--gold); font-weight: 600;
+      cursor: pointer; flex-shrink: 0;
+      transition: background var(--dur) var(--ease);
+    }
+    .search-course-chip:hover { background: rgba(201,168,76,.2); }
+    .search-course-chip .chip-x { font-size: 0.65rem; opacity: .7; }
+
+    .search-hero-btn {
+      background: linear-gradient(135deg, var(--gold), #a07830); color: #000;
+      border: none; border-radius: var(--r-lg); padding: 0.55rem 1.3rem;
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease);
+      white-space: nowrap; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0;
+      letter-spacing: 0.01em;
+    }
+    .search-hero-btn:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+    /* Suggestions dropdown */
+    .search-suggestions {
+      position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+      background: var(--surface); border: 1px solid var(--border-2);
+      border-radius: var(--r-lg); overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(201,168,76,.06);
+      z-index: 50; display: none;
+    }
+    .search-suggestions.open { display: block; }
+    .sugg-section-title {
+      font-size: 0.67rem; font-weight: 700; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.65rem 1rem 0.3rem;
+    }
+    .sugg-item {
+      display: flex; align-items: center; gap: 0.65rem;
+      padding: 0.6rem 1rem; cursor: pointer;
+      transition: background var(--dur) var(--ease);
+      font-size: 0.87rem; color: var(--text-2);
+    }
+    .sugg-item:hover { background: var(--surface-2); color: var(--text); }
+    .sugg-item i { color: var(--gold); font-size: 0.9rem; flex-shrink: 0; }
+    .sugg-divider { height: 1px; background: var(--border); margin: 2px 0; }
+
+    /* ─── LIBRARY SECTION ────────────────────────────────────── */
+    .library-section { padding-bottom: 4rem; }
+
+    .library-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .lib-title-row { display: flex; align-items: center; gap: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: -0.02em; }
+    .doc-badge {
+      font-size: 0.75rem; color: var(--text-2);
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--r-pill); padding: 2px 0.65rem; font-weight: 600;
+    }
+
+    .filter-bar {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.72rem; color: var(--text-3); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap;
+    }
+    .filter-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .pill {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-pill); color: var(--text-2);
+      font-size: 0.78rem; font-weight: 500; padding: 4px 0.85rem;
+      cursor: pointer; transition: all var(--dur) var(--ease);
+      font-family: var(--font-body);
+    }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
+    .pill.active { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 700; }
+
+    .sort-select {
+      background: var(--surface); border: 1px solid var(--border-2);
+      color: var(--text-2); font-family: var(--font-body);
+      font-size: 0.78rem; padding: 4px 0.75rem;
+      border-radius: var(--r-pill); cursor: pointer; outline: none;
+      transition: border-color var(--dur) var(--ease);
+    }
+    .sort-select:focus { border-color: var(--gold); }
+    .sort-select option { background: var(--surface-2); }
+
+    /* ─── PDF GRID ───────────────────────────────────────────── */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .pdf-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-lg); overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 2px 16px rgba(0,0,0,.3);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      position: relative;
+      animation: fadeUp .45s var(--ease) both;
+    }
+    .pdf-card { animation-delay: calc(var(--i, 0) * 55ms); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .pdf-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(201,168,76,.15);
+      border-color: rgba(201,168,76,.2);
+    }
+
+    /* Gold top edge on hover */
+    .pdf-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(201,168,76,.3) 60%, transparent 100%);
+      opacity: 0; transition: opacity var(--dur) var(--ease);
+    }
+    .pdf-card:hover::before { opacity: 1; }
+
+    /* Thumbnail */
+    .card-thumb {
+      height: 130px; background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-thumb-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(201,168,76,.08) 0%, transparent 60%);
+    }
+    .card-thumb-icon {
+      font-size: 3.2rem; color: var(--gold); opacity: .55; position: relative; z-index: 1;
+      transition: transform .3s var(--ease), opacity .3s var(--ease);
+    }
+    .pdf-card:hover .card-thumb-icon { transform: scale(1.12) rotate(-3deg); opacity: .8; }
+
+    .card-course-badge {
+      position: absolute; bottom: 0.65rem; left: 0.65rem;
+      background: rgba(8,11,16,.8); border: 1px solid rgba(201,168,76,.25);
+      border-radius: var(--r-sm); font-size: 0.66rem; font-weight: 700;
+      color: var(--gold); padding: 2px 0.55rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      backdrop-filter: blur(8px);
+      max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 1.1rem 1.1rem 0.75rem;
+      flex: 1; display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .card-title {
+      font-family: var(--font-display); font-size: 1rem;
+      line-height: 1.3; color: var(--text); letter-spacing: -0.01em;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-desc {
+      font-size: 0.8rem; color: var(--text-2); line-height: 1.55;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.72rem; color: var(--text-3);
+    }
+    .card-meta-item { display: flex; align-items: center; gap: 3px; }
+
+    /* Card footer — download only */
+    .card-footer {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.1rem; border-top: 1px solid var(--border);
+    }
+
+    .card-download-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      background: linear-gradient(135deg, var(--gold), #a07830);
+      color: #000; font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+      border: none; border-radius: var(--r-md); padding: 0.55rem 0.75rem;
+      cursor: pointer; transition: filter var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+      text-decoration: none; letter-spacing: 0.01em;
+      box-shadow: 0 2px 10px var(--gold-glow);
+    }
+    .card-download-btn:hover {
+      filter: brightness(1.1); transform: translateY(-1px);
+      box-shadow: 0 4px 18px var(--gold-glow);
+    }
+
+    /* Admin-only delete button */
+    .card-delete {
+      display: none; align-items: center; justify-content: center;
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: transparent; border: 1px solid var(--border-2);
+      border-radius: var(--r-md); color: var(--text-3);
+      cursor: pointer; font-size: 0.95rem;
+      transition: all var(--dur) var(--ease);
+    }
+    .card-delete:hover { color: var(--danger); border-color: var(--danger); background: rgba(224,92,92,.08); }
+    .is-admin .card-delete { display: flex; }
+
+    /* ─── EMPTY STATE ────────────────────────────────────────── */
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 5rem 2rem; }
+    .empty-icon  { font-size: 3.5rem; color: var(--text-3); margin-bottom: 1rem; }
+    .empty-title { font-family: var(--font-display); font-size: 1.35rem; color: var(--text-2); margin-bottom: 0.4rem; }
+    .empty-sub   { font-size: 0.87rem; color: var(--text-3); }
+
+    /* ─── SKELETONS ──────────────────────────────────────────── */
+    .skeleton { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+    .skel-thumb { height: 130px; background: var(--surface-2); }
+    .skel-body  { padding: 1.1rem; display: flex; flex-direction: column; gap: 0.7rem; }
+    .skel-line  { height: 13px; border-radius: var(--r-sm); background: var(--surface-2); animation: pulse 1.6s ease-in-out infinite; }
+    .skel-line.w-80 { width: 80%; } .skel-line.w-55 { width: 55%; } .skel-line.w-70 { width: 70%; }
+    .skel-footer { height: 52px; background: var(--surface-2); border-top: 1px solid var(--border); animation: pulse 1.6s ease-in-out infinite; animation-delay: .3s; }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+    /* ─── MODALS ─────────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      z-index: 200; display: grid; place-items: center; padding: 1rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+    }
+    .modal-backdrop.open { opacity: 1; visibility: visible; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border-2);
+      border-radius: var(--r-xl);
+      box-shadow: 0 24px 64px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.08);
+      width: 100%; max-width: 480px;
+      transform: translateY(20px) scale(.98);
+      transition: transform var(--dur) var(--ease); overflow: hidden;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(201,168,76,.04) 0%, transparent 100%);
+    }
+    .modal-title { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: -0.02em; }
+    .modal-sub   { font-size: 0.8rem; color: var(--text-2); margin-top: 2px; }
+    .modal-close {
+      background: transparent; border: 1px solid var(--border-2); color: var(--text-2);
+      cursor: pointer; width: 30px; height: 30px; border-radius: var(--r-md);
+      display: grid; place-items: center; font-size: 0.9rem; flex-shrink: 0;
+      transition: all var(--dur) var(--ease);
+    }
+    .modal-close:hover { background: var(--surface-2); color: var(--text); }
+    .modal-body   { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-height: 70vh; overflow-y: auto; }
+    .modal-footer {
+      display: flex; gap: 0.6rem; justify-content: flex-end;
+      padding: 1rem 1.5rem 1.5rem;
+    }
+    .modal-footer .btn { min-width: 90px; justify-content: center; }
+
+    /* Form fields */
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 0.78rem; font-weight: 600; color: var(--text-2); letter-spacing: 0.04em; text-transform: uppercase; }
+    .field-req::after { content: ' *'; color: var(--gold); }
+    .field input, .field textarea {
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--r-md); color: var(--text);
+      font-family: var(--font-body); font-size: 0.9rem;
+      padding: 0.65rem 0.9rem; outline: none; width: 100%;
+      transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-3); }
+    .field input:focus, .field textarea:focus {
+      border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim);
+    }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .field-err { font-size: 0.75rem; color: var(--danger); display: none; }
+    .field.err input, .field.err textarea { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(224,92,92,.12); }
+    .field.err .field-err { display: block; }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border-2); border-radius: var(--r-lg);
+      padding: 1.8rem 1.5rem; text-align: center; cursor: pointer;
+      transition: all var(--dur) var(--ease); position: relative;
+    }
+    .drop-zone:hover, .drop-zone.dragover { border-color: var(--gold); background: var(--gold-dim); }
+    .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .drop-ico  { font-size: 2rem; color: var(--gold); margin-bottom: 0.6rem; }
+    .drop-text { font-size: 0.87rem; color: var(--text-2); font-weight: 500; }
+    .drop-hint { font-size: 0.72rem; color: var(--text-3); margin-top: 2px; }
+    .drop-sel  { font-size: 0.78rem; color: var(--success); font-weight: 600; margin-top: 0.4rem; display: none; }
+
+    /* Progress */
+    .prog-wrap { display: none; flex-direction: column; gap: 0.4rem; }
+    .prog-wrap.on { display: flex; }
+    .prog-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-2); }
+    .prog-track { height: 5px; background: var(--surface-2); border-radius: var(--r-pill); overflow: hidden; }
+    .prog-bar   { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); width: 0%; transition: width .3s var(--ease); border-radius: var(--r-pill); }
+
+    /* ─── TOAST ──────────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 5.5rem; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--surface); border: 1px solid var(--border-2);
+      border-radius: var(--r-lg); padding: 0.85rem 1.2rem;
+      display: flex; align-items: center; gap: 0.65rem;
+      min-width: 280px; max-width: 88vw;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 500;
+      font-size: 0.87rem; font-weight: 500;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s var(--ease), transform .35s var(--ease);
+    }
+    .toast.show {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast.success { border-color: rgba(76,175,125,.3); color: var(--success); }
+    .toast.error   { border-color: rgba(224,92,92,.3);   color: var(--danger); }
+    .toast.info    { border-color: rgba(201,168,76,.3);  color: var(--gold); }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    .site-footer { margin-top: 5rem; border-top: 1px solid var(--border); padding: 2.5rem 0 2rem; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; text-align: center; }
+    .footer-text { font-size: 0.78rem; color: var(--text-3); }
+    .footer-text a { color: var(--gold); text-decoration: none; }
+    .footer-text a:hover { text-decoration: underline; }
+
+    /* ─── SPINNER ────────────────────────────────────────────── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .brand-sub { display: none; }
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .container { padding-inline: 1.25rem; }
+      .pdf-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+      .library-header { flex-direction: column; align-items: flex-start; }
+      .search-kbd-hint { display: none; }
+    }
+
+    @media (max-width: 540px) {
+      .hero-stats { gap: 1.5rem; }
+      .pdf-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .modal { border-radius: var(--r-lg); }
+      .card-title { font-size: 0.9rem; }
+      .card-desc  { display: none; }
+      /* Ensure header buttons are accessible */
+      .header-inner { gap: 0.5rem; }
+      .btn { padding: 0.45rem 0.75rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 380px) {
+      .pdf-grid { grid-template-columns: 1fr; }
+      .brand-name { font-size: 1rem; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+    /* ─── PAGE LOADER ────────────────────────────────────────── */
+    #pageLoader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem;
+      transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
+    }
+    #pageLoader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .loader-graphic {
+      position: relative; width: 88px; height: 88px;
+  loader-title; align-items: center; justify-content: center;
+    }
+
+    /* Outer spinning ring */
+    .loader-ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+      border-top-color: var(--gold);
+      border-right-color: rgba(201,168,76,.35);
+      animation: loaderSpin 1s linear infinite;
+    }
+    /* Middle ring — counter-spin, dimmer */
+    .loader-ring-2 {
+      position: absolute; inset: 10px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-bottom-color: var(--gold-light);
+      border-left-color: rgba(201,168,76,.2);
+      animation: loaderSpin 1.6s linear infinite reverse;
+    }
+    /* Inner glow disc */
+    .loader-disc {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.18) 0%, rgba(201,168,76,.04) 60%, transparent 100%);
+      border: 1px solid rgba(201,168,76,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; color: var(--gold);
+      animation: loaderPulse 2s ease-in-out infinite;
+    }
+    @keyframes loaderSpin  { to { transform: rotate(360deg); } }
+    @keyframes loaderPulse { 0%,100%{opacity:.6; transform:scale(1)} 50%{opacity:1; transform:scale(1.06)} }
+
+    .loader-text {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    }
+    .loader-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem; color: var(--text); letter-spacing: -0.01em;
+    }
+    .loader-sub {
+      font-size: 0.75rem; color: var(--text-3); letter-spacing: 0.06em;
+      text-transform: uppercase; font-weight: 600;
+    }
+    /* Animated dots */
+    .loader-dots { display: inline-flex; gap: 4px; margin-left: 2px; }
+    .loader-dots span {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--gold); opacity: 0.3;
+      animation: dotBounce 1.2s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotBounce { 0%,80%,100%{opacity:.3; transform:scale(.8)} 40%{opacity:1; transform:scale(1.2)} }
+
+    /* Loader bottom bar progress */
+    .loader-bar-wrap {
+      width: 160px; height: 3px;
+      background: var(--surface-2); border-radius: var(--r-pill); overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: var(--r-pill);
+      width: 0%; animation: loaderBarFill 2.2s var(--ease) forwards;
+    }
+    @keyframes loaderBarFill { 0%{width:0%} 60%{width:72%} 100%{width:92%} }
+
+    /* ─── LAZY-LOAD CARD ENTRANCE ────────────────────────────── */
+    .pdf-card {
+      /* override existing inline animation — IntersectionObserver handles it */
+      animation: none !important;
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.42s var(--ease),
+        transform 0.42s var(--ease),
+        box-shadow var(--dur) var(--ease),
+        border-color var(--dur) var(--ease);
+    }
+    .pdf-card.card-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════════════════
+       TALSUUDUS MENU BAR
+    ══════════════════════════════════════════ */
+
+    /* Top bar */
+    .talsu-topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; height: 60px;
+      background: #0b1a35;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .talsu-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .talsu-logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .talsu-logo-text { color: #fff; font-weight: 700; font-size: 16px; letter-spacing: 0.3px; }
+    .talsu-logo-text span { color: #c9953a; }
+
+    .talsu-topbar-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* Action buttons inside topbar (Sign In, Upload) */
+    .talsu-action-btn {
+      height: 36px; border-radius: 10px !important;
+      font-size: 0.82rem !important; padding: 0 14px !important;
+    }
+    @media (max-width: 420px) {
+      .talsu-action-btn .btn-label { display: none; }
+      .talsu-action-btn { padding: 0 10px !important; }
+    }
+
+    /* User pill adapted for topbar */
+    .talsu-topbar-right .user-zone { position: relative; }
+    .talsu-topbar-right .user-dropdown { top: calc(100% + 14px); }
+
+    .talsu-menu-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      cursor: pointer; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; transition: background 0.2s; flex-shrink: 0;
+    }
+    .talsu-menu-btn:hover { background: rgba(255,255,255,0.13); }
+    .talsu-menu-btn span { display: block; height: 2px; background: #fff; border-radius: 2px; }
+    .talsu-menu-btn span:nth-child(1) { width: 18px; }
+    .talsu-menu-btn span:nth-child(2) { width: 18px; }
+    .talsu-menu-btn span:nth-child(3) { width: 12px; align-self: flex-end; }
+
+    /* Bottom nav */
+    .talsu-bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      display: flex; background: #0d1f3c;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 0 14px;
+    }
+    .talsu-nav-item {
+      flex: 1; background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0;
+    }
+    .talsu-nav-icon {
+      width: 26px; height: 26px; border-radius: 7px;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .talsu-nav-label {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.2px; transition: color 0.2s;
+    }
+    .talsu-nav-item.active .talsu-nav-icon {
+      background: rgba(201,149,58,0.22); border-color: rgba(201,149,58,0.5);
+      box-shadow: 0 0 10px rgba(201,149,58,0.25);
+    }
+    .talsu-nav-item.active .talsu-nav-label { color: #c9953a; font-weight: 700; }
+
+    /* Overlay */
+    .talsu-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.5);
+      opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+    }
+    .talsu-overlay.show { opacity: 1; pointer-events: all; }
+
+    /* Slide panel */
+    .talsu-panel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 78%; max-width: 320px;
+      background: #0f2142; z-index: 400;
+      display: flex; flex-direction: column;
+      transform: translateX(105%);
+      transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
+      box-shadow: -12px 0 40px rgba(0,0,0,0.5);
+    }
+    .talsu-panel.open { transform: translateX(0); }
+
+    .talsu-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0;
+    }
+    .talsu-panel-title { color: #fff; font-size: 22px; font-weight: 700; }
+    .talsu-close-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,0.09);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 17px; transition: background 0.2s;
+    }
+    .talsu-close-btn:hover { background: rgba(255,255,255,0.16); }
+
+    .talsu-menu-list {
+      flex: 1; overflow-y: auto; padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 8px; scrollbar-width: none;
+    }
+    .talsu-menu-list::-webkit-scrollbar { display: none; }
+
+    .talsu-menu-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 14px; border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.07);
+      cursor: pointer; width: 100%; text-align: left;
+      transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+      text-decoration: none;
+    }
+    .talsu-menu-item:hover { background: rgba(255,255,255,0.07); }
+    .talsu-menu-item.active {
+      background: linear-gradient(135deg, #1a3a6e 0%, #1e4580 100%);
+      border-color: rgba(201,149,58,0.35);
+      box-shadow: 0 4px 20px rgba(20,80,180,0.3);
+    }
+    .talsu-item-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .talsu-menu-item.active .talsu-item-icon {
+      background: rgba(201,149,58,0.16); border-color: rgba(201,149,58,0.4);
+    }
+    .talsu-item-label {
+      flex: 1; color: rgba(255,255,255,0.75);
+      font-weight: 500; font-size: 15px; letter-spacing: 0.2px;
+    }
+    .talsu-menu-item.active .talsu-item-label { color: #fff; font-weight: 700; }
+    .talsu-chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; }
+    .talsu-menu-item.active .talsu-chevron { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════ PAGE LOADER ══════════════════════════ -->
+  <div id="pageLoader">
+    <div class="loader-graphic">
+      <div class="loader-ring"></div>
+      <div class="loader-ring-2"></div>
+      <div class="loader-disc"><i class="ph-bold ph-books"></i></div>
+    </div>
+    <div class="loader-text">
+      <span class="loader-title"> Talsu Study Vault</span>
+      <span class="loader-sub">Loading your library<span class="loader-dots"><span></span><span></span><span></span></span></span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+
+  <!-- ═══════════════════ TALSUUDUS TOP BAR ═══════════════════ -->
+  <div class="talsu-topbar" id="talsuTopbar">
+    <a class="talsu-logo" href="index.html">
+      <div class="talsu-logo-icon">
+        <!--
+          INSERT YOUR LOGO IMAGE HERE
+          e.g. <img src="logo.png" width="36" height="36" style="border-radius:8px;object-fit:cover;">
+        -->
+      </div>
+      <span class="talsu-logo-text">TAL<span>SU UDUS</span></span>
+    </a>
+
+    <div class="talsu-topbar-right">
+
+      <!-- Signed-out: Sign In button -->
+      <button class="btn btn-ghost talsu-action-btn" id="loginBtn">
+        <i class="ph ph-sign-in"></i>
+        <span class="btn-label"> Sign In</span>
+      </button>
+
+      <!-- Signed-in: User zone (pill + dropdown) -->
+      <div class="user-zone" id="userZone" style="display:none;">
+        <div class="user-pill" id="userPill">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <span class="user-name" id="userName">Admin</span>
+          <i class="ph ph-caret-down user-chevron" id="userChevron"></i>
+        </div>
+        <!-- Dropdown menu -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-dropdown-header">
+            <div class="user-name" id="dropName" style="max-width:100%;font-size:.85rem;color:var(--text);">Admin</div>
+            <div class="user-dropdown-email" id="dropEmail">—</div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item" id="dropUpload" style="display:none;">
+            <i class="ph ph-upload-simple"></i> Upload PDF
+          </div>
+          <div class="dropdown-divider" id="dropUploadDivider" style="display:none;"></div>
+          <div class="dropdown-item danger" id="dropLogout">
+            <i class="ph ph-sign-out"></i> Sign out
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburger — always rightmost -->
+      <button class="talsu-menu-btn" id="talsuOpenBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ MAIN ══════════════════════════════ -->
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge"><i class="ph-bold ph-graduation-cap"></i> Academic Resources</div>
+      <h1 class="hero-title">All your school PDFs,<br /><em>beautifully organised.</em></h1>
+      <p class="hero-sub">Browse and download study materials, notes, and past questions papers all in one place.</p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" id="statFiles">0</span>
+          <span class="stat-label">Documents</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" id="statCourses">0</span>
+          <span class="stat-label">Courses</span>
+        </div>
+      </div>
+
+      <!-- Premium Search Bar -->
+      <div class="search-hero" id="searchHeroWrap">
+        <div class="search-hero-wrap">
+          <i class="ph ph-magnifying-glass search-hero-icon"></i>
+          <input
+            type="search"
+            class="search-hero-input"
+            id="heroSearch"
+            placeholder="Search by title, course, or keyword…"
+            autocomplete="off"
+          />
+          <div class="search-kbd-hint">
+            <span class="kbd">⌘</span><span class="kbd">K</span>
+          </div>
+          <div class="search-divider"></div>
+          <button class="search-hero-btn" id="heroSearchBtn">
+            <i class="ph-bold ph-magnifying-glass"></i> Search
+          </button>
+        </div>
+        <div class="search-suggestions" id="searchSugg"></div>
+      </div>
+    </section>
+
+    <!-- Library -->
+    <section class="container library-section">
+      <div class="library-header">
+        <div class="lib-title-row">
+          <h2 class="section-title">Library</h2>
+          <span class="doc-badge" id="docCount">0 docs</span>
+        </div>
+        <div class="filter-bar">
+          <span class="filter-label">Course</span>
+          <div class="filter-pills" id="filterPills">
+            <button class="pill active" data-filter="all">All</button>
+          </div>
+          <select class="sort-select" id="sortSelect">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pdf-grid" id="pdfGrid">
+        <!-- Skeletons while loading -->
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+        <div class="skeleton"><div class="skel-thumb"></div><div class="skel-body"><div class="skel-line w-80"></div><div class="skel-line w-55"></div><div class="skel-line w-70"></div></div><div class="skel-footer"></div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════ BOTTOM NAV ═══════════════════════════ -->
+  <nav class="talsu-bottom-nav" id="talsuBottomNav">
+
+    <button class="talsu-nav-item" onclick="location.href='index.html'">
+      <div class="talsu-nav-icon">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+  <polyline points="9,22 9,12 15,12 15,22"/>
+</svg>
+      </div>
+      <span class="talsu-nav-label">Home</span>
+    </button>
+
+    <button class="talsu-nav-item" onclick="location.href='members.html'">
+      <div class="talsu-nav-icon">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+  <circle cx="9" cy="7" r="4"/>
+  <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+  <path d="M16 3.13a4 4 0 010 7.75"/>
+</svg> 
+      </div>
+      <span class="talsu-nav-label">Members</span>
+    </button>
+
+    <button class="talsu-nav-item" onclick="location.href='constitution.html'">
+      <div class="talsu-nav-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+</svg>
+      </div>
+      <span class="talsu-nav-label">Constitution</span>
+    </button>
+
+    <button class="talsu-nav-item active" onclick="location.href='studyvault.html'">
+      <div class="talsu-nav-icon">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+  stroke="rgba(201,149,58,0.9)" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+  <polyline points="14,2 14,8 20,8"/>
+  <line x1="16" y1="13" x2="8" y2="13"/>
+  <line x1="16" y1="17" x2="8" y2="17"/>
+</svg>
+      </div>
+      <span class="talsu-nav-label">Study Vault</span>
+    </button>
+
+  </nav>
+
+  <!-- ═══════════════════ SLIDE OVERLAY ════════════════════════ -->
+  <div class="talsu-overlay" id="talsuOverlay"></div>
+
+  <!-- ═══════════════════ SLIDE PANEL ══════════════════════════ -->
+  <div class="talsu-panel" id="talsuPanel">
+    <div class="talsu-panel-header">
+      <span class="talsu-panel-title">Menu</span>
+      <button class="talsu-close-btn" id="talsuCloseBtn">✕</button>
+    </div>
+    <div class="talsu-menu-list">
+
+      <a href="index.html" class="talsu-menu-item">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT HOMEPAGE ICON HERE
+            e.g. <img src="icons/home.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Homepage</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+
+      <a href="members.html" class="talsu-menu-item">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT MEMBERS ICON HERE
+            e.g. <img src="icons/members.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Members</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+
+      <a href="constitution.html" class="talsu-menu-item">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT CONSTITUTION ICON HERE
+            e.g. <img src="icons/bell.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Constitution</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+
+      <a href="studyvault.html" class="talsu-menu-item active">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT PDF/STUDY ICON HERE
+            e.g. <img src="icons/pdf.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Study Vault</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+
+      <a href="announcement.html" class="talsu-menu-item">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT ANNOUNCEMENT ICON HERE
+            e.g. <img src="icons/constitution.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Announcement</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+      
+     <a href="nomination.html" class="talsu-menu-item">
+        <div class="talsu-item-icon">
+          <!--
+            INSERT NOMINATION ICON HERE
+            e.g. <img src="icons/constitution.png" width="22" height="22">
+          -->
+        </div>
+        <span class="talsu-item-label">Online Nomination Portal</span>
+        <svg class="talsu-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#c9953a"/></svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════ MENU BAR JS ══════════════════════════ -->
+  <script>
+    (function () {
+      var panel    = document.getElementById('talsuPanel');
+      var overlay  = document.getElementById('talsuOverlay');
+      var openBtn  = document.getElementById('talsuOpenBtn');
+      var closeBtn = document.getElementById('talsuCloseBtn');
+
+      function openMenu()  { panel.classList.add('open');    overlay.classList.add('show');    document.body.style.overflow = 'hidden'; }
+      function closeMenu() { panel.classList.remove('open'); overlay.classList.remove('show'); document.body.style.overflow = ''; }
+
+      openBtn.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+
+      document.querySelectorAll('.talsu-menu-item').forEach(function (item) {
+        item.addEventListener('click', function () { setTimeout(closeMenu, 160); });
+      });
+    })();
+  </script>
+
+  <!-- ═══════════════════════ FOOTER ════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand-mark" style="width:30px;height:30px;font-size:.9rem;"><i class="ph-bold ph-books"></i></div>
+      <p class="footer-text">Studyvault &copy; <span id="footerYear"></span> — Powered by <a href="https://firebase.google.com" target="_blank" rel="noopener">Firebase</a>.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════ LOGIN MODAL ══════════════════════ -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">Admin Sign In</h2>
+          <p class="modal-sub">Only authorised staff can upload documents.</p>
+        </div>
+        <button class="modal-close" id="closeLoginModal"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="field" id="fEmail">
+          <label class="field-req">Email address</label>
+          <input type="email" id="loginEmail" placeholder="admin@school.edu" autocomplete="email" />
+          <span class="field-err">Please enter a valid email.</span>
+        </div>
+        <div class="field" id="fPassword">
+          <label class="field-req">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+          <span class="field-err" id="passErr">Incorrect email or password.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="cancelLoginBtn">Cancel</button>
+        <button class="btn btn-gold" id="submitLoginBtn">
+          <i class="ph-bold ph-sign-in"></i> Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ UPLOAD MODAL ═════════════════════ -->
+  <div class="modal-backdrop" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">Upload a PDF</h2>
+          <p class="modal-sub">Visible to all visitors immediately.</p>
+        </div>
+        <button class="modal-close" id="closeUploadModal"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Title -->
+        <div class="field" id="fTitle">
+          <label class="field-req">Document title</label>
+          <input type="text" id="upTitle" placeholder="e.g. Biology Chapter 4 Notes" />
+          <span class="field-err">Title is required.</span>
+        </div>
+
+        <!-- Description -->
+        <div class="field">
+          <label>Description</label>
+          <textarea id="upDesc" placeholder="A brief summary of what this document covers…"></textarea>
+        </div>
+
+        <!-- Course (free-text, same style as description) -->
+        <div class="field" id="fCourse">
+          <label class="field-req">Course</label>
+          <textarea
+            id="upCourse"
+            placeholder="e.g. Advanced Mathematics, Biology 101, History of Art…"
+            style="min-height:60px;resize:none;"
+          ></textarea>
+          <span class="field-err">Course name is required.</span>
+        </div>
+
+        <!-- File drop zone -->
+        <div class="field" id="fFile">
+          <label class="field-req">PDF File</label>
+          <div class="drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept=".pdf,application/pdf" />
+            <div class="drop-ico"><i class="ph-bold ph-file-pdf"></i></div>
+            <div class="drop-text">Drag &amp; drop your PDF here</div>
+            <div class="drop-hint">or click to browse max 20 MB</div>
+            <div class="drop-sel" id="selFile"></div>
+          </div>
+          <span class="field-err" id="fileErr">Please select a PDF file.</span>
+        </div>
+
+        <!-- Upload progress -->
+        <div class="prog-wrap" id="progWrap">
+          <div class="prog-label">
+            <span>Uploading…</span>
+            <span id="progPct">0%</span>
+          </div>
+          <div class="prog-track"><div class="prog-bar" id="progBar"></div></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="cancelUploadBtn">Cancel</button>
+        <button class="btn btn-gold" id="submitUploadBtn">
+          <i class="ph-bold ph-cloud-arrow-up"></i> Upload
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ TOAST ════════════════════════════ -->
   <div class="toast" id="toast">
     <i class="ph-bold ph-check-circle" id="toastIcon"></i>
     <span id="toastMsg">Done!</span>
