@@ -371,7 +371,7 @@
   .toc-header, .toc-grid {
     opacity: 0; transform: translateY(14px);
     animation: fadeUp 0.6s 0.42s cubic-bezier(0.16,1,0.3,1) forwards;
-  >}
+  }
   #accordionContainer {
     opacity: 0; transform: translateY(14px);
     animation: fadeUp 0.6s 0.52s cubic-bezier(0.16,1,0.3,1) forwards;
