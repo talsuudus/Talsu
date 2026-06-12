@@ -1,0 +1,25 @@
+{
+  "name": "TALSUUDUS CHAPTER",
+  "short_name": "TALSUUDUS",
+  "description": "Tangaza Local Government Students Union – Usmanu Danfodiyo University Sokoto",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#c9953a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
