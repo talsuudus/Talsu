@@ -20,7 +20,20 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+<!-- PWA Install Banner -->
+<div id="pwa-install-banner" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,#0d1226,#1a1f3a);border:1px solid rgba(201,149,58,0.4);border-radius:16px;padding:14px 20px;display:none;align-items:center;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,0.5);min-width:280px;max-width:340px;">
+  <div style="font-size:28px;">📱</div>
+  <div style="flex:1;">
+    <div style="color:#c9953a;font-weight:700;font-size:13px;letter-spacing:0.05em;">INSTALL APP</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">Add TALSUUDUS to your home screen</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <button onclick="installPWA()" style="background:#c9953a;color:#0a0e1a;border:none;border-radius:8px;padding:6px 14px;font-weight:700;font-size:11px;cursor:pointer;">Install</button>
+    <button onclick="dismissInstallBanner()" style="background:transparent;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">Not now</button>
+  </div>
+</div>
 
+  
 <canvas id="particles"></canvas>
 <div class="ambient">
   <div class="amb-orb amb-orb-1"></div>
