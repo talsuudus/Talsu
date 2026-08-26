@@ -1,4 +1,4 @@
-const CACHE_NAME = 'talsuudus-v1';
+const CACHE_NAME = 'talsuudus-v4';
 
 // All the files your app needs to work offline
 const ASSETS = [
@@ -7,6 +7,12 @@ const ASSETS = [
   '/members.html',
   '/constitution.html',
   '/studyvault.html',
+  '/leadership.html',
+  '/faq.html',
+  '/privacy.html',
+  '/announcement.html',
+  '/nomination.html',
+  '/404.html',
   '/manifest.json',
   '/styles/style.css',
   '/styles/members.css',
@@ -15,6 +21,9 @@ const ASSETS = [
   '/js/script.js',
   '/js/members.js',
   '/js/constitution.js',
+  '/js/theme.js',
+  '/js/nav.js',
+  '/assets/favicon.svg',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png'
 ];
