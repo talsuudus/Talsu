@@ -9,16 +9,7 @@ window.addEventListener('load', () => {
       curtain.style.transformOrigin = 'top';
       setTimeout(() => curtain.remove(), 700);
     }
-    const navbar = document.getElementById('navbar');
-    if (navbar) setTimeout(() => navbar.classList.add('show'), 300);
   }, 1600);
-});
-
-/* ── NAVBAR SCROLL ─────────────────────────────────── */
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  if (nav && window.scrollY > 60) nav.classList.add('scrolled');
-  else if (nav) nav.classList.remove('scrolled');
 });
 
 /* ── SLIDE PANEL ──────────────────────────────────── */
@@ -136,7 +127,7 @@ document.querySelectorAll('.scroll-pillar').forEach(el => pillarObs.observe(el))
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(201,149,58,${this.opacity})`;
+      ctx.fillStyle = `rgba(26,122,76,${this.opacity})`;
       ctx.fill();
     }
   }

@@ -554,7 +554,7 @@
             <tr><td>6</td><td>Hafsat Abdullahi</td><td>100</td><td>Member</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:14px; font-size:13px; color:rgba(250,246,238,0.4);">
+        <p style="margin-top:14px; font-size:13px; color:rgba(20,23,21,0.5);">
           Signed: <strong style="color:var(--gold-lt)">Abubakar Umar</strong> — President (2017/2018) &nbsp;|&nbsp;
           <strong style="color:var(--gold-lt)">Adamu Umar</strong> — Sec. Gen (2017/2018)
         </p>
@@ -577,7 +577,7 @@
         <button class="accordion-trigger" onclick="toggleArticle(${i})">
           <span class="acc-num">${a.num}</span>
           <span class="acc-title">${a.title}</span>
-          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="#c9953a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+          <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
         </button>
         <div class="accordion-body">${a.content}</div>
       </div>
