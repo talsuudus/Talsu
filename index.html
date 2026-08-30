@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/theme.js"></script>
+  <!-- ═══ PWA ═══ -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a7a4c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TALSUUDUS">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>TALSUUDUS — Tangaza LG Students Union, UDUS</title>
+  <meta name="description" content="Official platform of the Tangaza Local Government Students Union (TALSUUDUS), Usmanu Danfodiyo University Sokoto — members directory, constitution, study resources and updates for TALSU members.">
+  <meta property="og:title" content="TALSUUDUS — Tangaza LG Students Union, UDUS">
+  <meta property="og:description" content="Members directory, constitution, study resources and updates for the Tangaza LG Students Union at UDUS.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://talsuudus.com/index.html">
+  <meta property="og:image" content="assets/icons/icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TALSUUDUS — Tangaza LG Students Union, UDUS">
+  <meta name="twitter:description" content="Members directory, constitution, study resources and updates for TALSU members.">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<!-- PWA Install Banner -->
+<div id="pwa-install-banner" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(255,255,255,0.55);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);border:1px solid rgba(255,255,255,0.75);border-radius:16px;padding:14px 20px;display:none;align-items:center;gap:14px;box-shadow:0 8px 32px rgba(10,40,25,0.25);min-width:280px;max-width:340px;">
+  <div style="font-size:28px;">📱</div>
+  <div style="flex:1;">
+    <div style="color:#1a7a4c;font-weight:700;font-size:13px;letter-spacing:0.05em;">INSTALL APP</div>
+    <div style="color:rgba(20,23,21,0.65);font-size:11px;margin-top:2px;">Add TALSUUDUS to your home screen</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px;">
+    <button onclick="installPWA()" style="background:#1a7a4c;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-weight:700;font-size:11px;cursor:pointer;">Install</button>
+    <button onclick="dismissInstallBanner()" style="background:transparent;color:rgba(20,23,21,0.45);border:1px solid rgba(20,23,21,0.15);border-radius:8px;padding:4px 8px;font-size:10px;cursor:pointer;">Not now</button>
+  </div>
+</div>
+
+  
+<canvas id="particles"></canvas>
+<div class="ambient">
+  <div class="amb-orb amb-orb-1"></div>
+  <div class="amb-orb amb-orb-2"></div>
+  <div class="amb-orb amb-orb-3"></div>
+</div>
+
+<!-- CURTAIN -->
+<div id="curtain">
+  <div class="c-logo">TALSU UDUS</div>
+  <div class="c-line"></div>
+  <div class="c-sub">Chapter · Association</div>
+</div>
+
+<!-- MOBILE TOP BAR -->
+<div class="topbar" id="topbar">
+  <div class="logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg></div>
+    <span class="logo-text">TAL<span>SU UDUS</span></span>
+  </div>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#141715" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#eef5f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+    <button class="menu-btn" id="openBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-rings">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="ring ring-4"></div>
+  </div>
+  <div class="hero-line-l"></div>
+  <div class="hero-line-r"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. 2017</div>
+    <h1 class="hero-title">
+      TAL<span class="accent">SU-UDUS</span><br>
+      <span class="outline">CHAPTER</span>
+    </h1>
+    <div class="hero-chapter">Where Every Son &amp; Daughter Belongs</div>
+    <div class="hero-divider"><div class="hero-divider-dot"></div></div>
+    <p class="hero-desc">
+      A <strong>student-led association</strong> uniting all scholars from the same local government,
+      supporting one another through academic excellence, mentorship, and a bond that
+      goes beyond the classroom. <strong>You are never alone here.</strong>
+    </p>
+    <div class="hero-ctas">
+      <a href="members.html" class="btn-primary">Explore the Chapter</a>
+      <a href="members.html" class="btn-ghost">Meet Our Members</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" onclick="document.querySelector('.welcome').scrollIntoView({behavior:'smooth'})">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-track"><div class="scroll-dot"></div></div>
+  </div>
+</section>
+
+<!-- WELCOME SECTION -->
+<section class="welcome">
+  <div class="welcome-left scroll-reveal">
+    <div class="section-tag">Welcome Message</div>
+    <h2 class="welcome-heading">
+      You've Found <em>Your People.</em><br>Welcome Home.
+    </h2>
+    <p class="welcome-body">
+      Whether you just arrived on campus or have been here for years, the <strong>TALSU UDUS CHAPTER</strong>
+      exists to make sure no student from our local government ever feels lost or alone in their academic journey.
+    </p>
+    <p class="welcome-body">
+      Here you will find <strong>seniors who have walked the same path</strong>, access to the best past
+      questions, handouts, and PDFs curated and watermarked by our faculty presidents — resources built
+      to ensure you <strong>excel in every examination</strong>.
+    </p>
+    <p class="welcome-body">
+      Our <strong>constitution, announcements, and member directory</strong> are all at your fingertips.
+      Come in, look around, ask questions, and let this chapter be the support system you deserve.
+    </p>
+    <div class="welcome-sig">
+      <div class="sig-avatar">P</div>
+      <div class="sig-info">
+        <span class="sig-name">The President, TALSUUDUS</span>
+        <span class="sig-role">Chapter · Academic Session 2024/2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-right scroll-reveal">
+    <div class="welcome-card">
+      <div class="wc-badge">What You Get Here</div>
+      <div class="wc-title">Everything a Student<br>From Home Needs</div>
+      <ul class="wc-list">
+        <li><div class="wc-icon">📚</div><span>Authentic past questions &amp; PDF handouts for every faculty, curated with our official watermark.</span></li>
+        <li><div class="wc-icon">🤝</div><span>A searchable member directory — find your senior, discuss academics, and get guidance instantly.</span></li>
+        <li><div class="wc-icon">📢</div><span>Live announcements and updates so you're always informed about what matters to your progress.</span></li>
+        <li><div class="wc-icon">📜</div><span>Our official constitution — transparent governance you can read, trust, and hold us to.</span></li>
+        <li><div class="wc-icon">🏛️</div><span>A proud identity rooted in our local government — strong, united, and built to last.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NAVIGATION CARDS -->
+<section class="nav-cards-section">
+  <div class="nav-cards-header scroll-reveal">
+    <div class="section-tag" style="justify-content:center">Explore the Chapter</div>
+    <h2 class="nav-cards-title">Everything You <em>Need,</em> In One Place</h2>
+    <p class="nav-cards-sub">Navigate the association — built to make your academic life easier.</p>
+  </div>
+
+  <div class="cards-grid">
+    <a href="members.html" class="page-card scroll-card" style="transition-delay:0s">
+      <div class="card-icon-wrap ic-blue">👥</div>
+      <div class="card-body-text">
+        <div class="card-title">Members Directory</div>
+        <div class="card-desc">Search and contact any association member. Find a senior in your department, reach out, and get the academic clarity you need.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Browse Members</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+    <a href="announcement.html" class="page-card scroll-card" style="transition-delay:0.1s">
+      <div class="card-icon-wrap ic-gold">📢</div>
+      <div class="card-body-text">
+        <div class="card-title">Announcements</div>
+        <div class="card-desc">Stay up to date with all chapter news, urgent notices, events, and academic updates posted by the executive team.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Read Updates</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+    <a href="pdfs.html" class="page-card scroll-card" style="transition-delay:0.2s">
+      <div class="card-icon-wrap ic-teal">📄</div>
+      <div class="card-body-text">
+        <div class="card-title">Past Questions &amp; PDFs</div>
+        <div class="card-desc">Faculty-specific past exam questions, handouts, and study materials — authenticated with the TALSUUDUS watermark.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Access Materials</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+    <a href="constitution.html" class="page-card scroll-card" style="transition-delay:0.3s">
+      <div class="card-icon-wrap ic-rose">📜</div>
+      <div class="card-body-text">
+        <div class="card-title">Constitution</div>
+        <div class="card-desc">Our founding document. Read the rules, values, and structure that govern the TALSUUDUS CHAPTER — transparent and available always.</div>
+      </div>
+      <div class="card-footer-row">
+        <span class="card-link-label">Read Constitution</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENTS PREVIEW -->
+<section class="announcements">
+  <div class="ann-header scroll-reveal">
+    <h2 class="ann-title">Latest <em>Announcements</em></h2>
+    <a href="announcement.html" class="ann-see-all">View All &nbsp;→</a>
+  </div>
+  <div class="ann-grid">
+    <a href="announcement.html" class="ann-card scroll-card" style="transition-delay:0s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-urgent">Urgent</span>
+        <span class="ann-date">May 2025</span>
+      </div>
+      <div class="ann-card-title">Examination Timetable Released — All Faculties</div>
+      <p class="ann-excerpt">The university examination timetable for the 2024/2025 session has been released. All members are advised to check their faculty schedule and begin preparation immediately.</p>
+    </a>
+    <a href="announcement.html" class="ann-card scroll-card" style="transition-delay:0.1s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-event">Event</span>
+        <span class="ann-date">Apr 2025</span>
+      </div>
+      <div class="ann-card-title">Chapter General Meeting — Attendance Mandatory</div>
+      <p class="ann-excerpt">The TALSUUDUS CHAPTER will be holding its quarterly general meeting. Every registered member is expected to attend. Venue and time details posted on the announcements page.</p>
+    </a>
+    <a href="announcement.html" class="ann-card scroll-card" style="transition-delay:0.2s">
+      <div class="ann-meta">
+        <span class="ann-tag tag-info">Resources</span>
+        <span class="ann-date">Apr 2025</span>
+      </div>
+      <div class="ann-card-title">New Past Questions Uploaded — Engineering &amp; Sciences</div>
+      <p class="ann-excerpt">The Faculty Presidents of Engineering and Sciences have uploaded new sets of past questions and handouts. All materials carry the official TALSUUDUS watermark.</p>
+    </a>
+  </div>
+</section>
+
+<!-- PILLARS SECTION -->
+<section class="pillars">
+  <div class="pillars-inner">
+    <div class="pillars-header scroll-reveal">
+      <div class="section-tag" style="justify-content:center">Our Foundation</div>
+      <h2 class="pillars-title">Built on <em>Four Pillars</em></h2>
+    </div>
+    <div class="pillars-row">
+      <div class="pillar scroll-pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">🎓</div>
+        <div class="pillar-title">Academic Excellence</div>
+        <p class="pillar-desc">Providing the resources, mentorship, and support every student needs to perform at the highest level.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.1s">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-title">Brotherhood &amp; Unity</div>
+        <p class="pillar-desc">No one from our soil walks this campus alone. We look out for each other — from admission to graduation.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.2s">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">⚖️</div>
+        <div class="pillar-title">Transparency</div>
+        <p class="pillar-desc">Our constitution is public, our decisions are collective, and our leadership is accountable to every member.</p>
+      </div>
+      <div class="pillar scroll-pillar" style="transition-delay:0.3s">
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon">🌟</div>
+        <div class="pillar-title">Representation</div>
+        <p class="pillar-desc">We proudly represent our local government — its identity, its people, and its future leaders on this campus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band scroll-reveal">
+  <div class="cta-pre">Join the Movement</div>
+  <h2 class="cta-heading">From the Same Soil.<br><em>One Chapter.</em></h2>
+  <p class="cta-sub">If you are from our local government and you are studying at this institution — you already belong here. Come find your people.</p>
+  <div class="cta-buttons">
+    <a href="members.html" class="btn-primary">Meet the Members</a>
+    <a href="constitution.html" class="btn-ghost">Read the Constitution</a>
+  </div>
+  <!-- TODO: replace with your official TALSUUDUS WhatsApp community/group invite link -->
+  <a href="https://chat.whatsapp.com/your-invite-code" target="_blank" rel="noopener" class="whatsapp-cta">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.36 4 3.53 7.83 3.53 12.53c0 1.5.4 2.96 1.15 4.25L3.46 21l4.32-1.13a8.9 8.9 0 0 0 4.26 1.08h.01c4.69 0 8.52-3.83 8.52-8.53a8.5 8.5 0 0 0-2.97-6.1Zm-5.55 13.1h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.93c0-4.08 3.32-7.4 7.42-7.4a7.34 7.34 0 0 1 5.24 2.17 7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.33 7.4-7.41 7.4Zm4.06-5.55c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.8-1.12-.67-.6-1.11-1.33-1.25-1.55-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.69-1.66-.18-.43-.36-.38-.5-.38-.13 0-.28-.02-.43-.02-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87 0 1.1.81 2.17.92 2.32.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.05-.06-.09-.2-.15-.42-.26Z"/></svg>
+    <span>Join our WhatsApp Community</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="f-logo">TALSUUDUS</div>
+        <p>The official student chapter for all scholars from our local government. United in academics, culture, and identity — on and off campus.</p>
+      </div>
+      <div>
+        <div class="f-col-title">Navigate</div>
+        <ul class="f-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="members.html">Members Directory</a></li>
+          <li><a href="announcement.html">Announcements</a></li>
+          <li><a href="pdfs.html">Past Questions</a></li>
+          <li><a href="constitution.html">Constitution</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Chapter</div>
+        <ul class="f-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Executive Council</a></li>
+          <li><a href="#">Faculty Presidents</a></li>
+          <li><a href="#">Membership</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="f-col-title">Contact</div>
+        <ul class="f-links">
+          <li><a href="#">General Inquiry</a></li>
+          <li><a href="#">Report an Issue</a></li>
+          <li><a href="#">Suggest Resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TALSUUDUS CHAPTER. All Rights Reserved.</span>
+      <span>Built with pride &nbsp;·&nbsp; <a href="#">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="nav-item active" data-nav="home" onclick="location.href='index.html'">
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+    </div>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" data-nav="members" onclick="location.href='members.html'">
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    </div>
+    <span class="nav-label">Members</span>
+  </button>
+  <button class="nav-item" data-nav="constitution" onclick="location.href='constitution.html'">
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+    </div>
+    <span class="nav-label">Constitution</span>
+  </button>
+  <button class="nav-item" data-nav="studyvault" onclick="location.href='studyvault.html'">
+    <div class="nav-icon">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+        <polyline points="14,2 14,8 20,8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    </div>
+    <span class="nav-label">Study Vault</span>
+  </button>
+</nav>
+
+<!-- SLIDE PANEL OVERLAY -->
+<div class="slide-overlay" id="overlay"></div>
+
+<!-- SLIDE PANEL (MOBILE MENU) -->
+<div class="panel" id="panel">
+  <div class="panel-header">
+    <span class="panel-title">Menu</span>
+    <button class="close-btn" id="closeBtn" aria-label="Close menu">✕</button>
+  </div>
+  <div class="menu-list" id="menuList">
+    <a href="index.html" class="menu-item active" data-id="homepage">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
+      </div>
+      <span class="item-label">Homepage</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="members.html" class="menu-item" data-id="members">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <span class="item-label">Members</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="constitution.html" class="menu-item" data-id="constitution">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+      </div>
+      <span class="item-label">Constitution</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="studyvault.html" class="menu-item" data-id="studyvault">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <span class="item-label">Study Vault</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="announcement.html" class="menu-item" data-id="announcements">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0"/>
+        </svg>
+      </div>
+      <span class="item-label">Announcement</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="nomination.html" class="menu-item" data-id="nomination">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+      </div>
+      <span class="item-label">Online Nomination Portal</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6" stroke="#1a7a4c"/>
+      </svg>
+    </a>
+    <a href="leadership.html" class="menu-item" data-id="leadership">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <span class="item-label">Leadership</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#1a7a4c"/></svg>
+    </a>
+    <a href="faq.html" class="menu-item" data-id="faq">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <span class="item-label">FAQ</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#1a7a4c"/></svg>
+    </a>
+    <a href="privacy.html" class="menu-item" data-id="privacy">
+      <div class="item-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(26,122,76,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <span class="item-label">Privacy Policy</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" stroke="#1a7a4c"/></svg>
+    </a>
+  </div>
+</div>
+<script src="js/pwa.js"></script>
+<!-- External JavaScript -->
+<script src="js/script.js"></script>
+<!-- TODO: replace with your official TALSUUDUS WhatsApp community/group invite link -->
+<a href="https://chat.whatsapp.com/your-invite-code" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="Join our WhatsApp community">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.36 4 3.53 7.83 3.53 12.53c0 1.5.4 2.96 1.15 4.25L3.46 21l4.32-1.13a8.9 8.9 0 0 0 4.26 1.08h.01c4.69 0 8.52-3.83 8.52-8.53a8.5 8.5 0 0 0-2.97-6.1Zm-5.55 13.1h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.74.75-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.93c0-4.08 3.32-7.4 7.42-7.4a7.34 7.34 0 0 1 5.24 2.17 7.34 7.34 0 0 1 2.17 5.24c0 4.08-3.33 7.4-7.41 7.4Zm4.06-5.55c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.8-1.12-.67-.6-1.11-1.33-1.25-1.55-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.69-1.66-.18-.43-.36-.38-.5-.38-.13 0-.28-.02-.43-.02-.15 0-.39.06-.6.28-.2.22-.79.77-.79 1.87 0 1.1.81 2.17.92 2.32.11.15 1.6 2.44 3.87 3.42.54.23.96.37 1.29.48.54.17 1.03.15 1.42.09.43-.06 1.31-.53 1.5-1.05.18-.51.18-.95.13-1.05-.06-.09-.2-.15-.42-.26Z"/></svg>
+</a>
+</body>
+</html>
