@@ -8,6 +8,7 @@
 <meta name="description" content="TALSUUDUS Online Nomination Portal page is currently under development.">
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="js/theme.js"></script>
 <style>
   :root{
     --ink:#141715;
@@ -78,6 +79,12 @@
   }
   .btn:hover{ transform:translateY(-2px); }
   .btn svg{ width:16px; height:16px; }
+  /* ── DARK MODE (matches rest of site) ── */
+  [data-theme="dark"] body{ background:linear-gradient(180deg,#0d100e 0%,#10201a 55%,#0c1712 100%); color:#eef5f0; }
+  [data-theme="dark"] .card{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.12); box-shadow:0 20px 50px rgba(0,0,0,0.5); }
+  [data-theme="dark"] h1{ color:#eef5f0; }
+  [data-theme="dark"] p{ color:rgba(238,245,240,0.75); }
+  [data-theme="dark"] .eyebrow{ color:#22a366; background:rgba(34,163,102,0.14); border-color:rgba(34,163,102,0.35); }
 </style>
 </head>
 <body>
