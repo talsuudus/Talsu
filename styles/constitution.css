@@ -368,6 +368,21 @@
   .talsu-chevron { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; }
   .talsu-menu-item.active .talsu-chevron { opacity: 1; }
 
+  /* ── DARK MODE: slide-out menu panel (matches index / members) ── */
+  [data-theme="dark"] .talsu-panel { background: linear-gradient(180deg, #0d100e 0%, #10201a 100%); box-shadow: -12px 0 40px rgba(0,0,0,0.6); }
+  [data-theme="dark"] .talsu-panel-header { border-bottom-color: rgba(34,163,102,0.3); }
+  [data-theme="dark"] .talsu-panel-title { color: #22a366; }
+  [data-theme="dark"] .talsu-close-btn { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #eef5f0; }
+  [data-theme="dark"] .talsu-menu-item { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+  [data-theme="dark"] .talsu-menu-item:hover { background: rgba(255,255,255,0.12); }
+  [data-theme="dark"] .talsu-menu-item.active { background: linear-gradient(135deg, #22a366 0%, #1a7a4c 100%); border-color: #22a366; }
+  [data-theme="dark"] .talsu-item-icon { background: rgba(34,163,102,0.14); border-color: rgba(34,163,102,0.35); }
+  [data-theme="dark"] .talsu-menu-item.active .talsu-item-icon { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.6); }
+  [data-theme="dark"] .talsu-item-label { color: #eef5f0; }
+  [data-theme="dark"] .talsu-menu-item.active .talsu-item-label { color: #fff; }
+  [data-theme="dark"] .talsu-chevron path { stroke: #22a366; }
+  [data-theme="dark"] .talsu-menu-item.active .talsu-chevron path { stroke: #fff; }
+
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: #ffffff; }
   ::-webkit-scrollbar-thumb { background: rgba(26,122,76,0.2); border-radius: 99px; }
