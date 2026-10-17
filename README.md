@@ -1,2 +1,18 @@
-https://talsu.com.ng
-An Official Website Of Tangaza Local Government Students Union Association 
+# TALSUUDUS CHAPTER — Official Website
+An official website of the Tangaza Local Government Students Union Association (UDUS).
+
+## Updating members
+Open `js/members.js` — the top of the file explains how to add 100 Level and Graduated members
+(`level: "100"` or `level: "Graduated"`).
+
+## PWA
+`manifest.json` + `sw.js` + `js/pwa.js`. After changing any file, bump `CACHE_VERSION` in `sw.js`
+so installed users receive the update.
+
+## Contact / corrections
+Member corrections and general enquiries go to talsuudus@gmail.com.
+
+## Menus (top bar, bottom menu, slide-out menu)
+All menus share ONE stylesheet: `styles/nav.css` (loaded last on every page). Change colours there.
+To add/rename/reorder a menu item on every page at once, edit the lists at the top of
+`tools/sync-nav.py` and run `python3 tools/sync-nav.py`.
