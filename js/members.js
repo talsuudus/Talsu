@@ -1,3 +1,16 @@
+/* ──────────────────────────────────────────────────────────────
+   HOW TO ADD MEMBERS
+   level  → "100" | "200" | "300" | "400" | "500" | "Graduated"
+   For graduated members use:
+     bio:     "Computer Science · Graduated (Class of 2025)"
+     fullBio: "Member of Tangaza Local Government Students' Union at Usmanu
+               Danfodiyo University Sokoto. Graduated in Computer Science (Class of 2025)."
+   Leave img out (or empty) to get an automatic initials avatar.
+
+   Example 100 level entry (copy, fill in, paste above the closing "];"):
+   { id:51, name:"Full Name", course:"Course", level:"100", phone:"080XXXXXXXX",
+     bio:"Course · 100 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Course at 100 Level. Academic Session: 2025/2026." },
+   ────────────────────────────────────────────────────────────── */
 const membersData = [
     { id:1, name:"Muhammad Bashir Umar", course:"Agriculture", level:"500", phone:"08061729025",
 img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
@@ -156,11 +169,18 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
   ];
 
   const levelColors = {
-    '500': { bg:'#7c3aed', badge:'level-badge-500', chipCls:'cc-lvl-chip-500' },
-    '400': { bg:'#0d9488', badge:'level-badge-400', chipCls:'cc-lvl-chip-400' },
-    '300': { bg:'#1d4ed8', badge:'level-badge-300', chipCls:'cc-lvl-chip-300' },
-    '200': { bg:'#b45309', badge:'level-badge-200', chipCls:'cc-lvl-chip-200' }
+    '100':       { bg:'be185d', badge:'level-badge-100',  chipCls:'cc-lvl-chip-100' },
+    '200':       { bg:'b45309', badge:'level-badge-200',  chipCls:'cc-lvl-chip-200' },
+    '300':       { bg:'1d4ed8', badge:'level-badge-300',  chipCls:'cc-lvl-chip-300' },
+    '400':       { bg:'0d9488', badge:'level-badge-400',  chipCls:'cc-lvl-chip-400' },
+    '500':       { bg:'7c3aed', badge:'level-badge-500',  chipCls:'cc-lvl-chip-500' },
+    'Graduated': { bg:'475569', badge:'level-badge-grad', chipCls:'cc-lvl-chip-grad' }
   };
+  const REPORT_EMAIL = 'talsuudus@gmail.com';
+  const levelLabel = lv => lv === 'Graduated' ? 'Graduated' : lv + ' Level';
+  const levelShort = lv => lv === 'Graduated' ? 'Grad' : lv + 'L';
+  const esc = str => String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const avatarUrl = (m, size) => `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=${levelColors[m.level].bg}&color=ffffff&size=${size}&bold=true&font-size=0.35`;
 
   const membersGrid  = document.getElementById('membersGrid');
   const filterBtns   = document.querySelectorAll('.pill-filter');
@@ -178,7 +198,8 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       const matchFilter = activeFilter === 'all' || m.level === activeFilter;
       const matchSearch = !searchQuery ||
         m.name.toLowerCase().includes(searchQuery) ||
-        m.course.toLowerCase().includes(searchQuery);
+        m.course.toLowerCase().includes(searchQuery) ||
+        levelLabel(m.level).toLowerCase().includes(searchQuery);
       return matchFilter && matchSearch;
     });
     resultsCount.textContent = filtered.length;
@@ -187,7 +208,10 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
     membersGrid.innerHTML = '';
 
     if (!filtered.length) {
-      membersGrid.innerHTML = `<div class="no-results"><h3>No results found</h3><p>Try a different name or course.</p></div>`;
+      const emptyMsg = (!searchQuery && activeFilter !== 'all')
+        ? `No ${activeFilter === 'Graduated' ? 'graduated' : activeFilter + ' level'} members have been listed yet.`
+        : 'Try a different name or course.';
+      membersGrid.innerHTML = `<div class="no-results"><h3>${(!searchQuery && activeFilter !== 'all') ? 'Nothing here yet' : 'No results found'}</h3><p>${emptyMsg}</p></div>`;
       return;
     }
     filtered.forEach((m, i) => {
@@ -195,20 +219,23 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       const card = document.createElement('div');
       card.className = 'member-card';
       card.dataset.level = m.level;
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'View profile of ' + m.name);
       card.style.animationDelay = `${i * 0.05}s`;
-      const imgUrl = m.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=${lc.bg.replace('#','')}&color=ffffff&size=200&bold=true&font-size=0.35`;
+      const imgUrl = m.img || avatarUrl(m, 200);
       card.innerHTML = `
         <div class="card-accent"></div>
         <div class="card-inner-row">
           <div class="card-img-area">
             <div class="skeleton-shimmer"></div>
-            <img class="member-img" src="${imgUrl}" alt="${m.name}" loading="lazy">
+            <img class="member-img" src="${esc(imgUrl)}" alt="${esc(m.name)}" loading="lazy">
           </div>
           <div class="card-text-area">
-            <div class="member-name">${m.name}</div>
-            <div class="member-role">${m.course}</div>
-            <div class="level-badge ${lc.badge}">${m.level} Level</div>
-            <div class="preview-bio">${m.bio}</div>
+            <div class="member-name">${esc(m.name)}</div>
+            <div class="member-role">${esc(m.course)}</div>
+            <div class="level-badge ${lc.badge}">${levelLabel(m.level)}</div>
+            <div class="preview-bio">${esc(m.bio)}</div>
           </div>
         </div>
         <div class="expand-trigger">
@@ -217,8 +244,15 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
         </div>`;
       const img = card.querySelector('.member-img');
       img.addEventListener('load', () => img.classList.add('loaded'));
-      if (img.complete) img.classList.add('loaded');
+      // if the photo link is broken, fall back to the initials avatar
+      img.addEventListener('error', () => {
+        if (img.dataset.fallback) { img.classList.add('loaded'); return; }
+        img.dataset.fallback = '1';
+        img.src = avatarUrl(m, 200);
+      });
+      if (img.complete && img.naturalWidth) img.classList.add('loaded');
       card.addEventListener('click', () => openModal(m));
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(m); } });
       membersGrid.appendChild(card);
     });
   }
@@ -239,16 +273,18 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
     sortedCourses.forEach(([course, data], i) => {
       const card = document.createElement('div');
       card.className = 'course-card';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
       card.style.animationDelay = `${i * 0.04}s`;
       const levelsHtml = [...data.levels].sort().map(lv =>
-        `<span class="cc-lvl-chip ${levelColors[lv].chipCls}">${lv}L</span>`).join('');
+        `<span class="cc-lvl-chip ${levelColors[lv].chipCls}">${levelShort(lv)}</span>`).join('');
       card.innerHTML = `
-        <div class="cc-name">${course}</div>
+        <div class="cc-name">${esc(course)}</div>
         <div class="cc-count">${data.members.length}</div>
         <div class="cc-count-label">member${data.members.length > 1 ? 's' : ''}</div>
         <div class="cc-levels">${levelsHtml}</div>
         <div class="cc-tap-hint">↗ Tap to see members</div>`;
-      card.addEventListener('click', () => {
+      const openCourse = () => {
         switchToMembers();
         searchInput.value = course;
         searchQuery = course.toLowerCase();
@@ -256,7 +292,9 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
         filterBtns.forEach(b => b.classList.remove('active'));
         document.querySelector('[data-filter="all"]').classList.add('active');
         renderCards();
-      });
+      };
+      card.addEventListener('click', openCourse);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCourse(); } });
       membersGrid.appendChild(card);
     });
   }
@@ -290,46 +328,67 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
   function openModal(m) {
     const lc = levelColors[m.level];
-    const imgUrl = m.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=${lc.bg.replace('#','')}&color=ffffff&size=400&bold=true&font-size=0.35`;
-    const phoneLink = m.phone !== 'N/A' ? `<a href="tel:${m.phone}">${m.phone}</a>` : 'Not available';
+    const imgUrl = m.img || avatarUrl(m, 400);
+    const phoneLink = m.phone && m.phone !== 'N/A' ? `<a href="tel:${esc(m.phone)}">${esc(m.phone)}</a>` : 'Not available';
+    const subject = 'Correction request — ' + m.name + ' (S/N #' + m.id + ')';
+    const body = 'Hi TALSUUDUS,\n\nI would like to report incorrect information on the member listing below:\n\nName: ' + m.name +
+                 '\nCourse: ' + m.course + '\nLevel: ' + levelLabel(m.level) + '\nSerial No: ' + m.id +
+                 '\n\nWhat needs to be corrected:\n';
+    const mailto = 'mailto:' + REPORT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    const gmail  = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(REPORT_EMAIL) +
+                   '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    const status = m.level === 'Graduated' ? 'Alumni' : 'UDUS';
     modalContent.innerHTML = `
       <div class="modal-drag-handle"></div>
-      <img class="modal-img-full" src="${imgUrl}" alt="${m.name}" loading="lazy">
-      <div class="modal-body">
-        <div>
-          <span class="modal-course-badge">${m.course}</span>
-          <span class="modal-level-badge ${lc.badge}">${m.level} Level</span>
+      <div class="modal-layout">
+        <div class="modal-media">
+          <img class="modal-img-full" src="${esc(imgUrl)}" alt="${esc(m.name)}">
         </div>
-        <div class="modal-name">${m.name}</div>
-        <p class="modal-bio">${m.fullBio}</p>
-        <div class="contact-panel">
-          <div class="contact-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .99h3a2 2 0 012 1.72c.13 1 .36 1.98.7 2.93a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.93.57 2.93.7A2 2 0 0122 16.92z"/></svg>
-            ${phoneLink}
+        <div class="modal-body">
+          <div>
+            <span class="modal-course-badge">${esc(m.course)}</span>
+            <span class="modal-level-badge ${lc.badge}">${levelLabel(m.level)}</span>
           </div>
-          <div class="contact-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-            UDUS · Tangaza LGA · 2025/2026
+          <div class="modal-name" id="modalTitle">${esc(m.name)}</div>
+          <p class="modal-bio">${esc(m.fullBio)}</p>
+          <div class="contact-panel">
+            <div class="contact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .99h3a2 2 0 012 1.72c.13 1 .36 1.98.7 2.93a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.95.34 1.93.57 2.93.7A2 2 0 0122 16.92z"/></svg>
+              ${phoneLink}
+            </div>
+            <div class="contact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+              ${status} · Tangaza LGA · 2025/2026
+            </div>
+            <div class="contact-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              S/N #${esc(m.id)} on Official Register
+            </div>
           </div>
-          <div class="contact-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            S/N #${m.id} on Official Register
+          <a class="report-link" href="${mailto}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+            Report incorrect info
+          </a>
+          <a class="report-alt" href="${gmail}" target="_blank" rel="noopener">No email app? Open in Gmail</a>
+          <div class="modal-close-row">
+            <button class="close-modal-btn" id="closeModalBtn" aria-label="Close member details">✕</button>
           </div>
-        </div>
-        <!-- TODO: replace mailto with your official TALSUUDUS contact email -->
-        <a class="report-link" href="mailto:info@talsuudus.org?subject=${encodeURIComponent('Correction request — ' + m.name + ' (S/N #' + m.id + ')')}&body=${encodeURIComponent('Hi TALSUUDUS,\n\nI would like to report incorrect information on the member listing below:\n\nName: ' + m.name + '\nSerial No: ' + m.id + '\n\nWhat needs to be corrected:\n')}">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
-          Report incorrect info
-        </a>
-        <div class="modal-close-row">
-          <button class="close-modal-btn" id="closeModalBtn" aria-label="Close member details">✕</button>
         </div>
       </div>`;
+    const img = modalContent.querySelector('.modal-img-full');
+    img.addEventListener('error', () => { if (!img.dataset.fallback) { img.dataset.fallback = '1'; img.src = avatarUrl(m, 400); } });
     detailModal.classList.add('active');
-    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    detailModal.setAttribute('role', 'dialog');
+    detailModal.setAttribute('aria-modal', 'true');
+    detailModal.setAttribute('aria-labelledby', 'modalTitle');
+    document.body.style.overflow = 'hidden';
+    const closeBtnEl = document.getElementById('closeModalBtn');
+    closeBtnEl.addEventListener('click', closeModal);
+    closeBtnEl.focus();
   }
-  function closeModal() { detailModal.classList.remove('active'); }
+  function closeModal() { detailModal.classList.remove('active'); document.body.style.overflow = ''; }
   detailModal.addEventListener('click', e => { if (e.target === detailModal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMenu(); } });
 
   /* ── Filters & Search ── */
   filterBtns.forEach(btn => {
