@@ -1,0 +1,207 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TALSUUDUS — SHARED NAVIGATION (single source of truth)
+   Top bar · menu button · bottom menu · slide-out menu · overlay
+   Loaded LAST on every page so the menus look identical everywhere,
+   in light and dark mode, on phones and on desktop.
+
+   Pages use one of two class families (index/members: .topbar,
+   .panel … ; other pages: .talsu-topbar, .talsu-panel …). Every rule
+   below targets both, so there is only one place to edit.
+   To change a colour, change the --n-* variables right below.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:is(.topbar,.talsu-topbar,.bottom-nav,.talsu-bottom-nav,.panel,.talsu-panel,
+    .slide-overlay,.talsu-overlay,.overlay) {
+  --n-glass:   rgba(255,255,255,0.4);
+  --n-border:  rgba(255,255,255,0.75);
+  --n-shadow:  0 8px 32px rgba(10,40,25,0.18);
+  --n-ink:     #141715;
+  --n-accent:  #1a7a4c;
+  --n-accent2: #22a366;
+  --n-line:    rgba(26,122,76,0.22);
+  --n-panel-1: #f7fbf9;
+  --n-panel-2: #eef7f1;
+  --n-panel-shadow: -12px 0 40px rgba(10,40,25,0.3);
+  --n-slot-bg: rgba(26,122,76,0.08);
+  --n-slot-bd: rgba(26,122,76,0.18);
+  --n-hover:   rgba(255,255,255,0.65);
+  --n-active-bd: #1a7a4c;
+  --n-nav-text: rgba(20,23,21,0.68);
+  font-family: 'Barlow', sans-serif;
+  line-height: normal;
+}
+[data-theme="dark"] :is(.topbar,.talsu-topbar,.bottom-nav,.talsu-bottom-nav,.panel,.talsu-panel,
+    .slide-overlay,.talsu-overlay,.overlay) {
+  --n-glass:   rgba(255,255,255,0.06);
+  --n-border:  rgba(255,255,255,0.12);
+  --n-shadow:  0 8px 32px rgba(0,0,0,0.4);
+  --n-ink:     #eef5f0;
+  --n-accent:  #22a366;
+  --n-line:    rgba(34,163,102,0.3);
+  --n-panel-1: #0d100e;
+  --n-panel-2: #10201a;
+  --n-panel-shadow: -12px 0 40px rgba(0,0,0,0.6);
+  --n-slot-bg: rgba(34,163,102,0.14);
+  --n-slot-bd: rgba(34,163,102,0.35);
+  --n-hover:   rgba(255,255,255,0.12);
+  --n-active-bd: #22a366;
+  --n-nav-text: rgba(238,245,240,0.68);
+}
+
+/* ── Top bar ── */
+:is(.topbar,.talsu-topbar) {
+  display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+  align-items: center; justify-content: space-between;
+  padding: 0 16px; height: 60px;
+  background: var(--n-glass);
+  border-bottom: 1px solid var(--n-border);
+  box-shadow: var(--n-shadow);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+}
+:is(.menu-btn,.talsu-menu-btn) {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  background: var(--n-glass);
+  border: 1.5px solid var(--n-border);
+  box-shadow: var(--n-shadow);
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px; transition: background 0.2s;
+}
+:is(.menu-btn,.talsu-menu-btn):hover { background: rgba(26,122,76,0.14); }
+:is(.menu-btn,.talsu-menu-btn) span { display: block; height: 2px; background: var(--n-ink); border-radius: 2px; }
+:is(.menu-btn,.talsu-menu-btn) span:nth-child(1),
+:is(.menu-btn,.talsu-menu-btn) span:nth-child(2) { width: 18px; }
+:is(.menu-btn,.talsu-menu-btn) span:nth-child(3) { width: 12px; align-self: flex-end; }
+
+/* ── Logo ── */
+:is(.logo,.talsu-logo) { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--n-ink); }
+:is(.logo-icon,.talsu-logo-icon) {
+  width: 38px; height: 38px; border-radius: 10px; overflow: hidden;
+  background: linear-gradient(135deg, #22a366, #1a7a4c);
+  border: 1.5px solid var(--n-border);
+  box-shadow: 0 4px 10px rgba(26,122,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+:is(.logo-text,.talsu-logo-text) { color: var(--n-ink); font-weight: 700; font-size: 16px; letter-spacing: 0.3px; }
+:is(.logo-text,.talsu-logo-text) span { color: #1a7a4c; }
+
+/* ── Bottom menu ── */
+:is(.bottom-nav,.talsu-bottom-nav) {
+  display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: var(--n-glass);
+  border-top: 1px solid var(--n-border);
+  box-shadow: 0 -8px 32px rgba(10,40,25,0.18);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  padding: 10px 0 14px;
+}
+:is(.nav-item,.talsu-nav-item) {
+  flex: 1; background: none; border: none; cursor: pointer; padding: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  font-family: inherit;
+}
+:is(.nav-icon,.talsu-nav-icon) {
+  width: 26px; height: 26px; border-radius: 7px; overflow: hidden;
+  background: var(--n-slot-bg);
+  border: 1.5px solid var(--n-slot-bd);
+  box-shadow: none;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+:is(.nav-label,.talsu-nav-label) {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.2px;
+  color: var(--n-nav-text); transition: color 0.2s;
+}
+:is(.nav-item,.talsu-nav-item).active :is(.nav-icon,.talsu-nav-icon) {
+  background: rgba(26,122,76,0.22); border-color: rgba(26,122,76,0.5); box-shadow: none;
+}
+:is(.nav-item,.talsu-nav-item).active :is(.nav-label,.talsu-nav-label) { color: #1a7a4c; font-weight: 700; }
+
+/* Dark mode: beat any older per-page dark rules so bars match everywhere */
+[data-theme="dark"] :is(.topbar,.talsu-topbar,.bottom-nav,.talsu-bottom-nav) { background: var(--n-glass); }
+[data-theme="dark"] :is(.topbar,.talsu-topbar) { border-bottom-color: var(--n-border); box-shadow: var(--n-shadow); }
+[data-theme="dark"] :is(.bottom-nav,.talsu-bottom-nav) { border-top-color: var(--n-border); }
+[data-theme="dark"] :is(.menu-btn,.talsu-menu-btn) { background: var(--n-glass); border-color: var(--n-border); }
+[data-theme="dark"] :is(.logo-icon,.talsu-logo-icon) { border-color: var(--n-border); }
+[data-theme="dark"] :is(.logo-text,.talsu-logo-text) { color: var(--n-ink); }
+
+/* ── Overlay ── */
+:is(.slide-overlay,.talsu-overlay,.overlay) {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(20,23,21,0.72);
+  opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+}
+:is(.slide-overlay,.talsu-overlay,.overlay):is(.show) { opacity: 1; pointer-events: all; }
+
+/* ── Slide-out menu ── */
+:is(.panel,.talsu-panel) {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 78%; max-width: 320px; z-index: 400;
+  background: linear-gradient(180deg, var(--n-panel-1) 0%, var(--n-panel-2) 100%);
+  display: flex; flex-direction: column;
+  transform: translateX(105%);
+  transition: transform 0.32s cubic-bezier(0.32,0,0.15,1);
+  box-shadow: var(--n-panel-shadow);
+}
+:is(.panel,.talsu-panel).open { transform: translateX(0); }
+:is(.panel-header,.talsu-panel-header) {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 20px 16px; flex-shrink: 0;
+  border-bottom: 1px solid var(--n-line);
+}
+:is(.panel-title,.talsu-panel-title) { color: var(--n-accent); font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+:is(.close-btn,.talsu-close-btn) {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--n-glass); border: 1.5px solid var(--n-border);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--n-ink); font-size: 17px; line-height: 1; transition: background 0.2s;
+  font-family: inherit;
+}
+:is(.close-btn,.talsu-close-btn):hover { background: rgba(26,122,76,0.14); }
+:is(.menu-list,.talsu-menu-list) {
+  flex: 1; overflow-y: auto; padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 8px; scrollbar-width: none;
+}
+:is(.menu-list,.talsu-menu-list)::-webkit-scrollbar { display: none; }
+:is(.menu-item,.talsu-menu-item) {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 14px; border-radius: 14px; width: 100%;
+  background: var(--n-glass); border: 1.5px solid var(--n-border);
+  cursor: pointer; text-align: left; text-decoration: none; font-family: inherit;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+:is(.menu-item,.talsu-menu-item):hover { background: var(--n-hover); }
+:is(.menu-item,.talsu-menu-item).active {
+  background: linear-gradient(135deg, #22a366 0%, #1a7a4c 100%);
+  border-color: var(--n-active-bd);
+  box-shadow: 0 4px 20px rgba(26,122,76,0.35);
+}
+:is(.item-icon,.talsu-item-icon) {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; overflow: hidden;
+  background: var(--n-slot-bg); border: 1.5px solid var(--n-slot-bd);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.18s, border-color 0.18s;
+}
+:is(.menu-item,.talsu-menu-item).active :is(.item-icon,.talsu-item-icon) {
+  background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.6);
+}
+:is(.item-label,.talsu-item-label) {
+  flex: 1; color: var(--n-ink); font-weight: 500; font-size: 15px; letter-spacing: 0.2px;
+  transition: color 0.18s, font-weight 0.18s;
+}
+:is(.menu-item,.talsu-menu-item).active :is(.item-label,.talsu-item-label) { color: #fff; font-weight: 700; }
+:is(.chevron,.talsu-chevron) { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.35; transition: opacity 0.18s; }
+:is(.chevron,.talsu-chevron) path { stroke: var(--n-accent); }
+:is(.menu-item,.talsu-menu-item).active :is(.chevron,.talsu-chevron) { opacity: 1; }
+:is(.menu-item,.talsu-menu-item).active :is(.chevron,.talsu-chevron) path { stroke: #fff; }
+
+a:is(.nav-item,.talsu-nav-item,.menu-item,.talsu-menu-item) { text-decoration: none; -webkit-tap-highlight-color: transparent; }
+
+/* keyboard focus (same ring everywhere) */
+:is(.nav-item,.talsu-nav-item,.menu-item,.talsu-menu-item,.menu-btn,.talsu-menu-btn,.close-btn,.talsu-close-btn):focus-visible {
+  outline: 2.5px solid #1a7a4c; outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.panel,.talsu-panel,.slide-overlay,.talsu-overlay,.overlay) { transition: none; }
+}

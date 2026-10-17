@@ -15,6 +15,8 @@
     --lvl-400: #0d9488;
     --lvl-300: #1d4ed8;
     --lvl-200: #b45309;
+    --lvl-100: #be185d;
+    --lvl-grad: #475569;
   }
 
   [data-theme="dark"] {
@@ -607,3 +609,79 @@ select:focus-visible,
 }
 .whatsapp-fab:hover { transform: scale(1.06); }
 .whatsapp-fab svg { width: 26px; height: 26px; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   ADDITIONS — 100 Level + Graduated members
+   (same pattern as the 200–500 level styles above)
+   ═══════════════════════════════════════════════════════════ */
+.member-card[data-level="100"]       { border-left: 3px solid rgba(190,24,93,0.7); }
+.member-card[data-level="Graduated"] { border-left: 3px solid rgba(71,85,105,0.75); }
+.level-badge-100  { background: rgba(190,24,93,0.15); color: #be185d; border: 1px solid rgba(190,24,93,0.35); }
+.level-badge-grad { background: rgba(71,85,105,0.15); color: #475569; border: 1px solid rgba(71,85,105,0.35); }
+.cc-lvl-chip-100  { background: rgba(190,24,93,0.15); color: #be185d; }
+.cc-lvl-chip-grad { background: rgba(71,85,105,0.15); color: #475569; }
+.pill-filter[data-filter="100"]:not(.active)       { border-color: rgba(190,24,93,0.4); color: #be185d; }
+.pill-filter[data-filter="Graduated"]:not(.active) { border-color: rgba(71,85,105,0.45); color: #475569; }
+[data-theme="dark"] .level-badge-grad,
+[data-theme="dark"] .cc-lvl-chip-grad,
+[data-theme="dark"] .pill-filter[data-filter="Graduated"]:not(.active) { color: #cbd5e1; }
+
+/* Gmail fallback link under "Report incorrect info" */
+.report-alt {
+  display: block; text-align: center; margin-top: 8px;
+  font-size: 10.5px; color: rgba(20,23,21,0.5); text-decoration: underline;
+}
+.report-alt:hover { color: var(--premium-gold); }
+[data-theme="dark"] .report-alt { color: rgba(238,245,240,0.55); }
+
+/* Neutral wrappers (no visual change on phones) */
+.modal-layout, .modal-media { display: block; }
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP / TABLET RESPONSIVENESS (phones are untouched)
+   Members stay in ONE column — same look as the phone, just larger.
+   The bottom menu / slide menu are NOT overridden here so they stay
+   identical to every other page.
+   ═══════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .page-wrap { max-width: 760px; }
+  .hero-section { padding-top: 40px; }
+  .hero-desc { max-width: 520px; font-size: 14px; }
+  .results-bar { text-align: center; }
+  .filter-row { justify-content: center; }
+  .courses-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* enlarged member card (same layout as phone) */
+  .members-grid { gap: 18px; }
+  .card-inner-row { gap: 20px; padding: 22px 24px 16px; }
+  .card-img-area { width: 96px; height: 96px; border-radius: 20px; }
+  .member-name { font-size: 20px; }
+  .member-role { font-size: 12px; padding: 3px 11px; margin-top: 7px; }
+  .level-badge { font-size: 11px; padding: 3px 10px; margin-top: 7px; }
+  .preview-bio { font-size: 13px; margin-top: 8px; }
+  .expand-trigger { font-size: 12px; padding: 11px 24px 13px; }
+
+  /* Profile card becomes a centred two-column dialog */
+  .modal-overlay { align-items: center; padding: 24px; }
+  .modal-container {
+    max-width: 780px; max-height: min(88vh, 640px);
+    border-radius: 28px;
+    transform: translateY(20px) scale(0.97);
+    box-shadow: 0 30px 80px rgba(10,40,25,0.35);
+  }
+  .modal-drag-handle { display: none; }
+  .modal-layout { display: grid; grid-template-columns: 290px 1fr; position: relative; min-height: 360px; }
+  .modal-media { background: #eaf5ef; }
+  .modal-img-full { height: 100%; min-height: 360px; }
+  .modal-body { padding: 32px 30px 26px; display: flex; flex-direction: column; justify-content: center; }
+  .modal-name { font-size: 2rem; }
+  .modal-bio { font-size: 14px; }
+  .contact-item { font-size: 13px; }
+  .modal-close-row { position: absolute; top: 14px; right: 14px; padding: 0; }
+}
+
+@media (min-width: 1100px) {
+  .page-wrap { max-width: 820px; }
+  .courses-grid { grid-template-columns: repeat(4, 1fr); }
+}
