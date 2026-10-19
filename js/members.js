@@ -16,9 +16,9 @@ const membersData = [
 img: "",
 
       bio:"Agriculture Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Agriculture." },
-    { id:2, name:"Nasir Attahiru", course:"MBBS", level:"600", phone:"08165618146",
+    { id:2, name:"Nasir Attahiru", course:"MBBS", level:"500", phone:"08165618146",
       img:"",
-      bio:"Medicine & Surgery ·600 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS (Medicine & Surgery) at 600 Level." },
+      bio:"Medicine & Surgery ·500 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS (Medicine & Surgery) at 500 Level." },
     { id:3, name:"Ibrahim Umar", course:"Nursing Sciences", level:"Graduated", phone:"08065989069",
       img: "",
 
