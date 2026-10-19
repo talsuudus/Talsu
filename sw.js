@@ -3,7 +3,7 @@
    - Own static files (css/js/images): stale-while-revalidate
    - Everything else (Firebase, Cloudinary, fonts, CDNs): left to the browser
    Bump CACHE_VERSION whenever you want every user to refresh their cache. */
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v9';
 const CACHE_NAME = 'talsuudus-' + CACHE_VERSION;
 
 const PRECACHE = [
