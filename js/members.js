@@ -12,46 +12,49 @@
      bio:"Course · 100 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Course at 100 Level. Academic Session: 2025/2026." },
    ────────────────────────────────────────────────────────────── */
 const membersData = [
-    { id:1, name:"Muhammad Bashir Umar", course:"Agriculture", level:"500", phone:"08061729025",
+    { id:1, name:"Muhammad Bashir Umar", course:"Agriculture", level:"Graduated", phone:"08061729025",
 img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
-      bio:"Agriculture · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Agriculture, currently in his final year at 500 Level. Academic Session: 2025/2026." },
-    { id:2, name:"Nasir Attahiru", course:"MBBS", level:"500", phone:"08165618146",
+      bio:"Agriculture Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Agriculture." },
+    { id:2, name:"Nasir Attahiru", course:"MBBS", level:"Graduated", phone:"08165618146",
       img:"https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
-      bio:"Medicine & Surgery · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS (Medicine & Surgery), currently in 500 Level. Academic Session: 2025/2026." },
-    { id:3, name:"Ibrahim Umar", course:"Nursing Sciences", level:"500", phone:"08065989069",
+      bio:"Medicine & Surgery ·Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in MBBS (Medicine & Surgery),." },
+    { id:3, name:"Ibrahim Umar", course:"Nursing Sciences", level:"Graduated", phone:"08065989069",
       img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
-      bio:"Nursing Sciences · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Nursing Sciences at 500 Level. Academic Session: 2025/2026." },
-    { id:4, name:"Jafar Isma'il", course:"MLS", level:"500", phone:"08104944991",
+      bio:"Nursing Sciences ·Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Nursing Sciences" },
+    { id:4, name:"Jafar Isma'il", course:"MLS", level:"Graduated", phone:"08104944991",
 img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
-      bio:"Medical Lab Science · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Medical Laboratory Science (MLS) at 500 Level. Academic Session: 2025/2026." },
-    { id:5, name:"Kamal Sadiq Tangaza", course:"DVM", level:"500", phone:"09062777275",
+      bio:"Medical Lab Science · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Medical Laboratory Science (MLS)." },
+    { id:5, name:"Kamal Sadiq Tangaza", course:"DVM", level:"Graduated", phone:"09062777275",
 img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
-      bio:"Veterinary Medicine · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Doctor of Veterinary Medicine (DVM) at 500 Level. Academic Session: 2025/2026." },
-    { id:6, name:"Ahmad Ukasha", course:"MLS", level:"500", phone:"08105720644",
+      bio:"Veterinary Medicine · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Doctor of Veterinary Medicine (DVM)." },
+    { id:6, name:"Ahmad Ukasha", course:"MLS", level:"Graduated", phone:"08105720644",
       img:"https://ui-avatars.com/api/?name=Ahmad+Ukasha&background=7c3aed&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Medical Lab Science · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Medical Laboratory Science (MLS) at 500 Level. Academic Session: 2025/2026." },
-    { id:7, name:"Abdullahi Muhammad", course:"Pharmacy", level:"500", phone:"07062245855",
+      bio:"Medical Lab Science · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Medical Laboratory Science (MLS)." },
+    { id:7, name:"Abdullahi Muhammad", course:"Pharmacy", level:"Graduated", phone:"07062245855",
       img:"https://ui-avatars.com/api/?name=Abdullahi+Muhammad&background=7c3aed&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Pharmacy · Final Year (500 Level)", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Pharmacy at 500 Level. Academic Session: 2025/2026." },
-    { id:8, name:"Hauwa'u Mukhtar", course:"MCB", level:"400", phone:"08087728209",
+      bio:"Pharmacy · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Pharmacy." },
+     { id:52, name:"Saratu Ahmad", course:"Education English", level:"Graduated", phone:"08038690382",
+      img:"https://ui-avatars.com/api/?name=Saratu+Ahmad&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
+      bio:"Education English · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Education English." },
+    { id:8, name:"Hauwa'u Mukhtar", course:"MCB", level:"Graduated", phone:"08087728209",
       img:"https://ui-avatars.com/api/?name=Hauwa%27u+Mukhtar&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Microbiology · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Microbiology (MCB) at 400 Level. Academic Session: 2025/2026." },
-    { id:9, name:"Aliyu Nana Khadija", course:"Agriculture", level:"400", phone:"09037011543",
-      img:"https://ui-avatars.com/api/?name=Aliyu+Nana+Khadija&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Agriculture · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Agriculture at 400 Level. Academic Session: 2025/2026." },
+      bio:"Microbiology · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in  Microbiology (MCB)." },
+    { id:9, name:"Aliyu Nana Khadija", course:"Agriculture", level:"500", phone:"09037011543",
+      img:"https://res.cloudinary.com/dgwinzauy/image/upload/v1792305269/Nanakhadija_widkqs.webp",
+      bio:"Agriculture · 500 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Agriculture at 500 Level. Academic Session: 2026/2027." },
     { id:10, name:"Lawal Garba", course:"LLB", level:"400", phone:"07068547440",
       img:"https://ui-avatars.com/api/?name=Lawal+Garba&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Law · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Law (LLB) at 400 Level. Academic Session: 2025/2026." },
-    { id:11, name:"Junaidu Usman Ausa", course:"MBBS", level:"400", phone:"08104372231",
+    { id:11, name:"Junaidu Usman Ausa", course:"MBBS", level:"500", phone:"08104372231",
       img:"https://ui-avatars.com/api/?name=Junaidu+Usman+Ausa&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Medicine & Surgery · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS at 400 Level. Academic Session: 2025/2026." },
-    { id:12, name:"Kamal Ahmad", course:"Agriculture", level:"400", phone:"08106995489",
+      bio:"Medicine & Surgery · 500 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS at 500 Level. Academic Session: 2026/2027." },
+    { id:12, name:"Kamal Ahmad", course:"Agriculture", level:"500", phone:"08106995489",
       img:"https://ui-avatars.com/api/?name=Kamal+Ahmad&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Agriculture · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Agriculture at 400 Level. Academic Session: 2025/2026." },
+      bio:"Agriculture · 500 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Agriculture at 500 Level. Academic Session: 2026/2027." },
     { id:13, name:"Hafiz Auwal", course:"Fisheries", level:"400", phone:"08030495902",
       img:"https://ui-avatars.com/api/?name=Hafiz+Auwal&background=1d4ed8&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Fisheries · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Fisheries at 400 Level. Academic Session: 2025/2026." },
@@ -94,9 +97,9 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
     { id:26, name:"Sudais Ahmad", course:"Physiotherapy", level:"300", phone:"09038953714",
       img:"https://ui-avatars.com/api/?name=Sudais+Ahmad&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Physiotherapy · 300 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Physiotherapy at 300 Level. Academic Session: 2025/2026." },
-    { id:27, name:"Auwal Sharif", course:"Radiography", level:"300", phone:"07060713262",
+    { id:27, name:"Auwal Sharif", course:"Radiography", level:"400", phone:"07060713262",
       img:"https://ui-avatars.com/api/?name=Auwal+Sharif&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Radiography · 300 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Radiography at 300 Level. Academic Session: 2025/2026." },
+      bio:"Radiography · 400 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Radiography at 400 Level. Academic Session: 2026/2027." },
     { id:28, name:"Saminu Murtala Tangaza", course:"Computer Science", level:"300", phone:"09066654171",
       img:"https://ui-avatars.com/api/?name=Saminu+Murtala+Tangaza&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Computer Science · 300 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Computer Science at 300 Level. Academic Session: 2025/2026." },
@@ -125,7 +128,7 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       img:"https://ui-avatars.com/api/?name=Sahabi+Muhammad&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Economics · 300 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Economics at 300 Level. Academic Session: 2025/2026." },
     { id:37, name:"Ibrahim Mohammad Marafa", course:"Computer Science", level:"300", phone:"N/A",
-      img:"https://ui-avatars.com/api/?name=Ibrahim+Mohammad+Marafa&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
+      img:"https://res.cloudinary.com/dgwinzauy/image/upload/v1792305270/Ibrahim_iqmdel.webp",
       bio:"Computer Science · 300 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Computer Science at 300 Level. Academic Session: 2025/2026." },
     { id:38, name:"Salim Abubakar", course:"Edu Computer", level:"300", phone:"08143005494",
       img:"https://ui-avatars.com/api/?name=Salim+Abubakar&background=1a7a4c&color=ffffff&size=400&bold=true&font-size=0.35",
@@ -155,7 +158,7 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       img:"https://ui-avatars.com/api/?name=Sulaiman+Usman&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
       bio:"Medicine & Surgery · 200 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying MBBS at 200 Level. Academic Session: 2025/2026." },
     { id:47, name:"Sa'ad Auwal", course:"Software Engineering", level:"200", phone:"09038666754",
-      img:"https://ui-avatars.com/api/?name=Sa%27ad+Auwal&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
+      img:"https://res.cloudinary.com/dgwinzauy/image/upload/c_fill,g_face,w_400,h_400/v1792305271/Sultan_lsasdt.webp",
       bio:"Software Engineering · 200 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Software Engineering at 200 Level. Academic Session: 2025/2026." },
     { id:48, name:"Marwan Umar G-madi", course:"Software Engineering", level:"200", phone:"09167088689",
       img:"https://ui-avatars.com/api/?name=Marwan+Umar+G-madi&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
@@ -165,7 +168,10 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       bio:"Guidance & Counselling · 200 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Guidance & Counselling at 200 Level. Academic Session: 2025/2026." },
     { id:50, name:"Sani Yahayya", course:"Library & Information Science", level:"200", phone:"08139017141",
       img:"https://ui-avatars.com/api/?name=Sani+Yahayya&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
-      bio:"Library & Information Science · 200 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Library & Information Science at 200 Level. Academic Session: 2025/2026." }
+      bio:"Library & Information Science · 200 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Library & Information Science at 200 Level. Academic Session: 2025/2026." },
+         { id:51, name:"Hussaini Bello", course:"Medicine & Surgery", level:"100", phone:"08136826156",
+      img:"https://ui-avatars.com/api/?name=Hussaini+Bello&background=b45309&color=ffffff&size=400&bold=true&font-size=0.35",
+      bio:"Medicine & Surgery · 100 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Medicine & Surgery at 100 Level. Academic Session: 2026/2027." }
   ];
 
   const levelColors = {
@@ -181,6 +187,16 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
   const levelShort = lv => lv === 'Graduated' ? 'Grad' : lv + 'L';
   const esc = str => String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const avatarUrl = (m, size) => `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name)}&background=${levelColors[m.level].bg}&color=ffffff&size=${size}&bold=true&font-size=0.35`;
+  /* Cloudinary face-aware crop: Cloudinary finds the face and crops the photo
+     around it to exactly w×h, so faces stay centred and fully visible.
+     Non-Cloudinary links (or ones that already have a transformation) are left alone. */
+  const faceCrop = (url, w, h) => {
+    const marker = '/image/upload/';
+    if (!url || url.indexOf('res.cloudinary.com') === -1 || url.indexOf(marker) === -1) return url;
+    const [head, rest] = [url.slice(0, url.indexOf(marker) + marker.length), url.slice(url.indexOf(marker) + marker.length)];
+    if (/^([a-z]{1,3}_[^\/,]+,?)+\//.test(rest)) return url;   // already transformed
+    return head + 'c_fill,g_face,w_' + w + ',h_' + h + ',q_auto/' + rest;
+  };
 
   const membersGrid  = document.getElementById('membersGrid');
   const filterBtns   = document.querySelectorAll('.pill-filter');
@@ -223,7 +239,8 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       card.setAttribute('role', 'button');
       card.setAttribute('aria-label', 'View profile of ' + m.name);
       card.style.animationDelay = `${i * 0.05}s`;
-      const imgUrl = m.img || avatarUrl(m, 200);
+      const rawImg = m.img || '';
+      const imgUrl = rawImg ? faceCrop(rawImg, 320, 320) : avatarUrl(m, 200);
       card.innerHTML = `
         <div class="card-accent"></div>
         <div class="card-inner-row">
@@ -246,9 +263,10 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
       img.addEventListener('load', () => img.classList.add('loaded'));
       // if the photo link is broken, fall back to the initials avatar
       img.addEventListener('error', () => {
-        if (img.dataset.fallback) { img.classList.add('loaded'); return; }
-        img.dataset.fallback = '1';
-        img.src = avatarUrl(m, 200);
+        // 1st failure → try the original photo link, 2nd → initials avatar
+        if (!img.dataset.fallback && rawImg && img.src !== rawImg) { img.dataset.fallback = '1'; img.src = rawImg; return; }
+        if (img.dataset.fallback !== '2') { img.dataset.fallback = '2'; img.src = avatarUrl(m, 200); return; }
+        img.classList.add('loaded');
       });
       if (img.complete && img.naturalWidth) img.classList.add('loaded');
       card.addEventListener('click', () => openModal(m));
@@ -328,7 +346,10 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
 
   function openModal(m) {
     const lc = levelColors[m.level];
-    const imgUrl = m.img || avatarUrl(m, 400);
+    // crop size matches the picture frame: wide on phones, tall on desktop
+    const tall = window.matchMedia('(min-width: 768px)').matches;
+    const rawImg = m.img || '';
+    const imgUrl = rawImg ? faceCrop(rawImg, tall ? 600 : 780, tall ? 840 : 600) : avatarUrl(m, 400);
     const phoneLink = m.phone && m.phone !== 'N/A' ? `<a href="tel:${esc(m.phone)}">${esc(m.phone)}</a>` : 'Not available';
     const subject = 'Correction request — ' + m.name + ' (S/N #' + m.id + ')';
     const body = 'Hi TALSUUDUS,\n\nI would like to report incorrect information on the member listing below:\n\nName: ' + m.name +
@@ -376,7 +397,10 @@ img: "https://res.cloudinary.com/dgwinzauy/image/upload/Abdul_mwngzw.webp",
         </div>
       </div>`;
     const img = modalContent.querySelector('.modal-img-full');
-    img.addEventListener('error', () => { if (!img.dataset.fallback) { img.dataset.fallback = '1'; img.src = avatarUrl(m, 400); } });
+    img.addEventListener('error', () => {
+      if (!img.dataset.fallback && rawImg && img.src !== rawImg) { img.dataset.fallback = '1'; img.src = rawImg; return; }
+      if (img.dataset.fallback !== '2') { img.dataset.fallback = '2'; img.src = avatarUrl(m, 400); }
+    });
     detailModal.classList.add('active');
     detailModal.setAttribute('role', 'dialog');
     detailModal.setAttribute('aria-modal', 'true');
