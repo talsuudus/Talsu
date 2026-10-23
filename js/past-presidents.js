@@ -11,7 +11,7 @@
    ⚠ The four entries below are PLACEHOLDERS — replace them with the real past presidents.
    ────────────────────────────────────────────────────────────── */
 const PAST_PRESIDENTS = [
-  { name: "Name of President", years: "2024 – 2025", img: "", note: "" },
+  { name: "Sanusi Haliru", years: "2024 – 2025", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875408/President_m4wd2a.webp", note: "" },
   { name: "Name of President", years: "2023 – 2024", img: "", note: "" },
   { name: "Name of President", years: "2022 – 2023", img: "", note: "" },
   { name: "Name of President", years: "2021 – 2022", img: "", note: "" }
