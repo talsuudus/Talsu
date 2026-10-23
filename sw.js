@@ -1,9 +1,9 @@
 /* TALSUUDUS service worker
    - Pages (HTML): network first, fall back to cache, then the home page
    - Own static files (css/js/images): stale-while-revalidate
-   - Everything else (Firebase, Cloudinary, fonts, CDNs): left to the browser
+   - Everything else (Supabase, Cloudinary, fonts, CDNs): left to the browser
    Bump CACHE_VERSION whenever you want every user to refresh their cache. */
-const CACHE_VERSION = 'v11';
+const CACHE_VERSION = 'v14';
 const CACHE_NAME = 'talsuudus-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -30,6 +30,8 @@ const PRECACHE = [
   'js/nav.js',
   'js/pwa.js',
   'js/faces.js',
+  'js/studyvault.js',
+  'js/supabase-config.js',
   'js/past-presidents.js',
   'assets/favicon.svg',
   'assets/Talsulogo.webp',
