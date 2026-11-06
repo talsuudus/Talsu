@@ -7,11 +7,17 @@
 (function () {
   'use strict';
 
-  /* 1 ── Service worker */
+  /* 1 ── Service worker (live site only; never on localhost or file://, where stale caches cause broken pages) */
+  var DEV = location.protocol === 'file:' || /^(localhost|127\.|0\.0\.0\.0|\[::1\]|.*\.local)$/.test(location.hostname);
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
-    });
+    if (DEV) {
+      navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); }).catch(function () {});
+      if (window.caches) caches.keys().then(function (ks) { ks.forEach(function (k) { if (k.indexOf('talsuudus-') === 0) caches.delete(k); }); }).catch(function () {});
+    } else {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
   }
 
   /* 2 ── Install banner */

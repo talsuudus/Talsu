@@ -1,16 +1,21 @@
 /* ── CURTAIN ──────────────────────────────────────── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const curtain = document.getElementById('curtain');
-    if (curtain) {
-      curtain.style.transition = 'opacity 0.6s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
-      curtain.style.opacity    = '0';
-      curtain.style.transform  = 'scaleY(0)';
-      curtain.style.transformOrigin = 'top';
-      setTimeout(() => curtain.remove(), 700);
-    }
-  }, 1600);
-});
+/* Lifts after the page loads, with a hard fallback so a slow font or image can never leave the page stuck. */
+(function () {
+  const curtain = document.getElementById('curtain');
+  if (!curtain) return;
+  curtain.style.pointerEvents = 'none';          /* never blocks taps or links */
+  let done = false;
+  function lift() {
+    if (done) return; done = true;
+    curtain.style.transition = 'opacity 0.6s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+    curtain.style.opacity    = '0';
+    curtain.style.transform  = 'scaleY(0)';
+    curtain.style.transformOrigin = 'top';
+    setTimeout(() => curtain.remove(), 700);
+  }
+  window.addEventListener('load', () => setTimeout(lift, 1600));
+  setTimeout(lift, 3500);                        /* fallback if "load" never fires */
+})();
 
 /* ── SLIDE PANEL ──────────────────────────────────── */
 const panel   = document.getElementById('panel');
