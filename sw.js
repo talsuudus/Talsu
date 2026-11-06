@@ -3,7 +3,7 @@
    - Own static files (css/js/images): stale-while-revalidate
    - Everything else (Supabase, Cloudinary, fonts, CDNs): left to the browser
    Bump CACHE_VERSION whenever you want every user to refresh their cache. */
-const CACHE_VERSION = 'v14';
+const CACHE_VERSION = 'v16';
 const CACHE_NAME = 'talsuudus-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -28,6 +28,9 @@ const PRECACHE = [
   'js/constitution.js',
   'js/theme.js',
   'js/nav.js',
+  'js/vote.js',
+  'js/vote-config.js',
+  'styles/vote.css',
   'js/pwa.js',
   'js/faces.js',
   'js/studyvault.js',
@@ -63,17 +66,19 @@ self.addEventListener('fetch', event => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return; // never touch third-party requests
 
-  // HTML pages: network first
+  // HTML pages: network first, but fall back to the cached copy after 4s so a slow network never hangs the page
   if (req.mode === 'navigate' || req.destination === 'document') {
-    event.respondWith(
-      fetch(req)
-        .then(res => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req, { ignoreSearch: true }).then(hit => hit || caches.match('index.html')))
-    );
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cached = await cache.match(req, { ignoreSearch: true });
+      const net = fetch(req).then(res => { if (res && res.ok) cache.put(req, res.clone()); return res; });
+      event.waitUntil(net.catch(() => null));
+      if (!cached) return net.catch(() => caches.match('index.html'));
+      try {
+        const res = await Promise.race([net, new Promise(r => setTimeout(() => r(null), 4000))]);
+        return res || cached;
+      } catch (e) { return cached; }
+    })());
     return;
   }
 
