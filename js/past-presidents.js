@@ -12,9 +12,10 @@
    ────────────────────────────────────────────────────────────── */
 const PAST_PRESIDENTS = [
   { name: "Sanusi Haliru", years: "2024 – 2025", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875408/President_m4wd2a.webp", note: "" },
-  { name: "Name of President", years: "2023 – 2024", img: "", note: "" },
-  { name: "Name of President", years: "2022 – 2023", img: "", note: "" },
-  { name: "Name of President", years: "2021 – 2022", img: "", note: "" }
+  { name: "Abdulrahman Umar Gidan Madi", years: "2023 – 2024", img: "", note: "" },
+  { name: "Yusha'u Bello", years: "2021 – 2023", img: "", note: "" },
+  { name: "Shafi'i Ibrahim", years: "2019 – 2021", img: "", note: "" },
+  { name: "Abubakar Umar Gidan Madi", years: "2017 – 2019", img: "", note: "" }
 ];
 
 (function () {
