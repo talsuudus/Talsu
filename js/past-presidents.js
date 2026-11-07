@@ -12,10 +12,10 @@
    ────────────────────────────────────────────────────────────── */
 const PAST_PRESIDENTS = [
   { name: "Sanusi Haliru", years: "2024 – 2025", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875408/President_m4wd2a.webp", note: "" },
-  { name: "Abdulrahman Umar Gidan Madi", years: "2023 – 2024", img: "", note: "" },
-  { name: "Yusha'u Bello", years: "2021 – 2023", img: "", note: "" },
-  { name: "Shafi'i Ibrahim", years: "2019 – 2021", img: "", note: "" },
-  { name: "Abubakar Umar Gidan Madi", years: "2017 – 2019", img: "", note: "" }
+  { name: "Abdulrahman Umar Gidan Madi", years: "2023 – 2024", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875407/Abdul_mwngzw.webp", note: "" },
+  { name: "Yusha'u Bello", years: "2021 – 2023", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875406/Yushau_dn6dgp.webp", note: "" },
+  { name: "Shafi'i Ibrahim", years: "2019 – 2021", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875409/Shafiu_ml1xw4.webp", note: "" },
+  { name: "Abubakar Umar Gidan Madi", years: "2017 – 2019", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875407/Abubakar_h1miiq.webp", note: "" }
 ];
 
 (function () {
