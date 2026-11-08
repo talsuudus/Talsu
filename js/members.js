@@ -1,18 +1,3 @@
-/* ──────────────────────────────────────────────────────────────
-   HOW TO ADD A MEMBER
-   1. Copy the last line block below, paste it just before the closing "];"
-      (put a comma after the block above it), then edit the details.
-   2. level  → "Graduated" | "500" | "400" | "300" | "200" | "100"   (spelling matters!)
-   3. id     → any unique number (it is shown as S/N). New members can use the next number.
-   4. img    → paste the Cloudinary photo link, or "" for an automatic initials avatar.
-   Order is automatic: Graduated first, then 500, 400, 300, 200, 100 — no need to move things around.
-
-   Graduated example:
-     bio:"Computer Science · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Computer Science."
-   100 Level example:
-     bio:"Course · 100 Level", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Studying Course at 100 Level. Academic Session: 2026/2027."
-   ────────────────────────────────────────────────────────────── */
-/* Current academic session — shown on every member profile. Change it here once a year. */
 const SESSION = '2026/2027';
 
 const membersData = [
@@ -65,7 +50,7 @@ const membersData = [
       img:"https://res.cloudinary.com/dgwinzauy/image/upload/v1792589709/Abdurrahman_r3ttpu.webp",
       bio:"Applied Chemistry · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Applied Chemistry." },
     { id:17, name:"Salamatu Usman", course:"Edu Chemistry", level:"Graduated", phone:"07067882254",
-      img:"",
+      img:"https://res.cloudinary.com/dgwinzauy/image/upload/v1794138896/Salamatu_yye8xf.webp",
       bio:"Education Chemistry · Graduate", fullBio:"Member of Tangaza Local Government Students' Union at Usmanu Danfodiyo University Sokoto. Graduated in Education Chemistry." },
     { id:18, name:"Imrana Ardo Abubakar", course:"Computer Science", level:"Graduated", phone:"09032629420",
       img:"",
