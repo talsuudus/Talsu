@@ -1,9 +1,7 @@
-/* ── CURTAIN ──────────────────────────────────────── */
-/* Lifts after the page loads, with a hard fallback so a slow font or image can never leave the page stuck. */
 (function () {
   const curtain = document.getElementById('curtain');
   if (!curtain) return;
-  curtain.style.pointerEvents = 'none';          /* never blocks taps or links */
+  curtain.style.pointerEvents = 'none';   
   let done = false;
   function lift() {
     if (done) return; done = true;
@@ -14,10 +12,9 @@
     setTimeout(() => curtain.remove(), 700);
   }
   window.addEventListener('load', () => setTimeout(lift, 1600));
-  setTimeout(lift, 3500);                        /* fallback if "load" never fires */
+  setTimeout(lift, 3500);
 })();
 
-/* ── SLIDE PANEL ──────────────────────────────────── */
 const panel   = document.getElementById('panel');
 const overlay = document.getElementById('overlay');
 const openBtn = document.getElementById('openBtn');
@@ -42,7 +39,6 @@ if (openBtn) openBtn.addEventListener('click', openMenu);
 if (closeBtn) closeBtn.addEventListener('click', closeMenu);
 if (overlay) overlay.addEventListener('click', closeMenu);
 
-/* Menu items — active highlight then navigate */
 document.querySelectorAll('.menu-item').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
@@ -51,7 +47,6 @@ document.querySelectorAll('.menu-item').forEach(item => {
   });
 });
 
-/* ── BOTTOM NAV — active state ────────────────────── */
 document.querySelectorAll('.nav-item').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -59,7 +54,6 @@ document.querySelectorAll('.nav-item').forEach(btn => {
   });
 });
 
-/* ── SCROLL REVEAL ─────────────────────────────────── */
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (en.isIntersecting) {
@@ -100,7 +94,6 @@ const pillarObs = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.scroll-pillar').forEach(el => pillarObs.observe(el));
 
-/* ── PARTICLE CANVAS ───────────────────────────────── */
 (function() {
   const canvas = document.getElementById('particles');
   if (!canvas) return;
@@ -147,7 +140,6 @@ document.querySelectorAll('.scroll-pillar').forEach(el => pillarObs.observe(el))
   loop();
 })();
 
-/* ── HERO PARALLAX ─────────────────────────────────── */
 window.addEventListener('scroll', () => {
   const scrolled = window.scrollY;
   const hero = document.querySelector('.hero-content');
