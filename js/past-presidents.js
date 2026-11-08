@@ -1,18 +1,6 @@
-/* ──────────────────────────────────────────────────────────────
-   PAST PRESIDENTS  (shown at the bottom of leadership.html)
-
-   HOW TO EDIT
-   • Newest president first. Copy a line, change the details, keep the commas.
-   • name  → full name            years → e.g. "2023 – 2024"  (the session they served)
-   • img   → paste the Cloudinary link of the photo (it is cropped to the face automatically).
-             Leave it "" to show a neat initials circle instead.
-   • note  → optional small line under the year (e.g. "Faculty of Pharmacy"). Leave "" for none.
-
-   ⚠ The four entries below are PLACEHOLDERS — replace them with the real past presidents.
-   ────────────────────────────────────────────────────────────── */
 const PAST_PRESIDENTS = [
-  { name: "Sanusi Haliru", years: "2024 – 2025", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875408/President_m4wd2a.webp", note: "" },
-  { name: "Abdulrahman Umar Gidan Madi", years: "2023 – 2024", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875407/Abdul_mwngzw.webp", note: "" },
+  { name: "Sanusi Haliru", years: "2025 – 2026", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875408/President_m4wd2a.webp", note: "" },
+  { name: "Abdulrahman Umar Gidan Madi", years: "2024 – 2025", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875407/Abdul_mwngzw.webp", note: "" },
   { name: "Yusha'u Bello", years: "2021 – 2023", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875406/Yushau_dn6dgp.webp", note: "" },
   { name: "Shafi'i Ibrahim", years: "2019 – 2021", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875409/Shafiu_ml1xw4.webp", note: "" },
   { name: "Abubakar Umar Gidan Madi", years: "2017 – 2019", img: "https://res.cloudinary.com/dgwinzauy/image/upload/v1777875407/Abubakar_h1miiq.webp", note: "" }
@@ -30,7 +18,7 @@ const PAST_PRESIDENTS = [
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   };
-  // works offline: a small green circle with the person's initials
+   
   var initialsAvatar = function (name) {
     var parts = String(name).trim().split(/\s+/);
     var ini = ((parts[0] || '?')[0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
@@ -51,7 +39,6 @@ const PAST_PRESIDENTS = [
       '</article>';
   }).join('');
 
-  // if a photo link is broken, fall back to the initials circle
   grid.querySelectorAll('img.past-photo').forEach(function (img, i) {
     img.addEventListener('error', function () {
       var p = PAST_PRESIDENTS[i];
