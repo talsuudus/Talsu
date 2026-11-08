@@ -1,8 +1,3 @@
-/* ── TALSUUDUS face crop ───────────────────────────────────────
-   Any <img class="exec-photo"> / <img class="past-photo"> (or <img data-face>) that uses a Cloudinary link
-   is automatically cropped by Cloudinary to the person's FACE, centred.
-   Just paste the normal Cloudinary link as the img src — nothing else to do.
-   Optional: data-zoom="0.6" (more space around the face) … "1" (tighter). */
 (function () {
   'use strict';
   var MARK = '/image/upload/';
