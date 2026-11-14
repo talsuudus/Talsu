@@ -685,3 +685,8 @@ select:focus-visible,
   .page-wrap { max-width: 820px; }
   .courses-grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ── SVG icons (replace former emoji) ── */
+.ico { flex-shrink: 0; vertical-align: -0.125em; }
+.vt-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.cc-tap-hint { display: flex; align-items: center; justify-content: center; gap: 4px; }
