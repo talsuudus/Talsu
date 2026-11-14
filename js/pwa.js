@@ -54,7 +54,7 @@
       '.talsu-pwa-title{color:#1a7a4c;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase}' +
       '.talsu-pwa-sub{color:rgba(20,23,21,.7);font-size:12px;margin-top:2px;line-height:1.35}' +
       '.talsu-pwa-btn{background:#1a7a4c;color:#fff;border:0;border-radius:9px;padding:8px 14px;font-weight:700;font-size:12px;cursor:pointer}' +
-      '.talsu-pwa-x{background:transparent;border:0;color:rgba(20,23,21,.5);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px}' +
+      '.talsu-pwa-x{display:inline-flex;align-items:center;background:transparent;border:0;color:rgba(20,23,21,.5);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px}' +
       '[data-theme="dark"] .talsu-pwa{background:rgba(16,32,26,.94);border-color:rgba(34,163,102,.4)}' +
       '[data-theme="dark"] .talsu-pwa-title{color:#22a366}' +
       '[data-theme="dark"] .talsu-pwa-sub{color:rgba(238,245,240,.75)}' +
@@ -112,7 +112,7 @@
     close.className = 'talsu-pwa-x';
     close.type = 'button';
     close.setAttribute('aria-label', 'Dismiss');
-    close.textContent = '✕';
+    close.innerHTML = '<svg class="ico" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
     close.addEventListener('click', function () { rememberDismiss(); hideBanner(); });
     b.appendChild(close);
 

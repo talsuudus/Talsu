@@ -106,6 +106,7 @@ try {
 
 /* ── Utilities ───────────────────────────────────────────── */
 const esc      = s => { const d = document.createElement('div'); d.appendChild(document.createTextNode(String(s))); return d.innerHTML; };
+const CHECK_ICON = '<svg class="ico" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="margin-right:6px;vertical-align:-0.15em"><path d="M20 6 9 17l-5-5"/></svg>';
 const fmtBytes = b => b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(1)+' MB';
 const easeOut  = t => 1 - Math.pow(1-t, 3);
 
@@ -360,7 +361,7 @@ $('cancelUploadBtn').addEventListener('click',  () => { closeModal(uploadModal);
 fileInput.addEventListener('change', () => {
   const f = fileInput.files[0];
   if (f) {
-    selFile.textContent = `✓ ${f.name} (${fmtBytes(f.size)})`;
+    selFile.innerHTML = CHECK_ICON + esc(`${f.name} (${fmtBytes(f.size)})`);
     selFile.style.display = 'block';
     $('fFile').classList.remove('err');
   }
@@ -373,7 +374,7 @@ dropZone.addEventListener('drop', e => {
   const f = e.dataTransfer.files[0];
   if (f?.type === 'application/pdf') {
     const dt = new DataTransfer(); dt.items.add(f); fileInput.files = dt.files;
-    selFile.textContent = `✓ ${f.name} (${fmtBytes(f.size)})`;
+    selFile.innerHTML = CHECK_ICON + esc(`${f.name} (${fmtBytes(f.size)})`);
     selFile.style.display = 'block';
   } else {
     showToast('Only PDF files accepted.', 'error');

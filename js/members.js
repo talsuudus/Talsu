@@ -338,7 +338,7 @@ const membersData = [
         <div class="cc-count">${data.members.length}</div>
         <div class="cc-count-label">member${data.members.length > 1 ? 's' : ''}</div>
         <div class="cc-levels">${levelsHtml}</div>
-        <div class="cc-tap-hint">↗ Tap to see members</div>`;
+        <div class="cc-tap-hint"><svg class="ico" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg> Tap to see members</div>`;
       const openCourse = () => {
         switchToMembers();
         searchInput.value = course;
@@ -429,7 +429,7 @@ const membersData = [
           </a>
           <a class="report-alt" href="${gmail}" target="_blank" rel="noopener">No email app? Open in Gmail</a>
           <div class="modal-close-row">
-            <button class="close-modal-btn" id="closeModalBtn" aria-label="Close member details">✕</button>
+            <button class="close-modal-btn" id="closeModalBtn" aria-label="Close member details"><svg class="ico" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
           </div>
         </div>
       </div>`;
